@@ -194,31 +194,6 @@ namespace Orm.Client.Common
             return fileList;
         }
 
-        public static List<EmrTemplate> LstFilesEmrTemplate = new List<EmrTemplate>();
-        /// <summary>
-        /// 递归rootPath所有文件,配合LstFilesEmrTemplate一起用
-        /// </summary>
-        /// <param name="rootPath"></param>
-        public static void GetAllDirectoriesUnlimited(string rootPath)
-        {
-            string[] subPaths = System.IO.Directory.GetDirectories(rootPath);//得到所有子目录
-            foreach (string path in subPaths)
-            {
-                GetAllDirectoriesUnlimited(path);
-                //对每一个字目录做与根目录相同的操作：即找到子目录并将当前目录的文件名存入List
-            }
-            string[] files = System.IO.Directory.GetFiles(rootPath);
-            foreach (string file in files)
-            {
-                //var xx = Path.GetDirectoryName(file);
-                EmrTemplate emr = new Model.EmrTemplate();
-                var start = file.LastIndexOf("\\") + 1;
-                var end = file.LastIndexOf(".");
-                emr.FileName = file.Substring(start, file.Length - start);
-                emr.Path = file;
-                LstFilesEmrTemplate.Add(emr);
-                //将当前目录中的所有文件全名存入文件List
-            }
-        }
+        
     }
 }

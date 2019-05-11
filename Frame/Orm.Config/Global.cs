@@ -67,7 +67,6 @@ namespace Orm.Config
         public static string ConnectionTypeLogin = "HIS";
         public static int PatientID = 0;
         public static List<GblSetting> LstGblSetting = new List<GblSetting>();
-        public static List<uspHisOuPatientQry> LstTodayPreOuhosInfo = new List<uspHisOuPatientQry>();//当前所有预约病人
         public static bool AdviceInputing = false;
         public static bool IsOpenFrmDmt = false;
         public static string CardNo = string.Empty;
@@ -115,32 +114,11 @@ namespace Orm.Config
         /// </summary>
         public static bool CanSeeIllness = false;//允许查看特殊病人
         public static bool DataAnalysisIsUseProc = true;//数据分析是否使用存储过程
-        public static List<BsCmmonData> SexList = new List<BsCmmonData>();
-        public static List<BsCmmonData> UserangeForTjList = new List<BsCmmonData>();
-        public static List<BsCmmonData> DataTypeList = new List<BsCmmonData>();
-        public static List<BsCmmonData> LocationTypeList = new List<BsCmmonData>();
-        public static List<BsCmmonData> FlagTypeList = new List<BsCmmonData>();
-        public static List<BsCmmonData> LstTaskType = new List<BsCmmonData>();
+       
         public static List<KeyValuePair<string, Orm.Toolkit.DownloadItem>> CacheDownloadItems = new List<KeyValuePair<string, Orm.Toolkit.DownloadItem>>();
         //public static List<CacheDownloadItems> CacheDownloadItemsList = new List<CacheDownloadItems>();
-        public static List<BsCmmonData> LstVisitType = new List<BsCmmonData>();
-        public static List<BsCmmonData> LstAttachType = new List<BsCmmonData>();
-        public static List<BsCmmonData> LstOverType = new List<BsCmmonData>();
-        public static List<CkItem> AllBsTjItemList = new List<CkItem>();
-        public static List<BsItem> AllBsItemList = new List<BsItem>();
-        public static List<BsCmmonData> SensitiveList = new List<BsCmmonData>();
-        public static List<BsCmmonData> LimitTypeList = new List<BsCmmonData>();
-        public static List<BsCmmonData> SamlingTypeList = new List<BsCmmonData>();
-        public static List<BsCmmonData> TagTypeList = new List<BsCmmonData>();
+       
         public static List<string> ReferTypeList = new List<string>();
-        /// <summary>
-        /// 检查类型集合
-        /// </summary>
-        public static List<Model.Custom.BsCmmonData> LstCheckType = new List<Model.Custom.BsCmmonData>();
-        /// <summary>
-        /// 附加项目项目列表
-        /// </summary>
-        public static List<BsLabSourceItem> AllLabSourceItemList = new List<BsLabSourceItem>();
         /// <summary>
         /// 结算天数是否包含最后一天
         /// </summary>

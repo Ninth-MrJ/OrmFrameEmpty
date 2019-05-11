@@ -431,31 +431,6 @@ namespace Orm.Framework.Services
             return entity.ID;
         }
 
-
-        /// <summary>
-        /// 新增实体_HuLi
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="entity">实体类</param>
-        /// <returns></returns>
-        public string Add_HuLi<T>(T entity) where T : Basics, new()
-        {
-            entity.SetStringValue();
-            entity.GUID = Guid.NewGuid().ToString("N");
-            this.DataRepository().Add(entity);
-            //TransformToInsertSQL(entity);
-            string TableName = entity.GetType().Name;
-            string modelTypeStr = entity.GetType().ToString().ToUpper();
-            var IsExist = IsExist<BsRedisTable>("TableName=@0", TableName);
-
-            if (modelTypeStr.Contains(".BS") || modelTypeStr.Contains(".GBL") || IsExist)
-            {
-                AddEntityToRedis(entity);
-                return entity.GUID;
-            }
-            return entity.GUID;
-        }
-
         internal string TransformToInsertSQL<T>(T entity) where T : BaseModel, new()
         {
             string insertSQL = InsertSQL(entity);

@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.ReportViewer.WinForms">
-      <HintPath>..\..\..\Framework\Microsoft.ReportViewer.WinForms.DLL</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Framework\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -64,11 +58,9 @@
     <Compile Include="CacheDownloadItems.cs" />
     <Compile Include="CardPatientSM.cs" />
     <Compile Include="CaseHisTory.cs" />
-    <Compile Include="CashierHelper.cs" />
     <Compile Include="CCPRestSDK.cs" />
     <Compile Include="ChatEngine.cs" />
     <Compile Include="ClientSocketMessage.cs" />
-    <Compile Include="ClientValidationHelper.cs" />
     <Compile Include="CommonMethod.cs" />
     <Compile Include="Compare.cs" />
     <Compile Include="ConfigFilesManager.cs" />
@@ -109,18 +101,15 @@
     <Compile Include="SendMessageHelper.cs" />
     <Compile Include="SendOutEmail.cs" />
     <Compile Include="SetSystemDateTime.cs" />
-    <Compile Include="SynchronousBsitem.cs" />
     <Compile Include="SystemCommon.cs" />
     <Compile Include="ToolBar.cs" />
     <Compile Include="ToothsHelper.cs" />
     <Compile Include="TreeListView.cs" />
     <Compile Include="TreeListViewItem.cs" />
-    <Compile Include="UMPIntegrationInterface.cs" />
     <Compile Include="UploadImage.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="WeatherHelper.cs" />
     <Compile Include="WindowsServiceHelper.cs" />
-    <Compile Include="XClassHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">

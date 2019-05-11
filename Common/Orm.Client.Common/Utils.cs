@@ -144,62 +144,7 @@ namespace Orm.Client.Common
 
 
 
-        /// <summary>
-        /// ��ȡ���ƴ������뷽ʽ
-        /// </summary>
-        /// <param name="itemName"></param>
-        /// <param name="inputWay"></param>
-        /// <param name="lenth"></param>
-        /// <returns></returns>
-        public static string GetWbPyString(string itemName, EnumInputWay inputWay, int lenth)
-        {
-            if (itemName == null)
-            {
-                return "";
-            }
-
-            string returnString = string.Empty;
-            for (int i = 0; i < itemName.Length; i++)
-            {
-                var lst = Service.DBClientService.GetList<Model.GblChinChar>("Name=@0", itemName.Substring(i, 1));
-                if (lst.Count == 0)
-                {
-                    continue;
-                };
-                if (inputWay == EnumInputWay.WuBi)
-                {
-                    returnString += lst[0].WbCode;
-                    if (lenth > 1 && lst[0].WbChar != string.Empty)
-                    {
-                        if (lst[0].WbChar.Length > lenth)
-                        {
-                            returnString += lst[0].WbChar.Substring(0, lenth - 1);
-                        }
-                        else
-                        {
-                            returnString += lst[0].WbChar;
-                        }
-                    }
-                }
-                if (inputWay == EnumInputWay.Phoneticize)
-                {
-                    returnString += lst[0].PyCode;
-                    if (lenth > 1 && lst[0].PyChar.Trim() != string.Empty)
-                    {
-                        if (lst[0].PyChar.Length > lenth)
-                        {
-                            returnString += lst[0].PyChar.Substring(0, lenth - 1);
-                        }
-                        else
-                        {
-                            returnString += lst[0].PyChar;
-                        }
-                    }
-                }
-            }
-            return returnString == "" ? itemName : returnString.ToUpper();
-        }
-
+        
         ////����
         //public static bool CheckSameLocBranch(int locationId1, int locationId2)
         //{
@@ -225,182 +170,10 @@ namespace Orm.Client.Common
             return strAddr;
         }
 
-        //����
-        /// <summary>
-        /// ��ȡ�����۸���Ϣ
-        /// </summary>
-        /// <param name="ItemId"></param>
-        /// <param name="locationId"></param>
-        /// <param name="lsInOut"></param>
-        /// <param name="LsPriceState"></param>
-        /// <returns></returns>
-        public static double GetLocationPrice(string ItemId, string locationId, int lsInOut, int LsPriceState)
-        {
-            Model.BsLocation infoLocation = UtilsLocCache.GetCacheByID<Model.BsLocation>(locationId);
-            Model.BsItem infoItem = UtilsLocCache.GetCacheByID<Model.BsItem>(ItemId);
-            //if (Convert.ToBoolean(infoLocation.IsPriceSub) && LsPriceState == 1)
-            //    return infoItem.PriceSub;
-            // else 
-            if (lsInOut == 1)
-            {
-                return infoItem.PriceDiag;
-            }
-            //else if (lsInOut == 2)
-            //    return infoItem.PriceIn;
-            return 0;
-        }
+        
+       
 
-        ////����
-        ///// <summary>
-        ///// ��ȡҽ���������
-        ///// </summary>
-        ///// <param name="itemId"></param>
-        ///// <param name="tallyGroupId"></param>
-        ///// <param name="memo"></param>
-        ///// <returns></returns>
-        //public static string GetYbDesc(int itemId, int tallyGroupId, string memo)
-        //{
-        //    List<Model.BsItemYb> lst;
-        //    if (Convert.ToBoolean(GetSystemSetting("IsAllShowItemYbMemo")))
-        //        lst = Orm.Config.Service.DBClientService.GetList<Model.BsItemYb>("ItemId = @0", itemId);
-        //    else
-        //        lst = Orm.Config.Service.DBClientService.GetList<Model.BsItemYb>("ItemId = @0  && TallyGroupId = @1",itemId, tallyGroupId);
-        //    if (lst.Count > 0)
-        //    {
-        //        if (lst[0].LsYbType == 2)
-        //        {
-        //        }
-        //        if (lst[0].LsYbType >= 3) return memo;
-        //        memo += string.Format("��{0}", lst[0].LsYbType == 1 ? "����" : "����");
-        //        if (lst[0].YBType != null)
-        //            if (lst[0].YBType != null)
-        //                memo += string.Format("��{0}", lst[0].YBType);
-        //        if (memo.StartsWith("��"))
-        //            memo = memo.Substring(1);
-        //    }
-        //    return memo;
-        //}
-
-
-
-        //����
-        //public static bool CheckBeginCharge(string MzRegId)
-        //{
-        //    List<Model.RmSending> lstRmSending = Service.DBClientService.GetList<Model.RmSending>("MzRegId=@0", MzRegId);
-        //    if (lstRmSending.Count > 0)
-        //    {
-        //        MessageBox.Show("��Ҫ�߳��Ĳ��˿��ܴ����շ�״̬,���Ժ����ԣ�", "ϵͳ��ʾ", MessageBoxButton.OK, MessageBoxImage.Information);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-
-
-        ////����
-        ///// <summary>
-        /////  �ж���ҽ�����ǹ��� IsGf���ѣ�IsYb ҽ��
-        ///// </summary>
-        ///// <param name="PatTypeId">BsPatType���е�ID</param>
-        ///// <returns></returns>
-        //public static Model.BsTallyGroup IsYb(int PatTypeId)
-        //{
-        //    var lstBsPatType = UtilsLocCache.GetCacheEntity<Model.BsPatType>(t => t.GUID == PatTypeId);
-        //    var lstBsTallyType = UtilsLocCache.GetCacheEntity<Model.BsTallyType>(t => t.GUID == lstBsPatType.TallyTypeId);
-        //    var lstBsTallyGroup = UtilsLocCache.GetCacheEntity<Model.BsTallyGroup>(t => t.GUID == lstBsTallyType.TallyGroupId);
-        //    return lstBsTallyGroup;
-        //}
-
-
-        /// <summary>
-        /// ����ʱ���ȡ���ID
-        /// </summary>
-        /// <param name="time">��ǰ����ʱ��</param>
-        /// <returns></returns>
-        public static string GetTimeSpanID(DateTime time)
-        {
-            string result = string.Empty;
-            //�����α�����
-            var bsRegTimeSpan = UtilsLocCache.GetCacheAll<BsRegTimeSpan>().Where(t => t.IsActive = true).ToList();
-            string timeStr = time.ToShortTimeString();
-            if (bsRegTimeSpan.Count > 0)
-            {
-                var lstbsRegTimeSpan = bsRegTimeSpan.FindAll(t => DateTime.Compare(Convert.ToDateTime(timeStr), Convert.ToDateTime(t.TimeBegin)) >= 0 && DateTime.Compare(Convert.ToDateTime(timeStr), Convert.ToDateTime(t.TimeEnd)) <= 0);
-                if (lstbsRegTimeSpan.Count > 0)
-                {
-                    result = lstbsRegTimeSpan.FirstOrDefault().GUID;
-                }
-                else
-                {
-                    result = string.Empty;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// ���˻�����Ϣ��ת��Ϊ����
-        /// </summary>
-        /// <param name="bsPatient"></param>
-        /// <returns></returns>
-        public static BsPatientCache BsPatientConvertToCache(BsPatient bsPatient)
-        {
-            var bsUser = UtilsLocCache.GetCacheByID<BsUser>(bsPatient.DoctorId);
-            var doctorName = "";
-            if (bsUser != null)
-            {
-                doctorName = bsUser.Name;
-            }
-
-            BsPatientCache bsPatientCache = new BsPatientCache();
-            bsPatientCache.GUID = bsPatient.GUID;
-            bsPatientCache.Name = bsPatient.Name;
-            bsPatientCache.Sex = bsPatient.Sex;
-            bsPatientCache.CardNo = bsPatient.CardNo;
-            bsPatientCache.IdCardNo = bsPatient.IdCardNo;
-            bsPatientCache.Phone = bsPatient.Phone;
-            bsPatientCache.AddressHome = bsPatient.AddressHome;
-            bsPatientCache.BirthDate = bsPatient.BirthDate;
-            bsPatientCache.IsActive = bsPatient.IsActive;
-            bsPatientCache.Mobile = bsPatient.Mobile;
-            bsPatientCache.PyCode = Orm.Utilities.PyWbHelper.SixBitPYCode(bsPatient.Name);
-            bsPatientCache.WbCode = Orm.Utilities.PyWbHelper.SixBitWBCode(bsPatient.Name);
-            bsPatientCache.WebUserCode = bsPatientCache.WebUserCode;
-            bsPatientCache.LastRegTime = bsPatient.ModiTime == DateTime.MinValue ? bsPatient.OperTime : bsPatient.ModiTime;
-            bsPatientCache.DoctorName = doctorName;
-            return bsPatientCache;
-        }
-
-        public static BsPatientCache BsPatientConvertToCache(BsPatient bsPatient, string vipCardId, string vipLevel, string vipCardNo)
-        {
-            var bsUser = UtilsLocCache.GetCacheByID<BsUser>(bsPatient.DoctorId);
-            var doctorName = "";
-            if (bsUser != null)
-            {
-                doctorName = bsUser.Name;
-            }
-
-            BsPatientCache bsPatientCache = new BsPatientCache();
-            bsPatientCache.GUID = bsPatient.GUID;
-            bsPatientCache.Name = bsPatient.Name;
-            bsPatientCache.Sex = bsPatient.Sex;
-            bsPatientCache.CardNo = bsPatient.CardNo;
-            bsPatientCache.IdCardNo = bsPatient.IdCardNo;
-            bsPatientCache.Phone = bsPatient.Phone;
-            bsPatientCache.AddressHome = bsPatient.AddressHome;
-            bsPatientCache.BirthDate = bsPatient.BirthDate;
-            bsPatientCache.IsActive = bsPatient.IsActive;
-            bsPatientCache.Mobile = bsPatient.Mobile;
-            bsPatientCache.PyCode = Orm.Utilities.PyWbHelper.SixBitPYCode(bsPatient.Name);
-            bsPatientCache.WbCode = Orm.Utilities.PyWbHelper.SixBitWBCode(bsPatient.Name);
-            bsPatientCache.WebUserCode = bsPatientCache.WebUserCode;
-            bsPatientCache.LastRegTime = bsPatient.ModiTime == DateTime.MinValue ? bsPatient.OperTime : bsPatient.ModiTime;
-            bsPatientCache.DoctorName = doctorName;
-            bsPatientCache.VipLevel = vipLevel;
-            bsPatientCache.VipCardID = vipCardId;
-            bsPatientCache.VipCardNo = vipCardNo;
-            return bsPatientCache;
-        }
+       
 
         #region 
 
@@ -568,29 +341,7 @@ ON CKMachineResult.id = CKMachineResultDtl.ResultID where CKMachineResult.Machin
             return output;
         }
 
-        /// <summary>
-        /// 获取该诊所可登录人员
-        /// </summary>
-        /// <param name="userList">有效用户</param>
-        /// <param name="isDoctor">是否医生</param>
-        /// <returns></returns>
-        public static List<BsUser> FilterUserFromCurLoc(List<BsUser> userList, int hospitalid = 0, bool isDoctor = true)
-        {
-            if (userList.Count > 0)
-            {
-                List<BsUserLocation> userLocationList = DBClientBaseInRedis.GetAllList<BsUserLocation>().Where(t => t.HospitalId == (hospitalid == 0 ? Config.UserProfiles.HospitalID : hospitalid)).ToList();
-                if (userLocationList.Count > 0)
-                {
-                    string[] IDs = userLocationList.CopyTo("OperId");
-                    return userList.Where(t => t.IsActive && t.IsRecipe == isDoctor && IDs.Contains(t.GUID.ToString())).ToList();
-                }
-                return new List<BsUser>();
-            }
-            else
-            {
-                return userList;
-            }
-        }
+    
 
         /// <summary>
         /// ���������л�ΪJSON��ʽ
@@ -637,139 +388,9 @@ ON CKMachineResult.id = CKMachineResultDtl.ResultID where CKMachineResult.Machin
             }
         }
 
-        /// <summary>
-        /// ͨ����ɢ�Ȼ�ȡҩƷ����
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns></returns>
-        public static double GetYpTotality(string itemId, int days, double dosage, string frequencyId, string unitDiagID, string unitTakeId, double totality, int locationID = 0)
-        {
-            try
-            {
-                var result = 1.00;
-                if (days == 0)
-                {
-                    return totality;
-                }
-
-                var tempUnitRatio = new List<BsUnitRatio>();
-                var unitRatio = Orm.Config.Service.DBClientService.GetList<BsUnitRatio>("ItemId = @0 ", itemId);//unitDiagID, unitTakeId);
-                if (locationID != 0)
-                {
-                    tempUnitRatio = unitRatio.FindAll(t => t.HospitalId == locationID);
-                }
-
-                if (tempUnitRatio.Count != 0)
-                {
-                    unitRatio = tempUnitRatio;
-                }
-
-                var frequency = UtilsLocCache.GetCacheByID<BsFrequency>(frequencyId);
-                if (unitRatio.Count > 0 && frequency != null)
-                {
-                    if (unitRatio.First() != null && !string.IsNullOrWhiteSpace(unitRatio.First().GUID) && unitRatio.First().DrugRatio != 0 && frequency != null)
-                    {
-                        var drugRatio = unitRatio.First().DrugRatio;
-                        var fredays = frequency.Days;
-                        var actualdays = Math.Round(Convert.ToDouble(days / fredays), MidpointRounding.AwayFromZero);
-                        var actualdosage = actualdays * frequency.Times * dosage;
-                        var actualResult = Math.Round(actualdosage / drugRatio, 4);
-                        result = actualResult == 0 ? 1 : actualResult;
-                    }
-                }
-                return result;
-            }
-            catch (Exception)
-            {
-                return totality;
-            }
-        }
-
-        /// <summary>
-        /// ͨ计算总量
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns></returns>
-        public static double GetYpTotality(OuRecipeDtl ouRecipeDtl)
-        {
-            try
-            {
-                var result = 1.00;
-                if (ouRecipeDtl.Days == 0)
-                {
-                    return ouRecipeDtl.Totality;
-                }
-
-                var tempUnitRatio = new List<BsUnitRatio>();
-                double _DrugRatio = 1;
-                if (AppSettings.IsMainLocation)
-                {
-                    tempUnitRatio = Orm.Config.Service.DBClientService.GetList<BsUnitRatio>("ItemId = @0 and HospitalId =@1 ", ouRecipeDtl.ItemID, (int)EnumMainLocation.总店);//unitDiagID, unitTakeId);
-                    if (tempUnitRatio.Count > 0)
-                    {
-                        _DrugRatio = tempUnitRatio.First().DrugRatio;
-                    }
-                }
-                else
-                {
-                    tempUnitRatio = Orm.Config.Service.DBClientService.GetList<BsUnitRatio>("ItemId = @0 and HospitalId =@1 ", ouRecipeDtl.ItemID, Config.UserProfiles.HospitalID);//unitDiagID, unitTakeId);
-                }
-                var frequency = UtilsLocCache.GetCacheByID<BsFrequency>(ouRecipeDtl.FrequencyId);
-                if (tempUnitRatio.Count > 0 && frequency != null)
-                {
-                    var tempUnitRatioGuid = tempUnitRatio.First().GUID;
-                    if (tempUnitRatio.First() != null && !string.IsNullOrWhiteSpace(tempUnitRatioGuid) && _DrugRatio != 0 && frequency != null)
-                    {
-                        var drugRatio = _DrugRatio;
-                        var fredays = frequency.Days;
-                        var actualdays = Math.Round(Convert.ToDouble(ouRecipeDtl.Days / fredays), MidpointRounding.AwayFromZero);
-                        var actualdosage = actualdays * frequency.Times * ouRecipeDtl.Dosage;
-                        var actualResult = Math.Round(actualdosage / drugRatio, 4);
-                        result = actualResult == 0 ? 1 : actualResult;
-                    }
-                }
-                return result;
-            }
-            catch (Exception)
-            {
-                return ouRecipeDtl.Totality;
-            }
-        }
 
 
-
-
-        /// <summary>
-        /// ͨ计算西药整散比金额
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns></returns>
-        public static double GetYpTotalityPriceDiag(BsItem bsItem)
-        {
-            try
-            {
-                double result = bsItem.PriceDiag;
-                var tempUnitRatio = new List<BsUnitRatio>();
-                if (!AppSettings.IsMainLocation)
-                {
-                    tempUnitRatio = Orm.Config.Service.DBClientService.GetList<BsUnitRatio>("ItemId = @0 and HospitalId =@1 ", bsItem.GUID, Config.UserProfiles.HospitalID);
-                    var tempUnitRatioGuid = tempUnitRatio.First().GUID;
-                    if (tempUnitRatio.First() != null && !string.IsNullOrWhiteSpace(tempUnitRatioGuid))
-                    {
-                        var drugRatio = tempUnitRatio.First().DrugRatio;
-                        drugRatio = drugRatio == 0 ? 1 : drugRatio;
-                        var actualResult = Math.Round(bsItem.PriceDiag / drugRatio, 4);
-                        result = actualResult;
-                    }
-                }
-                return result;
-            }
-            catch (Exception)
-            {
-                return bsItem.PriceDiag;
-            }
-
-        }
+        
 
         /// <summary>
         /// ����ĳ����������Ե�ֵ�Ƿ����
@@ -803,17 +424,7 @@ ON CKMachineResult.id = CKMachineResultDtl.ResultID where CKMachineResult.Machin
             return false;
         }
 
-        public static List<BsRegTimeSpan> GetTimeSpanIDs(DateTime time)
-        {
-            var lstbsRegTimeSpan = new List<BsRegTimeSpan>();
-            var bsRegTimeSpan = UtilsLocCache.GetCacheAll<BsRegTimeSpan>().FindAll(t => t.IsActive);//Orm.Config.Service.DBClientService.GetAllList<BsRegTimeSpan>(); //CacheHelper.GetCacheList<BsRegTimeSpan>(); 
-            string timeStr = time.ToShortTimeString();
-            if (bsRegTimeSpan.Count > 0)
-            {
-                lstbsRegTimeSpan = bsRegTimeSpan.FindAll(t => DateTime.Compare(Convert.ToDateTime(timeStr), Convert.ToDateTime(t.TimeBegin)) >= 0 && DateTime.Compare(Convert.ToDateTime(timeStr), Convert.ToDateTime(t.TimeEnd)) <= 0);
-            }
-            return lstbsRegTimeSpan;
-        }
+       
 
         public bool CheckSettingContainFormat(string keyNum, object item)
         {

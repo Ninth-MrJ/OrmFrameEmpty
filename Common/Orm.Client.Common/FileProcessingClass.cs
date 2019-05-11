@@ -420,29 +420,7 @@ namespace Orm.ViewModel.OuPatient
                 }
             }
         }
-        /// <summary>
-        /// 设置文件模板
-        /// </summary>
-        /// <param name="info">文件信息</param>
-        /// <param name="status">状态</param>
-        /// <param name="isLocalFile">是否本地文件</param>
-        /// <param name="fileLink">下载地址</param>
-        /// <param name="filePath">文件路径</param>
-        /// <returns></returns>
-        public FileTempate SetFileInfo(FileInfo info, int status, bool isLocalFile, string fileLink, ICommand btnDownloadFileClickCommand, ICommand openFileCommand, ICommand openRootDirectoryCommand, ICommand resetDownloadFileCommand, ICommand deleteFileCommand, ICommand deleteServerFileCommand, ICommand upLoadFileCommand, string filePath = "")
-        {
-            FileTempate ftInfo = new FileTempate();
-            ftInfo.Name = info.Name;
-            ftInfo.CreationTime = info.CreationTime;
-            ftInfo.LastWriteTime = info.LastWriteTime;
-            ftInfo.FileSize = this.CountSize(info.Length);
-            ftInfo.Status = status;
-            ftInfo.IsLocalFile = isLocalFile;
-            ftInfo.FileLink = fileLink;
-            ftInfo.FilePath = filePath;
-            ftInfo.CommandList = this.GetCommandList(status, isLocalFile, btnDownloadFileClickCommand, openFileCommand, openRootDirectoryCommand, resetDownloadFileCommand, deleteFileCommand, deleteServerFileCommand, upLoadFileCommand);
-            return ftInfo;
-        }
+      
         /// <summary>
         /// 设置文件模板
         /// </summary>
@@ -488,48 +466,7 @@ namespace Orm.ViewModel.OuPatient
             commandInfoList.Add(new CommandInfo() { CmdName = "上传至服务器", Command = upLoadFileCommand, IsCmdEditable = fileStatus == 1 });
             return commandInfoList;
         }
-        /// <summary>
-        /// 整理文件
-        /// </summary>
-        /// <param name="filePath">文件路径</param>
-        /// <param name="serverPath">服务器路径</param>
-        private void ArrangeFile(ref ObservableCollection<FileTempate> fileTempateObservableCollection, ICommand btnDownloadFileClickCommand, ICommand openFileCommand, ICommand openRootDirectoryCommand, ICommand resetDownloadFileCommand, ICommand deleteFileCommand, ICommand deleteServerFileCommand, ICommand upLoadFileCommand,string filePath,  string serverPath = "")
-        {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    FileInfo fileInfo = new FileInfo(filePath);
-                    if (fileTempateObservableCollection.Any(t => t.Name == fileInfo.Name && t.LastWriteTime < fileInfo.LastWriteTime))
-                    {
-                        FileTempate fileTempate = fileTempateObservableCollection.First(t => t.Name == fileInfo.Name);
-                        fileTempate.Status = 1;
-                        fileTempate.CreationTime = fileInfo.CreationTime;
-                        fileTempate.LastWriteTime = fileInfo.LastWriteTime;
-                        fileTempate.FileSize = this.CountSize(fileInfo.Length);
-                        fileTempate.FilePath = fileInfo.DirectoryName;
-                        fileTempate.CommandList = this.GetCommandList(1, string.IsNullOrWhiteSpace(serverPath), btnDownloadFileClickCommand, openFileCommand, openRootDirectoryCommand, resetDownloadFileCommand, deleteFileCommand, deleteServerFileCommand, upLoadFileCommand);
-                    }
-                    else
-                    {
-                        fileTempateObservableCollection.Add(SetFileInfo(fileInfo, 1, string.IsNullOrWhiteSpace(serverPath), serverPath, btnDownloadFileClickCommand, openFileCommand, openRootDirectoryCommand, resetDownloadFileCommand, deleteFileCommand, deleteServerFileCommand, upLoadFileCommand, fileInfo.DirectoryName));
-                    }
-                }
-                else if (Directory.Exists(filePath))
-                {
-                    List<FileInfo> fileInfoList = FileHelper.GetFileList(filePath);
-                    foreach (FileInfo fileInfo in fileInfoList)
-                    {
-                        this.ArrangeFile(ref fileTempateObservableCollection, btnDownloadFileClickCommand, openFileCommand, openRootDirectoryCommand, resetDownloadFileCommand, deleteFileCommand, deleteServerFileCommand, upLoadFileCommand,fileInfo.DirectoryName + "\\" + fileInfo.Name, serverPath);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //Orm.Client.Base.BaseForm.FrmShowError.Show(ex);
-                throw ex;
-            }
-        }
+       
         ///// <summary>
         ///// 删除文件
         ///// </summary>

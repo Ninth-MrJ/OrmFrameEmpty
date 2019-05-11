@@ -269,33 +269,9 @@ namespace Orm.Config
         /// </summary>
         public static List<Orm.Model.Custom.TreeClass<Orm.Model.Custom.DisplayModule>> CurrentAuthority;
 
-        /// <summary>
-        /// 项目集合
-        /// </summary>
-        public static List<BsItem> chargeItemAll = new List<BsItem>();
-        private static bool _isDoctorID = false;
-        public static bool u_IsDoctorID
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(DoctorID))
-                {
-                    _isDoctorID = true;
-                }
-                else
-                {
-                    _isDoctorID = false;
-                }
-                return _isDoctorID;
-            }
-            set { _isDoctorID = value; }
-        }
-
+       
         #region 药品对接
-        /// <summary>
-        /// 药房信息
-        /// </summary>
-        public static List<PharmacyInfo> PharmacyInfoList;
+      
 
         /// <summary>
         /// 是否开启药品对接

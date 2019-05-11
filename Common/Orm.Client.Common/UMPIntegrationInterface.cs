@@ -523,45 +523,7 @@ namespace Orm.Client.Common
             }
         }
 
-        private static List<PharmacyInfo> MergeMessage(int type, List<PharmacyInfo> pharmacyLists, int CurrHospital)
-        {
-            List<PharmacyInfo> PharmacyInfoListlist = new List<PharmacyInfo>();
-            var PharmacyLists = Config.DBClientBaseInRedis.GetList<BsPharmacyConfig>("HosPharmacyId=@0", CurrHospital).Where(t => t.IsActive == true).ToList();
-            if (PharmacyLists != null || PharmacyLists.Count > 0)
-            {
-                for (int i = 0; i < PharmacyLists.Count; i++)
-                {
-                    for (int j = 0; j < pharmacyLists.Count; j++)
-                    {
-                        if (PharmacyLists[i].Pharmacytype == type)
-                        {
-                            if (PharmacyLists[i].PharmacyNo == pharmacyLists[j].dept_no)
-                            {
-                                if (PharmacyLists[i].IsDefault)
-                                {
-                                    pharmacyLists[j].IsDefult = true;
-                                }
-                                pharmacyLists[j].IsSelect = true;
-                                pharmacyLists[j].GUID = PharmacyLists[i].GUID;
-                            }
-                        }
-                    }
-                }
-                if (type == (int)EnumPharmacyType.药品药房)
-                {
-                    PharmacyInfoListlist = pharmacyLists.OrderBy(t => t.IsSelect).Reverse().ToList();
-                }
-                else
-                {
-                    PharmacyInfoListlist = pharmacyLists.OrderBy(t => t.IsSelect).Reverse().ToList();
-                }
-                return PharmacyInfoListlist;
-            }
-            else
-            {
-                return new List<PharmacyInfo>();
-            }
-        }
+       
         #endregion
 
         #region 项目基本信息接口 GetGoodsWithHis

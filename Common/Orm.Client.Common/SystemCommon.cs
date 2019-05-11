@@ -145,29 +145,7 @@ namespace Orm.Client.Common
             return returnValues;
         }
 
-        public static List<BsCmmonData> EnumToBsCmmonDataList(string enumDefine)
-        {
-            try
-            {
-                List<BsCmmonData> bsCmmonDataList = new List<BsCmmonData>();
-                List<KeyValuePair<string, string>> workSheetStatusList = Orm.Model.EnumDefine.EumConvertor.ConvertToKeyValueList(enumDefine);
-                foreach (KeyValuePair<string, string> workSheetStatus in workSheetStatusList)
-                {
-                    BsCmmonData cmmonData = new BsCmmonData
-                    {
-                        ID = workSheetStatus.Key.ToString(),
-                        Name = workSheetStatus.Value
-                    };
-                    bsCmmonDataList.Add(cmmonData);
-                }
-                return bsCmmonDataList;
-            }
-            catch (Exception ex)
-            {
-                //Orm.Client.Base.FrmMessageRemind.Show(ex.Message);
-                return new List<BsCmmonData>();
-            }
-        }
+       
 
     }
 

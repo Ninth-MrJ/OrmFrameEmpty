@@ -99,81 +99,7 @@ namespace Orm.Framework.Common
 
         #region 预约接口 
 
-        /// <summary>
-        /// 获取医生出诊信息列表
-        /// </summary>
-        /// <MethodName="GetDaySchedule">接口方法名：GetDaySchedule</MethodName>
-        /// <param name="DocUserCode">医生用户名（手机号码），可为空，空则查所有医生</param>
-        /// <param name="StartTime">开始时间</param>
-        /// <param name="EndTime">结束时间</param>
-        /// <returns>ErrorCode=0则成功，返回的Returns是List<uspOuDayScheduleDtlQry></returns>
-        public ReturnValue GetDaySchedule(string DocUserCode, string StartTime, string EndTime)
-        {
-            var startTime = Convert.ToDateTime(StartTime);
-            var endTime = Convert.ToDateTime(EndTime);
-            ReturnValue returnvalue = new ReturnValue();
-            try
-            {
-                var ouDaySchedule = _dbserver.DataRepository.GetQueryable<OuDaySchedule>();
-                var ouDayScheduleDtl = _dbserver.DataRepository.GetQueryable<OuDayScheduleDtl>();
-                var ouHosInfo = _dbserver.DataRepository.GetQueryable<OuHosInfo>();
-                var bsUser = _dbserver.DataRepository.GetQueryable<BsUser>();
-                var bsRegTimeSpan = _dbserver.DataRepository.GetQueryable<BsRegTimeSpan>();
-                var bsRegSpanSub = _dbserver.DataRepository.GetQueryable<BsRegSpanSub>();
-                var bsLocation = _dbserver.DataRepository.GetQueryable<BsLocation>();
-                var bsDiagRoom = _dbserver.DataRepository.GetQueryable<BsDiagRoom>();
-
-                var query = from ouday in ouDaySchedule
-                            join ouDayDtl in ouDayScheduleDtl on ouday.GUID equals ouDayDtl.ScheduleID
-                            join buser in bsUser on ouday.DoctorId equals buser.GUID into buserEmpty
-                            from buser in buserEmpty.DefaultIfEmpty()
-                            join bsloc in bsLocation on ouday.HospitalId.ToString() equals bsloc.GUID into bslocEmpty
-                            from bsloc in bslocEmpty.DefaultIfEmpty()
-                            join bsreg in bsRegTimeSpan on ouday.TimeSpanId equals bsreg.GUID into bsPatEmpty
-                            from bsreg in bsPatEmpty.DefaultIfEmpty()
-                            join bsregSub in bsRegSpanSub on ouDayDtl.TimeSpanSubID equals bsregSub.GUID into bsregSubEmpty
-                            from bsregSub in bsregSubEmpty.DefaultIfEmpty()
-                            join bsDiag in bsDiagRoom on ouday.DoctorId equals bsDiag.LocationId.ToString() into bsDiagRoomEmpty
-                            from bsDiag in bsDiagRoomEmpty.DefaultIfEmpty()
-                            where (DocUserCode.Trim() == string.Empty)
-                            && ouday.ScheduleDate >= startTime.Date
-                            && ouday.ScheduleDate < endTime.Date
-                            && ouday.IsActive
-                            && ouday.IsDoctor == 1
-                            select new uspOuDayScheduleDtlQry
-                            {
-                                BookedNum = (from ouhos in ouHosInfo where ouhos.IsHide == false && ouday.HospitalId.ToString() == ouhos.RegDept && ouday.DoctorId == ouhos.DoctorId && ouhos.OperTime.Date == ouday.ScheduleDate.Date && ouday.TimeSpanId == ouhos.TimeSpanId && ouDayDtl.TimeSpanSubID == ouhos.TimeSpanSubId && ouhos.IsPreReg && !ouhos.IsCancel select new { ID = ouhos.GUID }).Count(),
-
-                                TimeSpanName = bsreg.Name,
-                                DoctorName = buser.Name,
-                                LocationName = bsloc.Name,
-                                DiagRoomName = bsDiag.Name,
-                                DoctorId = ouday.DoctorId,
-                                RegTypeId = ouday.RegTypeId,
-                                TimeSpanId = ouday.TimeSpanId,
-                                LocationId = ouday.HospitalId.ToString(),
-                                DiagRoomID = ouday.DiagRoomID,
-                                TotalNum = ouday.TotalNum,
-                                IsStop = ouday.IsStop,
-                                BookLimitNum = ouDayDtl.BooklimitNum,
-                                ScheduleDate = ouday.ScheduleDate.Date,
-                                ScheduleId = ouday.GUID,
-                                ScheduleDtlId = ouDayDtl.GUID,
-                                TimeSpanSubId = ouDayDtl.TimeSpanSubID,
-                                TimeSpanSubName = bsreg.Name + " " + bsregSub.TimeBegin + "~" + bsregSub.TimeEnd,
-                            };
-                returnvalue.ErrorCode = 0;
-                returnvalue.Returns = query.ToList();
-                return returnvalue;
-            }
-            catch (Exception ex)
-            {
-                returnvalue.ErrorCode = -1;
-                returnvalue.ErrorMsg = "获取排班数据异常。详细信息：" + ex.Message;
-                return returnvalue;
-            }
-        }
-
+       
         /// <summary>
         /// 网站预约
         /// </summary>
@@ -337,184 +263,9 @@ namespace Orm.Framework.Common
         //    }
         //}
 
-        /// <summary>
-        /// 网站取消预约
-        /// </summary>
-        /// <MethodName="CancelAppointment">接口方法名：CancelAppointment</MethodName>
-        /// <param name="MzRegNo">预约流水号</param>
-        /// <returns>ErrorCode=0则成功，-1则取消出错</returns>
-        public ReturnValue CancelAppointment(string MzRegNo)
-        {
-            ReturnValue returnvalue = new ReturnValue();
-            var currentTime = _dbserver.GetServerTime();
-            try
-            {
-                var ouHosInfo = _dbserver.GetList<OuHosInfo>(t => t.MzRegNo == MzRegNo && t.IsPreReg && t.IsHide == false).FirstOrDefault();
-                if (ouHosInfo != null)
-                {
-                    if (ouHosInfo.OperTime.Date <= currentTime.Date)
-                    {
-                        returnvalue.WarningMsg = "取消预约失败！预约信息过期，不允许取消！";
-                        returnvalue.ErrorCode = -1;
-                        return returnvalue;
-                    }
-                    ouHosInfo.IsCancel = true;
-                    ouHosInfo.CancelTime = currentTime;
-                    _dbserver.Update(ouHosInfo);
-                }
-                returnvalue.ErrorMsg = string.Empty;
-                returnvalue.ErrorCode = 0;
-                return returnvalue;
-            }
-            catch (Exception ex)
-            {
-                returnvalue.ErrorCode = -1;
-                returnvalue.ErrorMsg = "取消预约异常。详细信息：" + ex.Message;
-                return returnvalue;
-            }
-        }
+        
 
-        /// <summary>
-        /// 预约信息查询
-        /// </summary>
-        /// <MethodName="CancelAppointment">接口方法名：SearchAppointment</MethodName>
-        /// <param name="BeginTime">开始日期</param>
-        /// <param name="EndTime">结束日期</param>
-        /// <param name="UserCode">用户Code（手机号码）,传空则查询所有</param>
-        /// <returns></returns>
-        public ReturnValue SearchAppointment(string BeginTime, string EndTime, string UserCode)
-        {
-            var startTime = Convert.ToDateTime(BeginTime);
-            var endTime = Convert.ToDateTime(EndTime);
-            ReturnValue returnvalue = new ReturnValue();
-            try
-            {
-                var bsPatient = _dbserver.DataRepository.GetQueryable<BsPatient>();
-                var ouHosInfo = _dbserver.DataRepository.GetQueryable<OuHosInfo>();
-                var bsUser = _dbserver.DataRepository.GetQueryable<BsUser>();
-                var bsRegTimeSpan = _dbserver.DataRepository.GetQueryable<BsRegTimeSpan>();
-                var bsRegSpanSub = _dbserver.DataRepository.GetQueryable<BsRegSpanSub>();
-                var bsLocation = _dbserver.DataRepository.GetQueryable<BsLocation>();
-                var bsDiagRoom = _dbserver.DataRepository.GetQueryable<BsDiagRoom>();
-
-                var query = from hos in ouHosInfo
-                            join bspat in bsPatient on hos.PatId equals bspat.GUID
-                            join span in bsRegSpanSub on hos.TimeSpanSubId equals span.GUID into spanEmpty
-                            from span in spanEmpty.DefaultIfEmpty()
-                            join doc in bsUser on hos.DoctorId equals doc.GUID into docEmpty
-                            from doc in docEmpty.DefaultIfEmpty()
-                            join location in bsLocation on hos.RegDept equals location.GUID into locationEmpty
-                            from location in locationEmpty.DefaultIfEmpty()
-                            join bsDiag in bsDiagRoom on hos.RegDept equals bsDiag.GUID into bsDiagEmpty
-                            from bsDiag in bsDiagEmpty.DefaultIfEmpty()
-                            where bspat.IsHide == false && hos.IsHide == false && (UserCode.Trim() == "" || bspat.WebUserCode == UserCode) && hos.OperTime >= startTime.Date && hos.OperTime <= endTime.Date && hos.IsPreReg
-                            select new uspBookedInfoQry()
-                            {
-                                UserCode = bspat.WebUserCode,
-                                CardNo = hos.CardNo,
-                                Mobile = hos.ContactPhone,
-                                RegID = hos.GUID,
-                                RegNo = hos.MzRegNo,
-                                PatID = hos.PatId,
-                                Name = hos.Name,
-                                Sex = hos.Sex,
-                                Age = hos.AgeString,
-                                RegTime = hos.OperTime.ToString("yyyy-MM-dd"),
-                                TimeSpanSubName = span.TimeBegin + "~" + span.TimeEnd,
-                                //CnBookingPurpose = hos.CnBookingPurpose,
-                                Comment = hos.Memo,
-                                DoctorName = doc.Name,
-                                LocationName = location.Name,
-                                DiagRoomName = bsDiag.Name,
-                                LsDiagType = hos.LsDiagType==true?1:2,
-                                VisitContent = hos.VisitContent,
-                                OperTime = hos.OperTime.ToString("yyyy-MM-dd HH:mm:ss"),
-                                VisitStatus = hos.RegTime != DateTime.MinValue ? 2 : hos.IsCancel?1:0
-                            };
-
-                returnvalue.ErrorCode = 0;
-                returnvalue.Returns = query.ToList().OrderByDescending(t => t.RegTime).ThenBy(t => t.TimeSpanSubName).ToList();
-                return returnvalue;
-            }
-            catch (Exception ex)
-            {
-                returnvalue.ErrorCode = -1;
-                returnvalue.ErrorMsg = "预约信息查询异常。详细信息：" + ex.Message;
-                return returnvalue;
-            }
-        }
-
-        /// <summary>
-        /// 预约信息查询(医生)
-        /// </summary>
-        /// <MethodName="CancelAppointment">接口方法名：SearchAppointmentByDoctor</MethodName>
-        /// <param name="BeginTime">开始日期</param>
-        /// <param name="EndTime">结束日期</param>
-        /// <param name="DoctorUserCode">医生Code（手机号码）,传空则查询所有</param>
-        /// <returns></returns>
-        public ReturnValue SearchAppointmentByDoctor(string BeginTime, string EndTime, string DoctorUserCode)
-        {
-            var startTime = Convert.ToDateTime(BeginTime);
-            var endTime = Convert.ToDateTime(EndTime);
-            ReturnValue returnvalue = new ReturnValue();
-            try
-            {
-                var bsPatient = _dbserver.DataRepository.GetQueryable<BsPatient>();
-                var ouHosInfo = _dbserver.DataRepository.GetQueryable<OuHosInfo>();
-                var bsUser = _dbserver.DataRepository.GetQueryable<BsUser>();
-                var bsRegTimeSpan = _dbserver.DataRepository.GetQueryable<BsRegTimeSpan>();
-                var bsRegSpanSub = _dbserver.DataRepository.GetQueryable<BsRegSpanSub>();
-                var bsLocation = _dbserver.DataRepository.GetQueryable<BsLocation>();
-                var bsDiagRoom = _dbserver.DataRepository.GetQueryable<BsDiagRoom>();
-
-                var query = from hos in ouHosInfo
-                            join bspat in bsPatient on hos.PatId equals bspat.GUID
-                            join span in bsRegSpanSub on hos.TimeSpanSubId equals span.GUID into spanEmpty
-                            from span in spanEmpty.DefaultIfEmpty()
-                            join doc in bsUser on hos.DoctorId equals doc.GUID into docEmpty
-                            from doc in docEmpty.DefaultIfEmpty()
-                            join location in bsLocation on hos.RegDept equals location.GUID into locationEmpty
-                            from location in locationEmpty.DefaultIfEmpty()
-                            join bsDiag in bsDiagRoom on hos.RegDept equals bsDiag.GUID into bsDiagEmpty
-                            from bsDiag in bsDiagEmpty.DefaultIfEmpty()
-                            where bspat.IsHide == false && hos.IsHide == false && (DoctorUserCode.Trim() == "") && hos.OperTime >= startTime.Date && hos.OperTime <= endTime.Date && hos.IsPreReg
-                            select new uspBookedInfoQry()
-                            {
-                                UserCode = bspat.WebUserCode,
-                                CardNo = hos.CardNo,
-                                Mobile = hos.ContactPhone,
-                                RegID = hos.GUID,
-                                RegNo = hos.MzRegNo,
-                                PatID = hos.PatId,
-                                Name = hos.Name,
-                                Sex = hos.Sex,
-                                Age = hos.AgeString,
-                                RegTime = hos.OperTime.ToString("yyyy-MM-dd"),
-                                TimeSpanSubName = span.TimeBegin + "~" + span.TimeEnd,
-                                //CnBookingPurpose = hos.CnBookingPurpose,
-                                Comment = hos.Memo,
-                                DoctorName = doc.Name,
-                                LocationName = location.Name,
-                                DiagRoomName = bsDiag.Name,
-                                // IsReturnVisit = hos.IsReturnVisit,
-                                LsDiagType = hos.LsDiagType==true?1:2,
-                                VisitContent = hos.VisitContent,
-                                OperTime = hos.OperTime.ToString("yyyy-MM-dd HH:mm:ss"),
-                                VisitStatus = hos.RegTime != DateTime.MinValue ? 2 : hos.IsCancel ? 1 : 0
-                            };
-
-                returnvalue.ErrorCode = 0;
-                returnvalue.Returns = query.ToList().OrderByDescending(t => t.RegTime).ThenBy(t => t.TimeSpanSubName).ToList();
-                return returnvalue;
-            }
-            catch (Exception ex)
-            {
-                returnvalue.ErrorCode = -1;
-                returnvalue.ErrorMsg = "预约信息查询异常。详细信息：" + ex.Message;
-                return returnvalue;
-            }
-        }
-
+      
         ///// <summary>
         ///// 就诊目的基础数据查询
         ///// </summary>
@@ -656,26 +407,7 @@ namespace Orm.Framework.Common
             return returnvalue;
         }
 
-        /// <summary>
-        /// 获取职衔信息
-        /// </summary>
-        /// <param name="Token">授权码</param>
-        /// <returns></returns>
-        public ReturnValue GetAllTitle(string Token)
-        {
-            ReturnValue returnvalue = new ReturnValue();
-            try
-            {
-                returnvalue.Returns = _dbserver.GetAllList<BsDocLevel>();
-                returnvalue.ErrorCode = 0;
-            }
-            catch (Exception e)
-            {
-                returnvalue.ErrorCode = -1;
-                returnvalue.ErrorMsg = "职衔信息获取异常。详细信息：" + e.Message;
-            }
-            return returnvalue;
-        }
+    
 
         /// <summary>
         /// 获取门诊类别信息
@@ -2775,26 +2507,7 @@ namespace Orm.Framework.Common
 
         }
 
-        /// <summary>
-        /// 历史记录
-        /// </summary>
-        /// <param name="lstOuCommunicateLog"></param>
-        /// <param name="item"></param>
-        /// <param name="msgContent"></param>
-        /// <returns></returns>
-        private OuCommunicateLog SaveSendedInfo(TimingMessage item, string msgContent, string creatOperID)
-        {
-            var ouCommunicateLog = new OuCommunicateLog();
-            ouCommunicateLog.PatId = item.PatID;
-            ouCommunicateLog.Name = item.PatientName;
-            ouCommunicateLog.Phone = item.Mobile;
-            ouCommunicateLog.Type = 0;
-            ouCommunicateLog.OperId = creatOperID;
-            ouCommunicateLog.OperTime = DateTime.Now;
-            ouCommunicateLog.Comments = msgContent;
-            ouCommunicateLog.Notifytype = 1;
-            return ouCommunicateLog;
-        }
+       
 
         private string GetSendTaskContent(TimingMessage sendMsg, TimingSendTask sendTask)
         {

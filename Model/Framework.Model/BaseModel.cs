@@ -1,5 +1,4 @@
-﻿using Orm.Model.EnumDefine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -159,23 +158,6 @@ namespace Orm.Model
                 return _isGUID;
             }
             set { _isGUID = value; }
-        }
-        private bool _isWestern = false;
-        public bool u_IsWestern
-        {
-            get
-            {
-                if (GUID == EnumRecipeType.西药.ToString())
-                {
-                    _isWestern = true;
-                }
-                else
-                {
-                    _isWestern = false;
-                }
-                return _isWestern;
-            }
-            set { _isWestern = value; }
         }
     }
 }

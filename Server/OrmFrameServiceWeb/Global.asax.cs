@@ -29,7 +29,7 @@ namespace OrmFrameServiceWeb
             try
             {
                 DBClientBase db = new DBClientBase();
-                var user = db.GetAllList<BsUser>();
+                var user = db.GetAllList<BsHospital>();
                 AppLogger.Log("首次请求完成：" + System.DateTime.Now.ToString());
             }
             catch (Exception ex)
