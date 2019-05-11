@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92802CAE-FB59-4817-90C8-E3F3E4007034}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>OrmFrameClient</RootNamespace>
+    <AssemblyName>OrmFrameClient</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JsonSerializerProxy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Framework\JsonSerializerProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Frame\Orm.Framework.Services\Orm.Framework.Services.csproj">
+      <Project>{6f06816b-bedc-4c4d-bdb3-98be6a2d937a}</Project>
+      <Name>Orm.Framework.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Frame\Orm\Orm.csproj">
+      <Project>{5ecbc1d5-aba9-4cac-8712-1abe11000b90}</Project>
+      <Name>Orm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\Framework.MapContext\Orm.MapContext.csproj">
+      <Project>{c4a1ba2a-f2ec-49c9-a73b-a7e40e196a4a}</Project>
+      <Name>Orm.MapContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\Framework.Model\Orm.Model.csproj">
+      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
+      <Name>Orm.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Proxy\Proxy_Orm.IServices.HisFrameService\Proxy_Orm.IServices.TestSercive.csproj">
+      <Project>{3660d816-b2a2-421c-860f-5a8533461daa}</Project>
+      <Name>Proxy_Orm.IServices.TestSercive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Proxy\Proxy_XYHis.Framework.Services\Proxy_Orm.Framework.Services.csproj">
+      <Project>{d97a939e-84aa-4bae-8aeb-533778a26954}</Project>
+      <Name>Proxy_Orm.Framework.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\WebApiResponder\WebApiResponder.csproj">
+      <Project>{b7aa909e-15d4-4b5d-8eb9-2864280b0b61}</Project>
+      <Name>WebApiResponder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\WebBridgeContract\WebBridgeContract.csproj">
+      <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
+      <Name>WebBridgeContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\WebBridgeEndpoint\WebBridgeEndpoint.csproj">
+      <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
+      <Name>WebBridgeEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Server\Sercer-Services\Orm.Services.HisFrameService\Orm.Services.TestSercive.csproj">
+      <Project>{972ac2cf-c638-432f-88f9-5c2912220df5}</Project>
+      <Name>Orm.Services.TestSercive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Client-ViewModel\OrmFrameClientViewModel\OrmFrameClientViewModel.csproj">
+      <Project>{e82862f1-8e1b-482a-9020-920e3fd3555c}</Project>
+      <Name>OrmFrameClientViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
