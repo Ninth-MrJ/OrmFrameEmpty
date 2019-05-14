@@ -323,8 +323,11 @@ namespace Orm.Redis
                     List<object> list = RedisReadExHelper.SetSearch(key, 0, "\"GUID\":\"" + guid + "\"", 1000000);
                     if (list.Count > 0)
                     {
-                        var result = RedisWriteHelper.SetRemoveAsync(key, list[0].ToString());
-                        b = result.Result;
+                        //var result = RedisWriteHelper.SetRemoveAsync(key, list[0].ToString());
+                        //b = result.Result;
+                        b = RedisWriteHelper.SetRemove(key, list[0].ToString());
+                        //var result = RedisWriteHelper.SetRemoveAsync(key, list[0].ToString());
+                        //b = result.Result;
                     }
                 }
                 catch (Exception ex)
