@@ -90,7 +90,6 @@ namespace OrmFrameServiceWeb.Controllers
 
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
-
             return base.ExecuteAsync(controllerContext, cancellationToken);
         }
     }

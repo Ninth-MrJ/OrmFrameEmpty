@@ -32,5 +32,22 @@ namespace OrmFrameServiceWeb.Controllers
                 return returnValue;
             }
         }
+
+        [HttpGet, HttpPost]
+        public ReturnValue GetItemByCode()
+        {
+            try
+            {
+
+                string goods_code = QueryStringHelper.GetString("goods_code", "");
+                return returnValue;
+            }
+            catch (Exception ex)
+            {
+                returnValue.ErrorCode = 1;
+                returnValue.ErrorMsg = ex.Message;
+                return returnValue;
+            }
+        }
     }
 }
