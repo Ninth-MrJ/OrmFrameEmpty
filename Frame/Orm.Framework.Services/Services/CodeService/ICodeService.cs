@@ -9,9 +9,9 @@
 
         long Next(string code);
 
-        long Next(string code,string cust);
+        long Next(string code, string cust);
 
-        long Next(string code, string cust,string machineId);
+        long Next(string code, string cust, string machineId);
 
         string NextCode(string code);
 
@@ -19,7 +19,7 @@
 
         string NextCode(string code, string cust, string machineId);
 
-       
-     
+
+
     }
 }

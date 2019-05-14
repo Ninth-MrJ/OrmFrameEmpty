@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.Text;
-using StackExchange.Redis;
 
 namespace Orm.Redis
 {
@@ -25,7 +25,7 @@ namespace Orm.Redis
             return Cache.KeyExpire(key, datetime);
         }
 
-        public static bool SetExpire(string key, int timeout = 0)   
+        public static bool SetExpire(string key, int timeout = 0)
         {
             return Cache.KeyExpire(key, DateTime.Now.AddSeconds(timeout));
         }
@@ -292,7 +292,7 @@ namespace Orm.Redis
         /// <param name="dataKey"></param>
         /// <returns></returns>
         public static T HashGet<T>(string key, string dataKey)
-        {            
+        {
             string value = Cache.HashGet(key, dataKey);
             return ConvertObj<T>(value);
         }
@@ -359,7 +359,7 @@ namespace Orm.Redis
                 dic.Add(item.Name, item.Value);
             }
             return dic;
-        }       
+        }
 
         public static List<T> HashScan<T>(string key, int cursor, string pattern, int count)
         {
@@ -399,7 +399,7 @@ namespace Orm.Redis
         /// <param name="t"></param>
         /// <returns></returns>
         public static async Task<bool> HashSetAsync<T>(string key, string dataKey, T t)
-        {            
+        {
             string json = ConvertJson(t);
             return await Cache.HashSetAsync(key, dataKey, json);
         }
@@ -411,7 +411,7 @@ namespace Orm.Redis
         /// <param name="dataKey"></param>
         /// <returns></returns>
         public static async Task<bool> HashDeleteAsync(string key, string dataKey)
-        {            
+        {
             return await Cache.HashDeleteAsync(key, dataKey);
         }
 
@@ -422,9 +422,9 @@ namespace Orm.Redis
         /// <param name="dataKeys"></param>
         /// <returns></returns>
         public static async Task<long> HashDeleteAsync(string key, params string[] dataKeys)
-        {            
+        {
             var newValues = dataKeys.Select(o => (RedisValue)o).ToArray();
-            return await Cache.HashDeleteAsync(key, newValues);            
+            return await Cache.HashDeleteAsync(key, newValues);
         }
 
         /// <summary>
@@ -448,7 +448,7 @@ namespace Orm.Redis
         /// <param name="val">可以为负</param>
         /// <returns>增长后的值</returns>
         public static async Task<double> HashIncrementAsync(string key, string dataKey, double val = 1)
-        {            
+        {
             return await Cache.HashIncrementAsync(key, dataKey, val);
         }
 
@@ -460,7 +460,7 @@ namespace Orm.Redis
         /// <param name="val">可以为负</param>
         /// <returns>减少后的值</returns>
         public static async Task<double> HashDecrementAsync(string key, string dataKey, double val = 1)
-        {            
+        {
             return await Cache.HashDecrementAsync(key, dataKey, val);
         }
 
@@ -470,7 +470,7 @@ namespace Orm.Redis
         /// <param name="key"></param>
         /// <returns></returns>
         public static async Task<string[]> HashKeysAsync(string key)
-        {            
+        {
             RedisValue[] values = await Cache.HashKeysAsync(key);
             return values.Select(o => o.ToString()).ToArray();
         }
@@ -482,7 +482,7 @@ namespace Orm.Redis
         /// <param name="key"></param>
         /// <returns></returns>
         public static async Task<Dictionary<string, T>> HashGetAllAsync<T>(string key)
-        {            
+        {
             var query = await Cache.HashGetAllAsync(key);
             Dictionary<string, T> dic = new Dictionary<string, T>();
             foreach (var item in query)
@@ -501,8 +501,8 @@ namespace Orm.Redis
         public static bool SetAdd(string key, string value)
         {
             return Cache.SetAdd(key, value);
-        }  
-        
+        }
+
         public static long SetMutiAdd(string key, RedisValue[] value)
         {
             return Cache.SetAdd(key, value);
@@ -546,7 +546,7 @@ namespace Orm.Redis
             string jValue = ConvertJson(value);
             return Cache.SetContains(key, jValue);
         }
-                
+
         /// <summary>
         /// 删除key集合中指定的value
         /// </summary>
@@ -568,7 +568,7 @@ namespace Orm.Redis
         public static long SetRemove<T>(string key, params T[] value)
         {
             RedisValue[] valueList = ConvertRedisValue(value);
-            return Cache.SetRemove(key, valueList);            
+            return Cache.SetRemove(key, valueList);
         }
 
         //public static List<T> SetMembers<T>(string key)
@@ -685,7 +685,7 @@ namespace Orm.Redis
         {
             string jValue = ConvertJson(value);
             return await Cache.SetContainsAsync(key, jValue);
-        }               
+        }
         /// <summary>
         /// 删除key集合中指定的value
         /// </summary>
@@ -951,7 +951,7 @@ namespace Orm.Redis
         {
             string result = value is string ? value.ToString() :
              Newtonsoft.Json.JsonConvert.SerializeObject(value, Newtonsoft.Json.Formatting.None);
-             //JsonSerializer.SerializeToString<T>(value);
+            //JsonSerializer.SerializeToString<T>(value);
             return result;
         }
         /// <summary>
@@ -974,7 +974,7 @@ namespace Orm.Redis
         /// <returns></returns>
         protected static List<T> ConvetList<T>(RedisValue[] values)
         {
-            List<T> result = new List<T>();            
+            List<T> result = new List<T>();
             foreach (var item in values)
             {
                 var model = ConvertObj<T>(item);

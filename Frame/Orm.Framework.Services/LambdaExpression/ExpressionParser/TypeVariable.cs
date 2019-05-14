@@ -31,7 +31,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             Variable = variable;
             if (ExistType = type.HasValue)
-            { 
+            {
                 Type = type.Value;
             }
         }

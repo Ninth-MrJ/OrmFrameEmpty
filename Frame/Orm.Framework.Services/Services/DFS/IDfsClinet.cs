@@ -6,7 +6,7 @@ namespace Orm.Framework.Services
     /// fastdfs客户端接口
     /// </summary>
     public interface IDfsClinet
-	{
+    {
 
         /// <summary>
         /// 上传文件
@@ -45,7 +45,7 @@ namespace Orm.Framework.Services
         /// <param name="filename"></param>
         /// <returns></returns>
         bool DeleteFile(DfsTrackerInfo config, string filename);
-      
+
 
         /// <summary>
         /// 获取文件信息

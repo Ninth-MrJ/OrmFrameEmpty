@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Orm.Framework.Services
 {
@@ -38,6 +34,6 @@ namespace Orm.Framework.Services
     {
         DictItem GetValue(string dictId, string itemValue);
 
-        List< DictItem> GetCollection(string dictId);
+        List<DictItem> GetCollection(string dictId);
     }
 }

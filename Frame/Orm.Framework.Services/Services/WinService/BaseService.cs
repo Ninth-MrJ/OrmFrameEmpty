@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Orm.Framework.Services
+﻿namespace Orm.Framework.Services
 {
-   
+
 
     /// <summary>
     /// 抽象windows服务,统一托管到windows服务壳程序Orm.FrameWork.SvcHost
@@ -17,7 +12,7 @@ namespace Orm.Framework.Services
         /// </summary>
         /// <param name="servicename">windows服务的名称,安装服务时指定</param>
         /// <param name="name">svcHost承载的服务名，配置文件中指定</param>
-        public BaseService(string servicename,string name)
+        public BaseService(string servicename, string name)
         {
             ServiceName = servicename;
             Name = name;

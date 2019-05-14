@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
 using System.Threading;
 
 //Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -19,16 +19,32 @@ namespace Orm.Framework.Services
 
         public static IQueryable Where(this IQueryable source, string predicate, params object[] values)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate");
+            }
+
             LambdaExpression lambda = DynamicExpression.ParseLambda(source.ElementType, typeof(bool), predicate, values);
             return source.Provider.CreateQuery(Expression.Call(typeof(Queryable), "Where", new Type[] { source.ElementType }, source.Expression, Expression.Quote(lambda)));
         }
 
         public static IQueryable Select(this IQueryable source, string selector, params object[] values)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (selector == null) throw new ArgumentNullException("selector");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (selector == null)
+            {
+                throw new ArgumentNullException("selector");
+            }
+
             LambdaExpression lambda = DynamicExpression.ParseLambda(source.ElementType, null, selector, values);
             return source.Provider.CreateQuery(Expression.Call(typeof(Queryable), "Select", new Type[] { source.ElementType, lambda.Body.Type }, source.Expression, Expression.Quote(lambda)));
         }
@@ -40,8 +56,16 @@ namespace Orm.Framework.Services
 
         public static IQueryable OrderBy(this IQueryable source, string ordering, params object[] values)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (ordering == null) throw new ArgumentNullException("ordering");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (ordering == null)
+            {
+                throw new ArgumentNullException("ordering");
+            }
+
             ParameterExpression[] parameters = new ParameterExpression[] { Expression.Parameter(source.ElementType, string.Empty) };
             ExpressionParser parser = new ExpressionParser(parameters, ordering, values);
             IEnumerable<DynamicOrdering> orderings = parser.ParseOrdering();
@@ -64,7 +88,11 @@ namespace Orm.Framework.Services
         }
         public static IQueryable Take(this IQueryable source, int count)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             return source.Provider.CreateQuery(Expression.Call(typeof(Queryable), "Take", new Type[] { source.ElementType }, source.Expression, Expression.Constant(count)));
         }
         public static IQueryable<T> SkipT<T>(this IQueryable<T> source, int count)
@@ -74,15 +102,31 @@ namespace Orm.Framework.Services
 
         public static IQueryable Skip(this IQueryable source, int count)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             return source.Provider.CreateQuery(Expression.Call(typeof(Queryable), "Skip", new Type[] { source.ElementType }, source.Expression, Expression.Constant(count)));
         }
 
         public static IQueryable GroupBy(this IQueryable source, string keySelector, string elementSelector, params object[] values)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (keySelector == null) throw new ArgumentNullException("keySelector");
-            if (elementSelector == null) throw new ArgumentNullException("elementSelector");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException("keySelector");
+            }
+
+            if (elementSelector == null)
+            {
+                throw new ArgumentNullException("elementSelector");
+            }
+
             LambdaExpression keyLambda = DynamicExpression.ParseLambda(source.ElementType, null, keySelector, values);
             LambdaExpression elementLambda = DynamicExpression.ParseLambda(source.ElementType, null, elementSelector, values);
             return source.Provider.CreateQuery(Expression.Call(typeof(Queryable), "GroupBy", new Type[] { source.ElementType, keyLambda.Body.Type, elementLambda.Body.Type }, source.Expression, Expression.Quote(keyLambda), Expression.Quote(elementLambda)));
@@ -90,13 +134,21 @@ namespace Orm.Framework.Services
 
         public static bool Any(this IQueryable source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             return (bool)source.Provider.Execute(Expression.Call(typeof(Queryable), "Any", new Type[] { source.ElementType }, source.Expression));
         }
 
         public static int Count(this IQueryable source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             return (int)source.Provider.Execute(Expression.Call(typeof(Queryable), "Count", new Type[] { source.ElementType }, source.Expression));
         }
     }
@@ -110,7 +162,11 @@ namespace Orm.Framework.Services
             sb.Append("{");
             for (int i = 0; i < props.Length; i++)
             {
-                if (i > 0) sb.Append(", ");
+                if (i > 0)
+                {
+                    sb.Append(", ");
+                }
+
                 sb.Append(props[i].Name);
                 sb.Append("=");
                 sb.Append(props[i].GetValue(this, null));
@@ -127,8 +183,16 @@ namespace Orm.Framework.Services
 
         public DynamicProperty(string name, Type type)
         {
-            if (name == null) throw new ArgumentNullException("name");
-            if (type == null) throw new ArgumentNullException("type");
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
             this.name = name;
             this.type = type;
         }
@@ -212,11 +276,18 @@ namespace Orm.Framework.Services
 
         public bool Equals(Signature other)
         {
-            if (properties.Length != other.properties.Length) return false;
+            if (properties.Length != other.properties.Length)
+            {
+                return false;
+            }
+
             for (int i = 0; i < properties.Length; i++)
             {
                 if (properties[i].Name != other.properties[i].Name ||
-                    properties[i].Type != other.properties[i].Type) return false;
+                    properties[i].Type != other.properties[i].Type)
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -603,12 +674,28 @@ namespace Orm.Framework.Services
 
         public ExpressionParser(ParameterExpression[] parameters, string expression, object[] values)
         {
-            if (expression == null) throw new ArgumentNullException("expression");
-            if (keywords == null) keywords = CreateKeywords();
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            if (keywords == null)
+            {
+                keywords = CreateKeywords();
+            }
+
             symbols = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             literals = new Dictionary<Expression, string>();
-            if (parameters != null) ProcessParameters(parameters);
-            if (values != null) ProcessValues(values);
+            if (parameters != null)
+            {
+                ProcessParameters(parameters);
+            }
+
+            if (values != null)
+            {
+                ProcessValues(values);
+            }
+
             text = expression;
             textLen = text.Length;
             SetTextPos(0);
@@ -688,7 +775,11 @@ namespace Orm.Framework.Services
                     ascending = false;
                 }
                 orderings.Add(new DynamicOrdering { Selector = expr, Ascending = ascending });
-                if (token.id != TokenId.Comma) break;
+                if (token.id != TokenId.Comma)
+                {
+                    break;
+                }
+
                 NextToken();
             }
             ValidateToken(TokenId.End, Res.SyntaxError);
@@ -835,7 +926,10 @@ namespace Orm.Framework.Services
                 {
                     case TokenId.Plus:
                         if (left.Type == typeof(string) || right.Type == typeof(string))
+                        {
                             goto case TokenId.Amphersand;
+                        }
+
                         CheckAndPromoteOperands(typeof(IAddSignatures), op.text, ref left, ref right, op.pos);
                         left = GenerateAdd(left, right);
                         break;
@@ -957,7 +1051,11 @@ namespace Orm.Framework.Services
             while (true)
             {
                 int i = s.IndexOf(quote, start);
-                if (i < 0) break;
+                if (i < 0)
+                {
+                    break;
+                }
+
                 s = s.Remove(i, 1);
                 start = i + 1;
             }
@@ -986,9 +1084,21 @@ namespace Orm.Framework.Services
                     throw ParseError(Res.InvalidIntegerLiteral, text);
                 }
                 NextToken();
-                if (value <= (ulong)Int32.MaxValue) return CreateLiteral((int)value, text);
-                if (value <= (ulong)UInt32.MaxValue) return CreateLiteral((uint)value, text);
-                if (value <= (ulong)Int64.MaxValue) return CreateLiteral((long)value, text);
+                if (value <= (ulong)Int32.MaxValue)
+                {
+                    return CreateLiteral((int)value, text);
+                }
+
+                if (value <= (ulong)UInt32.MaxValue)
+                {
+                    return CreateLiteral((uint)value, text);
+                }
+
+                if (value <= (ulong)Int64.MaxValue)
+                {
+                    return CreateLiteral((long)value, text);
+                }
+
                 return CreateLiteral(value, text);
             }
             else
@@ -1016,14 +1126,24 @@ namespace Orm.Framework.Services
             if (last == 'F' || last == 'f')
             {
                 float f;
-                if (Single.TryParse(text.Substring(0, text.Length - 1), out f)) value = f;
+                if (Single.TryParse(text.Substring(0, text.Length - 1), out f))
+                {
+                    value = f;
+                }
             }
             else
             {
                 double d;
-                if (Double.TryParse(text, out d)) value = d;
+                if (Double.TryParse(text, out d))
+                {
+                    value = d;
+                }
             }
-            if (value == null) throw ParseError(Res.InvalidRealLiteral, text);
+            if (value == null)
+            {
+                throw ParseError(Res.InvalidRealLiteral, text);
+            }
+
             NextToken();
             return CreateLiteral(value, text);
         }
@@ -1051,10 +1171,26 @@ namespace Orm.Framework.Services
             object value;
             if (keywords.TryGetValue(token.text, out value) && token.text != "GUID")
             {
-                if (value is Type) return ParseTypeAccess((Type)value);
-                if (value == (object)keywordIt) return ParseIt();
-                if (value == (object)keywordIif) return ParseIif();
-                if (value == (object)keywordNew) return ParseNew();
+                if (value is Type)
+                {
+                    return ParseTypeAccess((Type)value);
+                }
+
+                if (value == (object)keywordIt)
+                {
+                    return ParseIt();
+                }
+
+                if (value == (object)keywordIif)
+                {
+                    return ParseIif();
+                }
+
+                if (value == (object)keywordNew)
+                {
+                    return ParseNew();
+                }
+
                 NextToken();
                 return (Expression)value;
             }
@@ -1166,7 +1302,11 @@ namespace Orm.Framework.Services
                 }
                 expressions.Add(expr);
                 properties.Add(new DynamicProperty(propName, expr.Type));
-                if (token.id != TokenId.Comma) break;
+                if (token.id != TokenId.Comma)
+                {
+                    break;
+                }
+
                 NextToken();
             }
             ValidateToken(TokenId.CloseParen, Res.CloseParenOrCommaExpected);
@@ -1187,7 +1327,10 @@ namespace Orm.Framework.Services
             Expression[] args = ParseArgumentList();
             MethodBase method;
             if (FindMethod(lambda.Type, "Invoke", false, args, out method) != 1)
+            {
                 throw ParseError(errorPos, Res.ArgsIncompatibleWithLambda);
+            }
+
             return Expression.Invoke(lambda, args);
         }
 
@@ -1212,7 +1355,10 @@ namespace Orm.Framework.Services
                 {
                     case 0:
                         if (args.Length == 1)
+                        {
                             return GenerateConversion(args[0], type, errorPos);
+                        }
+
                         throw ParseError(errorPos, Res.NoMatchingConstructor, GetTypeName(type));
                     case 1:
                         return Expression.New((ConstructorInfo)method, args);
@@ -1228,7 +1374,11 @@ namespace Orm.Framework.Services
         Expression GenerateConversion(Expression expr, Type type, int errorPos)
         {
             Type exprType = expr.Type;
-            if (exprType == type) return expr;
+            if (exprType == type)
+            {
+                return expr;
+            }
+
             if (exprType.IsValueType && type.IsValueType)
             {
                 if ((IsNullableType(exprType) || IsNullableType(type)) && GetNonNullableType(exprType) == GetNonNullableType(type))
@@ -1306,7 +1456,11 @@ namespace Orm.Framework.Services
         {
             while (type != null && type != typeof(object))
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == generic) return type;
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == generic)
+                {
+                    return type;
+                }
+
                 if (generic.IsInterface)
                 {
                     foreach (Type intfType in type.GetInterfaces())
@@ -1372,7 +1526,11 @@ namespace Orm.Framework.Services
             while (true)
             {
                 argList.Add(ParseExpression());
-                if (token.id != TokenId.Comma) break;
+                if (token.id != TokenId.Comma)
+                {
+                    break;
+                }
+
                 NextToken();
             }
             return argList.ToArray();
@@ -1416,7 +1574,14 @@ namespace Orm.Framework.Services
 
         static bool IsPredefinedType(Type type)
         {
-            foreach (Type t in predefinedTypes) if (t == type) return true;
+            foreach (Type t in predefinedTypes)
+            {
+                if (t == type)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 
@@ -1459,7 +1624,11 @@ namespace Orm.Framework.Services
         static int GetNumericTypeKind(Type type)
         {
             type = GetNonNullableType(type);
-            if (type.IsEnum) return 0;
+            if (type.IsEnum)
+            {
+                return 0;
+            }
+
             switch (Type.GetTypeCode(type))
             {
                 case TypeCode.Char:
@@ -1536,7 +1705,10 @@ namespace Orm.Framework.Services
             {
                 MemberInfo[] members = t.FindMembers(MemberTypes.Method, flags, Type.FilterNameIgnoreCase, methodName);
                 int count = FindBestMethod(members.Cast<MethodBase>(), args, out method);
-                if (count != 0) return count;
+                if (count != 0)
+                {
+                    return count;
+                }
             }
             method = null;
             return 0;
@@ -1551,7 +1723,10 @@ namespace Orm.Framework.Services
                 {
                     IEnumerable<MethodBase> methods = members.OfType<PropertyInfo>().Select(p => (MethodBase)p.GetGetMethod()).Where(m => m != null);
                     int count = FindBestMethod(methods, args, out method);
-                    if (count != 0) return count;
+                    if (count != 0)
+                    {
+                        return count;
+                    }
                 }
             }
             method = null;
@@ -1583,7 +1758,10 @@ namespace Orm.Framework.Services
             if (!types.Contains(type))
             {
                 types.Add(type);
-                foreach (Type t in type.GetInterfaces()) AddInterface(types, t);
+                foreach (Type t in type.GetInterfaces())
+                {
+                    AddInterface(types, t);
+                }
             }
         }
 
@@ -1619,14 +1797,26 @@ namespace Orm.Framework.Services
 
         bool IsApplicable(MethodData method, Expression[] args)
         {
-            if (method.Parameters.Length != args.Length) return false;
+            if (method.Parameters.Length != args.Length)
+            {
+                return false;
+            }
+
             Expression[] promotedArgs = new Expression[args.Length];
             for (int i = 0; i < args.Length; i++)
             {
                 ParameterInfo pi = method.Parameters[i];
-                if (pi.IsOut) return false;
+                if (pi.IsOut)
+                {
+                    return false;
+                }
+
                 Expression promoted = PromoteExpression(args[i], pi.ParameterType, false);
-                if (promoted == null) return false;
+                if (promoted == null)
+                {
+                    return false;
+                }
+
                 promotedArgs[i] = promoted;
             }
             method.Args = promotedArgs;
@@ -1635,7 +1825,11 @@ namespace Orm.Framework.Services
 
         Expression PromoteExpression(Expression expr, Type type, bool exact)
         {
-            if (expr.Type == type) return expr;
+            if (expr.Type == type)
+            {
+                return expr;
+            }
+
             if (expr is ConstantExpression)
             {
                 ConstantExpression ce = (ConstantExpression)expr;
@@ -1662,20 +1856,30 @@ namespace Orm.Framework.Services
                                 value = ParseNumber(text, target);
                                 break;
                             case TypeCode.Double:
-                                if (target == typeof(decimal)) value = ParseNumber(text, target);
+                                if (target == typeof(decimal))
+                                {
+                                    value = ParseNumber(text, target);
+                                }
+
                                 break;
                             case TypeCode.String:
                                 value = ParseEnum(text, target);
                                 break;
                         }
                         if (value != null)
+                        {
                             return Expression.Constant(value, type);
+                        }
                     }
                 }
             }
             if (IsCompatibleWith(expr.Type, type))
             {
-                if (type.IsValueType || exact) return Expression.Convert(expr, type);
+                if (type.IsValueType || exact)
+                {
+                    return Expression.Convert(expr, type);
+                }
+
                 return expr;
             }
             return null;
@@ -1687,47 +1891,91 @@ namespace Orm.Framework.Services
             {
                 case TypeCode.SByte:
                     sbyte sb;
-                    if (sbyte.TryParse(text, out sb)) return sb;
+                    if (sbyte.TryParse(text, out sb))
+                    {
+                        return sb;
+                    }
+
                     break;
                 case TypeCode.Byte:
                     byte b;
-                    if (byte.TryParse(text, out b)) return b;
+                    if (byte.TryParse(text, out b))
+                    {
+                        return b;
+                    }
+
                     break;
                 case TypeCode.Int16:
                     short s;
-                    if (short.TryParse(text, out s)) return s;
+                    if (short.TryParse(text, out s))
+                    {
+                        return s;
+                    }
+
                     break;
                 case TypeCode.UInt16:
                     ushort us;
-                    if (ushort.TryParse(text, out us)) return us;
+                    if (ushort.TryParse(text, out us))
+                    {
+                        return us;
+                    }
+
                     break;
                 case TypeCode.Int32:
                     int i;
-                    if (int.TryParse(text, out i)) return i;
+                    if (int.TryParse(text, out i))
+                    {
+                        return i;
+                    }
+
                     break;
                 case TypeCode.UInt32:
                     uint ui;
-                    if (uint.TryParse(text, out ui)) return ui;
+                    if (uint.TryParse(text, out ui))
+                    {
+                        return ui;
+                    }
+
                     break;
                 case TypeCode.Int64:
                     long l;
-                    if (long.TryParse(text, out l)) return l;
+                    if (long.TryParse(text, out l))
+                    {
+                        return l;
+                    }
+
                     break;
                 case TypeCode.UInt64:
                     ulong ul;
-                    if (ulong.TryParse(text, out ul)) return ul;
+                    if (ulong.TryParse(text, out ul))
+                    {
+                        return ul;
+                    }
+
                     break;
                 case TypeCode.Single:
                     float f;
-                    if (float.TryParse(text, out f)) return f;
+                    if (float.TryParse(text, out f))
+                    {
+                        return f;
+                    }
+
                     break;
                 case TypeCode.Double:
                     double d;
-                    if (double.TryParse(text, out d)) return d;
+                    if (double.TryParse(text, out d))
+                    {
+                        return d;
+                    }
+
                     break;
                 case TypeCode.Decimal:
                     decimal e;
-                    if (decimal.TryParse(text, out e)) return e;
+                    if (decimal.TryParse(text, out e))
+                    {
+                        return e;
+                    }
+
                     break;
             }
             return null;
@@ -1748,11 +1996,23 @@ namespace Orm.Framework.Services
 
         static bool IsCompatibleWith(Type source, Type target)
         {
-            if (source == target) return true;
-            if (!target.IsValueType) return target.IsAssignableFrom(source);
+            if (source == target)
+            {
+                return true;
+            }
+
+            if (!target.IsValueType)
+            {
+                return target.IsAssignableFrom(source);
+            }
+
             Type st = GetNonNullableType(source);
             Type tt = GetNonNullableType(target);
-            if (st != source && tt == target) return false;
+            if (st != source && tt == target)
+            {
+                return false;
+            }
+
             TypeCode sc = st.IsEnum ? TypeCode.Object : Type.GetTypeCode(st);
             TypeCode tc = tt.IsEnum ? TypeCode.Object : Type.GetTypeCode(tt);
             switch (sc)
@@ -1864,7 +2124,11 @@ namespace Orm.Framework.Services
                     }
                     break;
                 default:
-                    if (st == tt) return true;
+                    if (st == tt)
+                    {
+                        return true;
+                    }
+
                     break;
             }
             return false;
@@ -1876,22 +2140,57 @@ namespace Orm.Framework.Services
             for (int i = 0; i < args.Length; i++)
             {
                 int c = CompareConversions(args[i].Type, m1.Parameters[i].ParameterType, m2.Parameters[i].ParameterType);
-                if (c < 0) return false;
-                if (c > 0) better = true;
+                if (c < 0)
+                {
+                    return false;
+                }
+
+                if (c > 0)
+                {
+                    better = true;
+                }
             }
             return better;
         }
         static int CompareConversions(Type s, Type t1, Type t2)
         {
-            if (t1 == t2) return 0;
-            if (s == t1) return 1;
-            if (s == t2) return -1;
+            if (t1 == t2)
+            {
+                return 0;
+            }
+
+            if (s == t1)
+            {
+                return 1;
+            }
+
+            if (s == t2)
+            {
+                return -1;
+            }
+
             bool t1t2 = IsCompatibleWith(t1, t2);
             bool t2t1 = IsCompatibleWith(t2, t1);
-            if (t1t2 && !t2t1) return 1;
-            if (t2t1 && !t1t2) return -1;
-            if (IsSignedIntegralType(t1) && IsUnsignedIntegralType(t2)) return 1;
-            if (IsSignedIntegralType(t2) && IsUnsignedIntegralType(t1)) return -1;
+            if (t1t2 && !t2t1)
+            {
+                return 1;
+            }
+
+            if (t2t1 && !t1t2)
+            {
+                return -1;
+            }
+
+            if (IsSignedIntegralType(t1) && IsUnsignedIntegralType(t2))
+            {
+                return 1;
+            }
+
+            if (IsSignedIntegralType(t2) && IsUnsignedIntegralType(t1))
+            {
+                return -1;
+            }
+
             return 0;
         }
 
@@ -1978,13 +2277,21 @@ namespace Orm.Framework.Services
 
         void NextChar()
         {
-            if (textPos < textLen) textPos++;
+            if (textPos < textLen)
+            {
+                textPos++;
+            }
+
             ch = textPos < textLen ? text[textPos] : '\0';
         }
 
         void NextToken()
         {
-            while (Char.IsWhiteSpace(ch)) NextChar();
+            while (Char.IsWhiteSpace(ch))
+            {
+                NextChar();
+            }
+
             TokenId t;
             int tokenPos = textPos;
             switch (ch)
@@ -2124,7 +2431,11 @@ namespace Orm.Framework.Services
                     do
                     {
                         NextChar();
-                        while (textPos < textLen && ch != quote) NextChar();
+                        while (textPos < textLen && ch != quote)
+                        {
+                            NextChar();
+                        }
+
                         if (textPos == textLen)
                         {
                             throw ParseError(textPos, Res.UnterminatedStringLiteral);
@@ -2164,14 +2475,22 @@ namespace Orm.Framework.Services
                         {
                             t = TokenId.RealLiteral;
                             NextChar();
-                            if (ch == '+' || ch == '-') NextChar();
+                            if (ch == '+' || ch == '-')
+                            {
+                                NextChar();
+                            }
+
                             ValidateDigit();
                             do
                             {
                                 NextChar();
                             } while (Char.IsDigit(ch));
                         }
-                        if (ch == 'F' || ch == 'f') NextChar();
+                        if (ch == 'F' || ch == 'f')
+                        {
+                            NextChar();
+                        }
+
                         break;
                     }
                     if (textPos == textLen)
@@ -2195,23 +2514,36 @@ namespace Orm.Framework.Services
         {
             ValidateToken(TokenId.Identifier, Res.IdentifierExpected);
             string id = token.text;
-            if (id.Length > 1 && id[0] == '@') id = id.Substring(1);
+            if (id.Length > 1 && id[0] == '@')
+            {
+                id = id.Substring(1);
+            }
+
             return id;
         }
 
         void ValidateDigit()
         {
-            if (!Char.IsDigit(ch)) throw ParseError(textPos, Res.DigitExpected);
+            if (!Char.IsDigit(ch))
+            {
+                throw ParseError(textPos, Res.DigitExpected);
+            }
         }
 
         void ValidateToken(TokenId t, string errorMessage)
         {
-            if (token.id != t) throw ParseError(errorMessage);
+            if (token.id != t)
+            {
+                throw ParseError(errorMessage);
+            }
         }
 
         void ValidateToken(TokenId t)
         {
-            if (token.id != t) throw ParseError(Res.SyntaxError);
+            if (token.id != t)
+            {
+                throw ParseError(Res.SyntaxError);
+            }
         }
 
         Exception ParseError(string format, params object[] args)
@@ -2233,7 +2565,11 @@ namespace Orm.Framework.Services
             d.Add(keywordIt, keywordIt);
             d.Add(keywordIif, keywordIif);
             d.Add(keywordNew, keywordNew);
-            foreach (Type type in predefinedTypes) d.Add(type.Name, type);
+            foreach (Type type in predefinedTypes)
+            {
+                d.Add(type.Name, type);
+            }
+
             return d;
         }
     }

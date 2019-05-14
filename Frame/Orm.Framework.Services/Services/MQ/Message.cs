@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Orm.Framework.Services
 {
@@ -20,7 +18,7 @@ namespace Orm.Framework.Services
             ContentKey = "";
             TimeOut = 0;
         }
-  
+
         /// <summary>
         /// 消息内容关键字(用于查询跟踪消息用途,不作为业务数据传递)
         /// </summary>
@@ -43,12 +41,18 @@ namespace Orm.Framework.Services
         /// <param name="value">业务数据对象</param>
         public void AddData(string key, object value)
         {
-            if (string.IsNullOrWhiteSpace(key)) throw new ArgumentNullException("key");
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException("key");
+            }
 
-            if (value == null) throw new ArgumentNullException("value");
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
 
             key = key.Trim();
-         
+
             Data[key] = value;
         }
     }

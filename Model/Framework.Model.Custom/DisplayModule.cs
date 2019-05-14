@@ -48,19 +48,25 @@ namespace Orm.Model.Custom
         /// </summary>
         public int CumulativeClicks { get; set; }
 
-        private object _instance=null;
+        private object _instance = null;
         /// <summary>
         /// 界面实例
         /// </summary>
-        public object Instance { get {if(this._instance==null){
-                 this._instance =  this.CreateElement(this.EntityName);
+        public object Instance
+        {
+            get
+            {
+                if (this._instance == null)
+                {
+                    this._instance = this.CreateElement(this.EntityName);
+                }
+                return this._instance;
+            }
         }
-        return this._instance;
-        } }
         /// <summary>
         /// 创建界面实例委托
         /// </summary>
-        public Func<string,object> CreateElement { private get; set; }
+        public Func<string, object> CreateElement { private get; set; }
 
     }
 }

@@ -98,7 +98,9 @@ namespace Orm.Utilities
             finally
             {
                 if (reader != null)
+                {
                     reader.Close();
+                }
             }
             return result;
         }
@@ -122,7 +124,9 @@ namespace Orm.Utilities
             {
                 // 若是字母或数字则直接输出
                 if ((vChar >= 'a' && vChar <= 'z') || (vChar >= 'A' && vChar <= 'Z') || (vChar >= '0' && vChar <= '9'))
+                {
                     myStr.Append(char.ToUpper(vChar));
+                }
                 else
                 {
                     // 若字符Unicode编码在编码范围则 查汉字列表进行转换输出

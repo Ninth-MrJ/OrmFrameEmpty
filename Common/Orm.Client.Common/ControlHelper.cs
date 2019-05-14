@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -22,10 +19,17 @@ namespace Orm.Client.Common
         /// <returns></returns>
         public static List<Visual> GetDescendantByType(Visual element, Type type)
         {
-            if (element == null) return null;
+            if (element == null)
+            {
+                return null;
+            }
+
             List<Visual> lstElement = new List<Visual>();
             if (element is FrameworkElement)
+            {
                 (element as FrameworkElement).ApplyTemplate();
+            }
+
             int cnt = VisualTreeHelper.GetChildrenCount(element);
             for (int i = 0; i < cnt; i++)
             {
@@ -40,10 +44,17 @@ namespace Orm.Client.Common
 
         public static List<Visual> GetChildObjects(Visual element, Type type)
         {
-            if (element == null) return null;
+            if (element == null)
+            {
+                return null;
+            }
+
             List<Visual> lstElement = new List<Visual>();
             if (element is FrameworkElement)
+            {
                 (element as FrameworkElement).ApplyTemplate();
+            }
+
             int cnt = VisualTreeHelper.GetChildrenCount(element);
             for (int i = 0; i < cnt; i++)
             {

@@ -1,18 +1,13 @@
 ﻿
+using Newtonsoft.Json;
+using Orm.Framework.Services;
+using Orm.Framework.Services.ServiceDBBase;
+using Orm.Model;
+using Orm.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Orm.Framework.Services;
-using Orm.Model;
-using Orm.Framework.Services.ServiceDBBase;
-using Orm.Redis;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using Newtonsoft.Json;
-using System.Text;
-using System.Threading;
-using Orm.Log4Library;
 
 namespace Orm.Framework.Services
 {
@@ -151,7 +146,7 @@ namespace Orm.Framework.Services
         {
             string modelTypeStr = typeof(T).Name;
             var IsExist = IsExist<BsRedisTable>("TableName=@0", modelTypeStr);
-            if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")|| IsExist)
+            if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
             {//如果是基础数据，从本地redis中获取数据
                 //构建pattern
                 string pattern = "";
@@ -210,7 +205,7 @@ namespace Orm.Framework.Services
                     //TransformExpressDeleteToSQL(exp);
                 };
                 Commit(action);
-               
+
                 return count;
             }
             else
@@ -218,7 +213,7 @@ namespace Orm.Framework.Services
                 //TransformExpressDeleteToSQL(exp);
                 DeleteRedis<T>(exp);
                 int k = DataRepository().Delete<T>(exp);
-                  
+
                 return k;
             }
         }
@@ -241,7 +236,10 @@ namespace Orm.Framework.Services
             //TransformUpdateEntityByExpressToSql(update, where);
             int k = DataRepository().Update<T>(update, where);
             if (k > 0)
+            {
                 UpdateRedis<T>(where);
+            }
+
             return k;
         }
 
@@ -276,7 +274,7 @@ namespace Orm.Framework.Services
                 List<T> list = GetList<T>(lamb);
                 foreach (T t in list)
                 {
-                   bool succ= RedisWriteExHelper.SetUpdate(typeof(T).Name, t.GUID, JsonConvert.SerializeObject(t));
+                    bool succ = RedisWriteExHelper.SetUpdate(typeof(T).Name, t.GUID, JsonConvert.SerializeObject(t));
                     //RabbitMQMessage rabbitMQMessage = new RabbitMQMessage()
                     //{
                     //    MessageKey = typeof(T).Name,

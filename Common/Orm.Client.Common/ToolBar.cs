@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Orm.Model.EnumDefine;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Orm.Model.EnumDefine;
 
 namespace Orm.Client.Common
 {
@@ -42,7 +39,7 @@ namespace Orm.Client.Common
         }
     }
 
-    public class ToolbarItem :IComparable
+    public class ToolbarItem : IComparable
     {
 
         protected int _id;

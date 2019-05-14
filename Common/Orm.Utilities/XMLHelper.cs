@@ -21,7 +21,9 @@ namespace Orm.Utilities
             foreach (string item in column.Split(','))
             {
                 if (!Request.Contains(item))
+                {
                     return string.Format("<ResultCode>1</ResultCode><ErrorMsg>请联系接口程序员,参数{0}是否对应</ErrorMsg>", item);
+                }
             }
             return string.Empty;
         }
@@ -92,7 +94,10 @@ namespace Orm.Utilities
             }
             finally
             {
-                if (writer != null) writer.Close();
+                if (writer != null)
+                {
+                    writer.Close();
+                }
             }
         }
 
@@ -121,7 +126,9 @@ namespace Orm.Utilities
             finally
             {
                 if (reader != null)
+                {
                     reader.Close();
+                }
             }
         }
 
@@ -145,11 +152,17 @@ namespace Orm.Utilities
         private static string GetStr(string TxtStr, string FirstStr, string SecondStr)
         {
             if (FirstStr.IndexOf(SecondStr, 0) != -1)
+            {
                 return "";
+            }
+
             int FirstSite = TxtStr.IndexOf(FirstStr, 0);
             int SecondSite = TxtStr.IndexOf(SecondStr, FirstSite + 1);
             if (FirstSite == -1 || SecondSite == -1)
+            {
                 return "";
+            }
+
             return TxtStr.Substring(FirstSite + FirstStr.Length, SecondSite - FirstSite - FirstStr.Length);
         }
 

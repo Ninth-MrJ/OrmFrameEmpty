@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Client.Common
 {
@@ -26,7 +24,7 @@ namespace Orm.Client.Common
         {
             return EqualityComparer<C>.Default.GetHashCode(this._getField(obj));
         }
-        
+
     }
     public static class DistinctHelper
     {

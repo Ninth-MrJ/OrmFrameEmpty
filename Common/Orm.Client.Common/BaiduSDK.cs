@@ -117,7 +117,6 @@ namespace Orm.Client.Common
             catch (Exception ex)
             {
                 throw ex;
-                return "null";
             }
         }
     }

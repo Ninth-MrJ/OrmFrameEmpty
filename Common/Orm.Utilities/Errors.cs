@@ -99,11 +99,19 @@ namespace Orm.Utilities
         /// <returns></returns>
         private static int GetSQLExceptionCode(System.Data.SqlClient.SqlException ex)
         {
-            if (ex == null) return ERROR_SQL_FAILD;
+            if (ex == null)
+            {
+                return ERROR_SQL_FAILD;
+            }
+
             Hashtable ht = new Hashtable();
             ht.Add(547, ERROR_SQL_REFERENCE);
             ht.Add(208, ERROR_SQL_INVALIDOBJECT);
-            if (ht[ex.Number] == null) return ERROR_SQL_FAILD;
+            if (ht[ex.Number] == null)
+            {
+                return ERROR_SQL_FAILD;
+            }
+
             return Int32.Parse(ht[ex.Number].ToString());
         }
         #endregion
@@ -165,7 +173,11 @@ namespace Orm.Utilities
             ht.Add(TEMPLATE_INVALID, "模板格式无效");
             ht.Add(TEMPLATE_NONEITEM, "模板没有子模板");
             ht.Add(ERROR_Authorize_FAILED, "审核错误");
-            if (ht[number] == null) return "操作失败";
+            if (ht[number] == null)
+            {
+                return "操作失败";
+            }
+
             return ht[number].ToString();
         }
     }

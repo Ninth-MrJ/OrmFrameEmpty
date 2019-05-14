@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Orm.Client.Common
 {
@@ -11,7 +8,7 @@ namespace Orm.Client.Common
     /// </summary>
     public class SetSystemDateTime
     {
-         
+
         [DllImportAttribute("Kernel32.dll")]
 
         public static extern void GetLocalTime(SystemTime st);
@@ -24,10 +21,10 @@ namespace Orm.Client.Common
         {
             SystemTime systemTime = new SystemTime();
             systemTime.vYear = (ushort)dateTime.Year;
-            systemTime.vMonth = (ushort)dateTime.Month; 
-            systemTime.vDay = (ushort)dateTime.Day; 
-            systemTime.vHour = (ushort)dateTime.Hour; 
-            systemTime.vMinute = (ushort)dateTime.Minute; 
+            systemTime.vMonth = (ushort)dateTime.Month;
+            systemTime.vDay = (ushort)dateTime.Day;
+            systemTime.vHour = (ushort)dateTime.Hour;
+            systemTime.vMinute = (ushort)dateTime.Minute;
             //systemTime.vSecond = (ushort)dateTime.Second;
             SetLocalTime(systemTime);
         }

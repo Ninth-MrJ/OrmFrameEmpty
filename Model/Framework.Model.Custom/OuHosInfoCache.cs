@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Orm.Model.Custom
 {
@@ -123,6 +120,6 @@ namespace Orm.Model.Custom
         {
             get { return _wbCode; }
             set { _wbCode = value; }
-        } 
+        }
     }
 }

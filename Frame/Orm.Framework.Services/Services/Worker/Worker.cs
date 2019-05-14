@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
 
 namespace Orm.Framework.Services
@@ -39,7 +37,10 @@ namespace Orm.Framework.Services
         #region 计时器 & 控制方法
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (IsMutex && isWorking) return;
+            if (IsMutex && isWorking)
+            {
+                return;
+            }
 
             try
             {

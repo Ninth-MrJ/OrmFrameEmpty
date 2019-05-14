@@ -3,11 +3,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Orm.Model;
 
 namespace Orm.Redis
 {
@@ -20,7 +16,7 @@ namespace Orm.Redis
             //ExchangeName = ConfigurationManager.AppSettings["Orm.RabbitMQ.ExchangeName"].ToString();
             //Routingkey = ConfigurationManager.AppSettings["Orm.RabbitMQ.Routingkey"].ToString();
         }
-        
+
         #region 操作相关
 
         #region 取数
@@ -145,7 +141,7 @@ namespace Orm.Redis
                     if (result.Result)
                     {
                         //MsgSyncRecord msgRecord = new MsgSyncRecord() { HospitalID = Convert.ToInt32(HospitalID), tableName = tableName, cacheKey = key, oldValue = "", newValue = JsonSerializer.SerializeToString(value), curUser = user, sqlRecord = sql, updateTime = DateTime.Now.ToString("yyyyMMddhhmmss") };
-                       // Producer.Topic(ExchangeName, Routingkey, msgRecord);//发消息
+                        // Producer.Topic(ExchangeName, Routingkey, msgRecord);//发消息
                     }
                     b = result.Result;
                 }

@@ -246,51 +246,97 @@ namespace Orm.Utilities
                 else if (array[0] >= 176 && array[0] <= 215)  //一级汉字
                 {
                     if (transName[i].ToString().CompareTo("匝") >= 0)
+                    {
                         return_py += "z";
+                    }
                     else if (transName[i].ToString().CompareTo("压") >= 0)
+                    {
                         return_py += "y";
+                    }
                     else if (transName[i].ToString().CompareTo("昔") >= 0)
+                    {
                         return_py += "x";
+                    }
                     else if (transName[i].ToString().CompareTo("挖") >= 0)
+                    {
                         return_py += "w";
+                    }
                     else if (transName[i].ToString().CompareTo("塌") >= 0)
+                    {
                         return_py += "t";
+                    }
                     else if (transName[i].ToString().CompareTo("撒") >= 0)
+                    {
                         return_py += "s";
+                    }
                     else if (transName[i].ToString().CompareTo("然") >= 0)
+                    {
                         return_py += "r";
+                    }
                     else if (transName[i].ToString().CompareTo("期") >= 0)
+                    {
                         return_py += "q";
+                    }
                     else if (transName[i].ToString().CompareTo("啪") >= 0)
+                    {
                         return_py += "p";
+                    }
                     else if (transName[i].ToString().CompareTo("哦") >= 0)
+                    {
                         return_py += "o";
+                    }
                     else if (transName[i].ToString().CompareTo("拿") >= 0)
+                    {
                         return_py += "n";
+                    }
                     else if (transName[i].ToString().CompareTo("妈") >= 0)
+                    {
                         return_py += "m";
+                    }
                     else if (transName[i].ToString().CompareTo("垃") >= 0)
+                    {
                         return_py += "l";
+                    }
                     else if (transName[i].ToString().CompareTo("喀") >= 0)
+                    {
                         return_py += "k";
+                    }
                     else if (transName[i].ToString().CompareTo("击") >= 0)
+                    {
                         return_py += "j";
+                    }
                     else if (transName[i].ToString().CompareTo("哈") >= 0)
+                    {
                         return_py += "h";
+                    }
                     else if (transName[i].ToString().CompareTo("噶") >= 0)
+                    {
                         return_py += "g";
+                    }
                     else if (transName[i].ToString().CompareTo("发") >= 0)
+                    {
                         return_py += "f";
+                    }
                     else if (transName[i].ToString().CompareTo("蛾") >= 0)
+                    {
                         return_py += "e";
+                    }
                     else if (transName[i].ToString().CompareTo("搭") >= 0)
+                    {
                         return_py += "d";
+                    }
                     else if (transName[i].ToString().CompareTo("擦") >= 0)
+                    {
                         return_py += "c";
+                    }
                     else if (transName[i].ToString().CompareTo("芭") >= 0)
+                    {
                         return_py += "b";
+                    }
                     else if (transName[i].ToString().CompareTo("啊") >= 0)
+                    {
                         return_py += "a";
+                    }
                 }
                 else if (array[0] >= 215)    //二级汉字
                 {
@@ -332,7 +378,9 @@ namespace Orm.Utilities
                     {
                         // 修正部分文字
                         if (chrAsc == -9254)  // 修正“圳”字
+                        {
                             pyString += "Zhen";
+                        }
                         else
                         {
                             for (int i = (pyValue.Length - 1); i >= 0; i--)

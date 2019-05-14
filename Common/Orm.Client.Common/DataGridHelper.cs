@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
@@ -44,7 +39,7 @@ namespace Orm.Client.Common
         /// <param name="row">The row of the cell</param>
         /// <param name="column">The column index of the cell</param>
         /// <returns>A cell of the DataGrid</returns>
-        public static DataGridCell GetCell(this DataGrid grid, DataGridRow row, int column)
+        public static DataGridCell GetCell(this DataGrid grid, DataGridRow row, int column)
         {
             if (row != null)
             {
@@ -66,7 +61,7 @@ namespace Orm.Client.Common
         /// <param name="row">The row index of the cell</param>
         /// <param name="column">The column index of the cell</param>
         /// <returns>A cell of the DataGrid</returns>
-        public static DataGridCell GetCell(this DataGrid grid, int row, int column)
+        public static DataGridCell GetCell(this DataGrid grid, int row, int column)
         {
             DataGridRow rowContainer = grid.GetRow(row);
             return grid.GetCell(rowContainer, column);
@@ -77,7 +72,7 @@ namespace Orm.Client.Common
         /// <param name="grid">The DataGrid instance</param>
         /// <param name="index">The index of the row</param>
         /// <returns>A row of the DataGrid</returns>
-        public static DataGridRow GetRow(this DataGrid grid, int index)
+        public static DataGridRow GetRow(this DataGrid grid, int index)
         {
             DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(index);
             if (row == null)
@@ -94,7 +89,7 @@ namespace Orm.Client.Common
         /// </summary>
         /// <param name="grid">The DataGrid instance</param>
         /// <returns></returns>
-        public static DataGridRow GetSelectedRow(this DataGrid grid)
+        public static DataGridRow GetSelectedRow(this DataGrid grid)
         {
             return (DataGridRow)grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem);
         }

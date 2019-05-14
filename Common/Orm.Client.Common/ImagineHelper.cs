@@ -1,14 +1,14 @@
 ﻿using Microsoft.Win32;
-using System; 
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text; 
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading; 
+using System.Windows.Threading;
 
 namespace Orm.Client.Common
 {
@@ -121,9 +121,13 @@ namespace Orm.Client.Common
             Process process = Process.Start(startInfo);
             process.WaitForExit();
             if (process.ExitCode != 0)
+            {
                 return false;
+            }
             else
+            {
                 return true;
+            }
         }
 
         //public static List<EmrTemplate> LstFilesEmrTemplate = new List<EmrTemplate>();
@@ -166,9 +170,13 @@ namespace Orm.Client.Common
             var start = fileName.LastIndexOf("\\") + 1;
             var end = fileName.LastIndexOf(".");
             if (isWithSuffix)
+            {
                 fileName = fileName.Substring(start, fileName.Length - start);
+            }
             else
+            {
                 fileName = fileName.Substring(start, end - start);
+            }
 
             return fileName;
         }
@@ -187,9 +195,13 @@ namespace Orm.Client.Common
                 var stringsub = stringx.Substring(0, index);
                 var tmp = stringsub + stringx.Substring(index + 1, stringx.Length - (index + 1));
                 if (tmp.IndexOf(" ") != -1)
+                {
                     stringx = StringToTrimMiddle(tmp);
+                }
                 else
+                {
                     stringx = tmp;
+                }
             }
             return stringx;
         }

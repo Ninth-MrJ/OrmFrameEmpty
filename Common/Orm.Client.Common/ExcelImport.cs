@@ -1,25 +1,25 @@
 ﻿using Aspose.Cells;
 using System;
 using System.Data;
-
-//using System.Data;
-using System.Windows.Forms; 
-//using System.Windows.Input;
-//using System.Windows.Data;
+using System.Windows.Forms;
 
 namespace Orm.Client.Common
 {
     public static class ExcelImport
     {
         public static System.Data.DataTable ImportExcelToDataTable()
-       {
+        {
             var ofd = new System.Windows.Forms.OpenFileDialog()
             {
                 //Filter = "Microsoft Office Excel 工作簿(*.xls)|*.xls|*.xlsx",
                 Filter = "Excel (*.XLSX)|*.xlsx",
                 Multiselect = false
             };
-            if (ofd.ShowDialog() == DialogResult.Cancel) return null; 
+            if (ofd.ShowDialog() == DialogResult.Cancel)
+            {
+                return null;
+            }
+
             System.Data.DataTable tempdt = new System.Data.DataTable();
             tempdt.TableName = "Excel";
 
@@ -38,12 +38,12 @@ namespace Orm.Client.Common
                 for (int i = 2; i <= _cells.MaxDataRow; i++)//_wSheet.UsedRange.Rows.Count
                 {
                     newRow = tempdt.NewRow();
-                    for (int j = 1; j <= _cells.MaxDataColumn ; j++)
+                    for (int j = 1; j <= _cells.MaxDataColumn; j++)
                     {
                         if (i == 2)
                         {
                             if (_cells[1, j].Value != null)
-                            { 
+                            {
                                 string str = _cells[1, j].Value.ToString();
                                 newColumn = new DataColumn(str);
                                 newRow.Table.Columns.Add(newColumn);
@@ -95,5 +95,5 @@ namespace Orm.Client.Common
         }
     }
 
-    
+
 }

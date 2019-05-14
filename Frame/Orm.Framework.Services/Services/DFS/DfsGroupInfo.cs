@@ -5,7 +5,7 @@
     /// </summary>
     public sealed class DfsGroupInfo
     {
-        public const int GroupInfo_LEN= 97; //(16+1)+8*10
+        public const int GroupInfo_LEN = 97; //(16+1)+8*10
 
         public readonly string GroupName;
         public readonly long FreeSpace; //单位MB

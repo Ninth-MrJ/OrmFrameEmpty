@@ -107,7 +107,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
 
         public static int GetOperatorLevel(Token token)
         {
-            if (string.IsNullOrEmpty(token.Text) || token.ID == TokenId.CloseBrace || token.ID == TokenId.Comma || token.ID == TokenId.Colon) return -1;
+            if (string.IsNullOrEmpty(token.Text) || token.ID == TokenId.CloseBrace || token.ID == TokenId.Comma || token.ID == TokenId.Colon)
+            {
+                return -1;
+            }
 
             return GetOperatorLevel(token.Text, false);
         }

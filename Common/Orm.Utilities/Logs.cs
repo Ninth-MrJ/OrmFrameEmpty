@@ -18,11 +18,15 @@ namespace Orm.Utilities
                 if (logPath == string.Empty)
                 {
                     if (HttpContext.Current == null)
+                    {
                         // Windows Forms 应用  
                         logPath = AppDomain.CurrentDomain.BaseDirectory;
+                    }
                     else
+                    {
                         // Web 应用  
                         logPath = AppDomain.CurrentDomain.BaseDirectory + @"FrameWork_Log/";
+                    }
                 }
                 return logPath;
             }

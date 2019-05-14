@@ -1,15 +1,15 @@
-﻿using Orm.Framework.Services;
+﻿using Newtonsoft.Json;
+using Orm.Config;
+using Orm.Framework.Services;
+using Orm.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
-using WebBridgeContract;
-using System.IO.Compression;
-using Newtonsoft.Json;
-using Orm.Config;
-using Orm.Model;
 using System.Threading.Tasks;
+using WebBridgeContract;
 
 namespace WebBridgeEndpoint
 {
@@ -63,7 +63,7 @@ namespace WebBridgeEndpoint
                 ServicePoint currentServicePoint = request.ServicePoint;
                 currentServicePoint.ConnectionLimit = 1000;
                 response = (HttpWebResponse)request.GetResponse();
-                
+
                 streamResponse = response.GetResponseStream();
 
                 string strResponse = string.Empty;
@@ -117,7 +117,7 @@ namespace WebBridgeEndpoint
                             OperTime = DateTime.Now,
                             ParameterContents = Parameters,
                         };
-                        Orm.Config.Service.DBClientService.Add<CountUserData>(countUserData);
+                        //Orm.Config.Service.DBClientService.Add<CountUserData>(countUserData);
                     });
                     //string strRequestTimeLog = string.Format(" 诊所：{0} ip地址：{1}  操作人：{2} 操作时间：{3} 接口：{4}调用方法：{5} 请求响应时间：{6}(毫秒) 返回值大小：{7}Kb", 
                     //    UserProfiles.LocationName, UserProfiles.ClientComputerGuid,UserProfiles.UserName,DateTime.Now, apiInterfaceName, methodName, counter.ToString(), (responseData.Length / 1024.00).ToString("f0"));
@@ -172,7 +172,7 @@ namespace WebBridgeEndpoint
                 }
             }
         }
-        
+
         /// <summary>
         /// http请求(行心云)
         /// </summary>
@@ -325,7 +325,10 @@ namespace WebBridgeEndpoint
 
             //目录不存在时创建目录
             string FileDir = Path.GetDirectoryName(Log_File);
-            if (!Directory.Exists(FileDir)) Directory.CreateDirectory(FileDir);
+            if (!Directory.Exists(FileDir))
+            {
+                Directory.CreateDirectory(FileDir);
+            }
 
             //写入日志
             string Msg = string.Format("{0}：{1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff"), msg);

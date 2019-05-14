@@ -69,11 +69,19 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null)) return false;
-            if (obj is Token)
-                return Equals((Token)obj);
-            else
+            if (ReferenceEquals(obj, null))
+            {
                 return false;
+            }
+
+            if (obj is Token)
+            {
+                return Equals((Token)obj);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -83,7 +91,11 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         /// <returns></returns>
         public bool Equals(Token token)
         {
-            if (ReferenceEquals(token, null)) return false;
+            if (ReferenceEquals(token, null))
+            {
+                return false;
+            }
+
             return ID == token.id && Text == token.Text;
         }
 
@@ -138,7 +150,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         public Token Throw(TokenId id)
         {
             if (ID != id)
-            { 
+            {
                 throw new ParserSyntaxErrorException();
             }
 
@@ -153,7 +165,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         public Token Throw(string text)
         {
             if (Text != text)
-            { 
+            {
                 throw new ParserSyntaxErrorException();
             }
 

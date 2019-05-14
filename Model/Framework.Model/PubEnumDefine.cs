@@ -14,7 +14,7 @@ namespace Orm.Model.EnumDefine
     [Serializable]
     public class BaseControlConfig
     {
-      
+
         #region 属性
         private string _key;
         /// <summary>
@@ -111,9 +111,13 @@ namespace Orm.Model.EnumDefine
             get
             {
                 if (this._storedProcedure.StartsWith("Enum"))
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
         }
 
@@ -126,11 +130,17 @@ namespace Orm.Model.EnumDefine
             {
                 if (this._whereCondition.ToLower().Contains("drop")
                     || this._whereCondition.ToLower().Contains("delete"))
+                {
                     throw new FormatException(string.Format("配置项{0}配置了非法项", this._key));
+                }
+
                 string format = @"select :field from :tbName where :where ";
                 string orderby = @" order by :o";
                 if (!string.IsNullOrEmpty(this._orderByExpression))
+                {
                     format = format + orderby;
+                }
+
                 format = format.Replace(":tbName", this._storedProcedure);
                 format = format.Replace(":field", this._field);
                 format = format.Replace(":where", this._whereCondition);
@@ -451,7 +461,7 @@ namespace Orm.Model.EnumDefine
         附加项目 = 6,
         材料 = 7,
         营养素 = 8,
-        其他=9,
+        其他 = 9,
     }
 
 
@@ -477,7 +487,7 @@ namespace Orm.Model.EnumDefine
         药品 = 5703,
         居家养老 = 5742,
         营养素 = 5741,
-        生鲜=5602
+        生鲜 = 5602
 
     }
 
@@ -790,7 +800,7 @@ namespace Orm.Model.EnumDefine
     /// </summary>
     public enum EnumFollowStatus
     {
-       // 全部 = 0,
+        // 全部 = 0,
         未回访 = 1,
         已回访 = 2,
         待跟进 = 3,
@@ -2035,7 +2045,7 @@ namespace Orm.Model.EnumDefine
         /// 发药出库
         /// </summary>
         发药出库 = 99,
-      
+
     }
 
     /// <summary>
@@ -2195,7 +2205,7 @@ namespace Orm.Model.EnumDefine
     public enum EnumIsGblSystemMenu
     {
         平台咨询 = 1,
-        医疗服务 = 2, 
+        医疗服务 = 2,
     }
 
 
@@ -2342,7 +2352,7 @@ namespace Orm.Model.EnumDefine
     /// </summary>
     public enum EnumLsDiagType
     {
-        全部 =0,
+        全部 = 0,
         初诊 = 1,
         复诊 = 2,
         疑诊 = 3,
@@ -2468,7 +2478,7 @@ namespace Orm.Model.EnumDefine
         缴费 = 3,
         作废退费 = 4,
         转账 = 5,
-        项目消费抵扣=6,
+        项目消费抵扣 = 6,
     }
     /// <summary>
     /// 会员卡状态
@@ -2528,7 +2538,7 @@ namespace Orm.Model.EnumDefine
     /// </summary>
     public enum EnumMainLocation
     {
-        总店 =    5037,
+        总店 = 5037,
     }
 
     /// <summary>
@@ -4698,8 +4708,14 @@ namespace Orm.Model.EnumDefine
 
             }
             object temp = ht[field.FieldType.FullName + "." + field.Name];
-            if (temp == null) return string.Empty;
-            else return temp.ToString();
+            if (temp == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return temp.ToString();
+            }
         }
 
         private static string GetEnumFullName(System.Enum eEnum)
@@ -4720,7 +4736,7 @@ namespace Orm.Model.EnumDefine
         private static Dictionary<string, List<EnumStruct>> dtEnums2;
         private static Dictionary<string, List<KeyValuePair<string, string>>> KeyValueEnums;
         private static Dictionary<string, List<KeyValuePair<int, string>>> KeyValueIntEnums;
-        private static object locker=new object();
+        private static object locker = new object();
         static EumConvertor()
         {
             dtEnums = new Dictionary<string, List<WeekDayClass>>();
@@ -4734,7 +4750,10 @@ namespace Orm.Model.EnumDefine
             List<WeekDayClass> list = Convert(strEnum);
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Key.ToLower() == strEnumKey.ToLower()) return list[i].Value;
+                if (list[i].Key.ToLower() == strEnumKey.ToLower())
+                {
+                    return list[i].Value;
+                }
             }
             return 0;
         }
@@ -4755,7 +4774,11 @@ namespace Orm.Model.EnumDefine
                 System.Reflection.FieldInfo[] fields = type.GetFields();
                 for (int i = 0; i < fields.Length; i++)
                 {
-                    if (fields[i].Name.IndexOf("_") >= 0) continue;
+                    if (fields[i].Name.IndexOf("_") >= 0)
+                    {
+                        continue;
+                    }
+
                     WeekDayClass obj = new WeekDayClass();
                     obj.Key = fields[i].Name;
                     obj.Value = (int)fields[i].GetRawConstantValue();
@@ -4766,13 +4789,15 @@ namespace Orm.Model.EnumDefine
                 return list;
             }
         }
-        
+
         public static List<EnumStruct> GetEnumToList(string enumName)
         {
             lock (locker)
             {
                 if (dtEnums2.ContainsKey(enumName))
+                {
                     return dtEnums2[enumName];
+                }
                 else
                 {
                     System.Type type = System.Type.GetType("Orm.Model.EnumDefine." + enumName);
@@ -4780,7 +4805,11 @@ namespace Orm.Model.EnumDefine
                     System.Reflection.FieldInfo[] fields = type.GetFields();
                     for (int i = 0; i < fields.Length; i++)
                     {
-                        if (fields[i].Name.IndexOf("_") >= 0) continue;
+                        if (fields[i].Name.IndexOf("_") >= 0)
+                        {
+                            continue;
+                        }
+
                         EnumStruct obj = new EnumStruct();
                         obj.Code = fields[i].Name;
                         obj.GUID = fields[i].GetRawConstantValue().ToString();
@@ -4790,7 +4819,7 @@ namespace Orm.Model.EnumDefine
                     dtEnums2.Add(enumName, list);
                     return list;
                 }
-          
+
             }
         }
 
@@ -4802,7 +4831,9 @@ namespace Orm.Model.EnumDefine
         public static List<KeyValuePair<string, string>> ConvertToKeyValueList(string enumName)
         {
             if (KeyValueEnums.ContainsKey(enumName))
+            {
                 return KeyValueEnums[enumName];
+            }
             else
             {
                 try
@@ -4812,7 +4843,11 @@ namespace Orm.Model.EnumDefine
                     System.Reflection.FieldInfo[] fields = type.GetFields();
                     for (int i = 0; i < fields.Length; i++)
                     {
-                        if (fields[i].Name.IndexOf("_") >= 0) continue;
+                        if (fields[i].Name.IndexOf("_") >= 0)
+                        {
+                            continue;
+                        }
+
                         list.Add(new KeyValuePair<string, string>(fields[i].GetRawConstantValue().ToString(), fields[i].Name));
                     }
                     KeyValueEnums.Add(enumName, list);
@@ -4834,7 +4869,9 @@ namespace Orm.Model.EnumDefine
         public static List<KeyValuePair<int, string>> ConvertToKeyIntValueList(string enumName)
         {
             if (KeyValueIntEnums.ContainsKey(enumName))
+            {
                 return KeyValueIntEnums[enumName];
+            }
             else
             {
                 try
@@ -4844,7 +4881,11 @@ namespace Orm.Model.EnumDefine
                     System.Reflection.FieldInfo[] fields = type.GetFields();
                     for (int i = 0; i < fields.Length; i++)
                     {
-                        if (fields[i].Name.IndexOf("_") >= 0) continue;
+                        if (fields[i].Name.IndexOf("_") >= 0)
+                        {
+                            continue;
+                        }
+
                         list.Add(new KeyValuePair<int, string>((int)fields[i].GetRawConstantValue(), fields[i].Name));
                     }
                     KeyValueIntEnums.Add(enumName, list);
@@ -4870,7 +4911,11 @@ namespace Orm.Model.EnumDefine
             dt.Columns.Add("Value", System.Type.GetType("System.Int32"));
             dt.Columns.Add("Name", System.Type.GetType("System.String"));
             dt.Columns.Add("IconIndex", System.Type.GetType("System.Int32"));
-            if (list == null) return dt;
+            if (list == null)
+            {
+                return dt;
+            }
+
             for (int i = 0; i < list.Count; i++)
             {
                 DataRow dr = dt.NewRow();
@@ -5064,14 +5109,14 @@ namespace Orm.Model.EnumDefine
             FinalDiagnosis = 9
         }
 
-        
-
-        
 
 
 
 
-      
+
+
+
+
 
         #region EnumFeeTurn [长期医嘱附加收费的周期]
         /// <summary>
@@ -5090,14 +5135,14 @@ namespace Orm.Model.EnumDefine
         }
         #endregion
 
-       
 
-        
 
-        
 
-        
-        
+
+
+
+
+
 
     }
 
@@ -5900,7 +5945,7 @@ namespace Orm.Model.EnumDefine
     }
     #endregion
 
-    public enum EnumLsAdvType 
+    public enum EnumLsAdvType
     {
         [Description("全部")]
         All = 0,

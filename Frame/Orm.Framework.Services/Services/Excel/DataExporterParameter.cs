@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Framework.Services
 {
@@ -71,7 +68,7 @@ namespace Orm.Framework.Services
         /// Id,显示名称，层内排序号，是否是分层（1是0否），父Id，层数（最上层为1）
         /// </summary>
         public List<CommonHeaderConfig> CommonHeaders { get; set; }
-      
+
 
 
         /// <summary>

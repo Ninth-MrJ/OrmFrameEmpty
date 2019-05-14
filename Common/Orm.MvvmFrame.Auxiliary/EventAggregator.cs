@@ -329,7 +329,13 @@ namespace Orm.MvvmFrame.Auxiliary
                     if (action != null)
                     {
                         if (obj != null)
-                            if (obj.ToString().Equals(data.ToString())) return;
+                        {
+                            if (obj.ToString().Equals(data.ToString()))
+                            {
+                                return;
+                            }
+                        }
+
                         var re = action(data);
                         obj = data;
                         callback(re);
@@ -507,7 +513,10 @@ namespace Orm.MvvmFrame.Auxiliary
                 foreach (var l in handlers.Where(a => a.Type.IsAssignableFrom(typeof(TSent)) && a.Sender.Target.GetType().IsAssignableFrom(senderType)).ToList())
                 {
                     var action = l.Action as Action<TSent>;
-                    if (action != null) action(data);
+                    if (action != null)
+                    {
+                        action(data);
+                    }
                 }
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Text;
-using System.IO;
 using System.Collections;
+using System.IO;
+using System.Text;
 
 namespace Orm.Framework.Services.Utility
 {
@@ -42,7 +42,11 @@ namespace Orm.Framework.Services.Utility
         /// <param name="encoding"></param>
         public void Create(string fileName, string encoding)
         {
-            if (File.Exists(fileName)) File.Delete(fileName);
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
             Encoding e = Encoding.GetEncoding(encoding);
             StreamWriter file = new StreamWriter(fileName, false, e);
             try
@@ -107,13 +111,13 @@ namespace Orm.Framework.Services.Utility
                 stream.Close();
             }
             catch (System.Exception ex)
-            { 
+            {
                 throw (ex);
             }
             finally
-            { 
+            {
                 writer.Flush();
-                writer.Close(); 
+                writer.Close();
             }
             return "OK";
 
@@ -148,9 +152,9 @@ namespace Orm.Framework.Services.Utility
                 throw (ex);
             }
             finally
-            { 
+            {
                 writer.Flush();
-                writer.Close(); 
+                writer.Close();
             }
             return "OK";
         }
@@ -191,7 +195,7 @@ namespace Orm.Framework.Services.Utility
         public string Read(string fileName)
         {
             if (!File.Exists(fileName))
-            { 
+            {
                 return string.Empty;
             }
             Encoding e = Encoding.GetEncoding("gb2312");
@@ -206,7 +210,7 @@ namespace Orm.Framework.Services.Utility
         /// </summary>
         /// <param name="fileName"></param>
         public void CreateHTML(string fileName)
-        { 
+        {
             this.Create(fileName, "gb2312");
         }
 
@@ -226,7 +230,11 @@ namespace Orm.Framework.Services.Utility
         public string GetFullPath()
         {
             string str = this.BaseFolder + this.GetDayFolderName() + "\\";
-            if (!Directory.Exists(str)) Directory.CreateDirectory(str);
+            if (!Directory.Exists(str))
+            {
+                Directory.CreateDirectory(str);
+            }
+
             return str;
         }
 
@@ -297,7 +305,7 @@ namespace Orm.Framework.Services.Utility
             System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(rex, System.Text.RegularExpressions.RegexOptions.Compiled | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             System.Text.RegularExpressions.Match m = r.Match(content);
             for (m = r.Match(content); m.Success; m = m.NextMatch())
-            { 
+            {
                 list.Add(m.Groups[1].Value);
             }
             return list;
@@ -325,9 +333,14 @@ namespace Orm.Framework.Services.Utility
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 判断目标目录是否存在如果不存在则新建之
-                if (!Directory.Exists(aimPath)) Directory.CreateDirectory(aimPath);
+                if (!Directory.Exists(aimPath))
+                {
+                    Directory.CreateDirectory(aimPath);
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 // 如果指向copy目标文件下面的文件而不包含目录可使用下面的方法
                 // string[] fileList = Directory.GetFiles(srcPath);
@@ -404,7 +417,9 @@ namespace Orm.Framework.Services.Utility
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 // 如果指向Delete目标文件下面的文件而不包含目录可使用下面的方法
                 // string[] fileList = Directory.GetFiles(aimPath);
@@ -443,7 +458,7 @@ namespace Orm.Framework.Services.Utility
         {
             int start = file.LastIndexOf(".");
             if (start < 0)
-            { 
+            {
                 return string.Empty;
             }
             string ext = file.Substring(start, file.Length - start);

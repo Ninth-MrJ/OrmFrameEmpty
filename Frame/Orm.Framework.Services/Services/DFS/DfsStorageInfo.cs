@@ -7,7 +7,7 @@
         public readonly int Port;
         public readonly byte Store_Path_Index;
 
-        public DfsStorageInfo(string group,string ip,int port,byte storepathindex)
+        public DfsStorageInfo(string group, string ip, int port, byte storepathindex)
         {
             GroupName = group;
             IP = ip;

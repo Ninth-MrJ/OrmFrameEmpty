@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Orm.Client.Common
 {
@@ -12,11 +10,7 @@ namespace Orm.Client.Common
         private string _idCardNo;
         private string _nation;
         private string _birthAddress;
-        //private string _committee;
 
-        //private string _addressHome;
-        //private string _addressHomeb;
-       
         public CardPatientSM()
         {
         }

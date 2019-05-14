@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.Text;
-using StackExchange.Redis;
 
 namespace Orm.Redis
 {
@@ -65,7 +65,7 @@ namespace Orm.Redis
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
         public static bool StringSet(string key, string value)
-        {            
+        {
             return Cache.StringSet(key, value);
         }
 
@@ -101,7 +101,7 @@ namespace Orm.Redis
         /// <param name="value">追加的值</param>
         /// <returns></returns>
         public static long StringAppend(string key, string value)
-        {            
+        {
             return Cache.StringAppend(key, value);
         }
 
@@ -111,7 +111,7 @@ namespace Orm.Redis
         /// <param name="key">要读取的Key名称</param>
         /// <returns></returns>
         public static string StringGet(string key)
-        {            
+        {
             return Cache.StringGet(key);
         }
 
@@ -134,7 +134,7 @@ namespace Orm.Redis
         /// <param name="key">要获取值的Key集合</param>
         /// <returns></returns>
         public static T StringGet<T>(string key)
-        {            
+        {
             var values = Cache.StringGet(key);
             return ConvertObj<T>(values);
         }
@@ -159,7 +159,7 @@ namespace Orm.Redis
         /// <param name="value">新值</param>
         /// <returns></returns>
         public static string StringGetSet(string key, string value)
-        {            
+        {
             return Cache.StringGetSet(key, value);
         }
 
@@ -171,7 +171,7 @@ namespace Orm.Redis
         /// <param name="value">新值</param>
         /// <returns></returns>
         public static T StringGetSet<T>(string key, T value)
-        {            
+        {
             string jsonValue = ConvertJson(value);
             var oValue = Cache.StringGetSet(key, jsonValue);
             return ConvertObj<T>(oValue);
@@ -183,7 +183,7 @@ namespace Orm.Redis
         /// <param name="key">Key名称</param>
         /// <returns></returns>
         public static long StringGetLength(string key)
-        {            
+        {
             return Cache.StringLength(key);
         }
 
@@ -194,7 +194,7 @@ namespace Orm.Redis
         /// <param name="val">可以为负</param>
         /// <returns>增长后的值</returns>
         public static double StringIncrement(string key, double val = 1)
-        {            
+        {
             return Cache.StringIncrement(key, val);
         }
 
@@ -205,7 +205,7 @@ namespace Orm.Redis
         /// <param name="val">可以为负</param>
         /// <returns>减少后的值</returns>
         public static double StringDecrement(string key, double val = 1)
-        {            
+        {
             return Cache.StringDecrement(key, val);
         }
         #endregion
@@ -231,7 +231,7 @@ namespace Orm.Redis
         #endregion
 
         #endregion
-        
+
         #region Hashes
 
         #region 同步        
@@ -554,7 +554,7 @@ namespace Orm.Redis
             RedisValue[] valueList = ConvertRedisValue(value);
             return Cache.SetRemove(key, valueList);
         }
-                
+
         /// <summary>
         /// 获取key集合中的一个值
         /// </summary>
@@ -921,7 +921,7 @@ namespace Orm.Redis
             return result;
         }
         #endregion
-                                
+
         #region Extend
         //使用Keys *模糊匹配Key
         public static List<string> GetKeys(string key)

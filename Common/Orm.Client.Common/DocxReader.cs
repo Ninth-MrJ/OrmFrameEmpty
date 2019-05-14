@@ -77,7 +77,9 @@ namespace Orm.Client.Common
         public DocxReader(Stream stream)
         {
             if (stream == null)
+            {
                 throw new ArgumentNullException("stream");
+            }
 
             this.package = Package.Open(stream, FileMode.Open, FileAccess.Read);
 
@@ -98,7 +100,9 @@ namespace Orm.Client.Common
                 IgnoreProcessingInstructions = true,
                 IgnoreWhitespace = true
             }))
+            {
                 this.ReadMainDocument(reader);
+            }
         }
 
         private static void ReadXmlSubtree(XmlReader reader, Action<XmlReader> action)
@@ -109,34 +113,42 @@ namespace Orm.Client.Common
                 subtreeReader.Read();
 
                 if (action != null)
+                {
                     action(subtreeReader);
+                }
             }
         }
 
         private void ReadMainDocument(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == DocumentElement)
                 {
                     ReadXmlSubtree(reader, this.ReadDocument);
                     break;
                 }
+            }
         }
 
         protected virtual void ReadDocument(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == BodyElement)
                 {
                     ReadXmlSubtree(reader, this.ReadBody);
                     break;
                 }
+            }
         }
 
         private void ReadBody(XmlReader reader)
         {
             while (reader.Read())
+            {
                 this.ReadBlockLevelElement(reader);
+            }
         }
 
         private void ReadBlockLevelElement(XmlReader reader)
@@ -146,6 +158,7 @@ namespace Orm.Client.Common
                 Action<XmlReader> action = null;
 
                 if (reader.NamespaceURI == WordprocessingMLNamespace)
+                {
                     switch (reader.LocalName)
                     {
                         case ParagraphElement:
@@ -156,6 +169,7 @@ namespace Orm.Client.Common
                             action = this.ReadTable;
                             break;
                     }
+                }
 
                 ReadXmlSubtree(reader, action);
             }
@@ -166,9 +180,13 @@ namespace Orm.Client.Common
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == ParagraphPropertiesElement)
+                {
                     ReadXmlSubtree(reader, this.ReadParagraphProperties);
+                }
                 else
+                {
                     this.ReadInlineLevelElement(reader);
+                }
             }
         }
 
@@ -184,6 +202,7 @@ namespace Orm.Client.Common
                 Action<XmlReader> action = null;
 
                 if (reader.NamespaceURI == WordprocessingMLNamespace)
+                {
                     switch (reader.LocalName)
                     {
                         case SimpleFieldElement:
@@ -198,6 +217,7 @@ namespace Orm.Client.Common
                             action = this.ReadRun;
                             break;
                     }
+                }
 
                 ReadXmlSubtree(reader, action);
             }
@@ -206,13 +226,17 @@ namespace Orm.Client.Common
         private void ReadSimpleField(XmlReader reader)
         {
             while (reader.Read())
+            {
                 this.ReadInlineLevelElement(reader);
+            }
         }
 
         protected virtual void ReadHyperlink(XmlReader reader)
         {
             while (reader.Read())
+            {
                 this.ReadInlineLevelElement(reader);
+            }
         }
 
         protected virtual void ReadRun(XmlReader reader)
@@ -220,9 +244,13 @@ namespace Orm.Client.Common
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == RunPropertiesElement)
+                {
                     ReadXmlSubtree(reader, this.ReadRunProperties);
+                }
                 else
+                {
                     this.ReadRunContentElement(reader);
+                }
             }
         }
 
@@ -238,6 +266,7 @@ namespace Orm.Client.Common
                 Action<XmlReader> action = null;
 
                 if (reader.NamespaceURI == WordprocessingMLNamespace)
+                {
                     switch (reader.LocalName)
                     {
                         case BreakElement:
@@ -252,6 +281,7 @@ namespace Orm.Client.Common
                             action = this.ReadText;
                             break;
                     }
+                }
 
                 ReadXmlSubtree(reader, action);
             }
@@ -275,21 +305,31 @@ namespace Orm.Client.Common
         protected virtual void ReadTable(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == TableRowElement)
+                {
                     ReadXmlSubtree(reader, this.ReadTableRow);
+                }
+            }
         }
 
         protected virtual void ReadTableRow(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == TableCellElement)
+                {
                     ReadXmlSubtree(reader, this.ReadTableCell);
+                }
+            }
         }
 
         protected virtual void ReadTableCell(XmlReader reader)
         {
             while (reader.Read())
+            {
                 this.ReadBlockLevelElement(reader);
+            }
         }
 
         public void Dispose()

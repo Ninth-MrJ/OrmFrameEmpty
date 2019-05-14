@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Orm.Model.EnumDefine;
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Orm.Model.EnumDefine;
 
 namespace Orm.Model.Custom
 {

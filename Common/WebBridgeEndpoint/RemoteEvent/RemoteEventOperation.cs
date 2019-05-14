@@ -10,7 +10,7 @@ namespace WebBridgeEndpoint
     {
         private readonly object locker = new object();
         IDataPersist dataPers = ServiceTaker.GetService<IDataPersist>("WebBridge");
-         
+
         /// <summary>
         /// 监听某个事件。
         /// </summary>
@@ -32,7 +32,7 @@ namespace WebBridgeEndpoint
 
             lock (locker)
             {
-                Action act = delegate()
+                Action act = delegate ()
                 {
                     if (!(dataPers.GetQueryable<RemoteEventListenEntity>().Where(ww => ww.EventListenKey == listenEt.EventListenKey).Count() > 0))
                     {
@@ -80,7 +80,7 @@ namespace WebBridgeEndpoint
 
             lock (locker)
             {
-                Action UpForStart = delegate()
+                Action UpForStart = delegate ()
                 {
                     RemoteEventEntity theEventEt = dataPers.GetQueryable<RemoteEventEntity>()
                          .Where(ww => ww.EventEntityKey == pEventEt.EventEntityKey && ww.HandleState == HandleState.Unstarted).FirstOrDefault();
@@ -140,7 +140,7 @@ namespace WebBridgeEndpoint
                    && ww.SenderTypeName == pEvent.SenderTypeName
                    && ww.EventName == pEvent.EventName).ToList();
 
-                Action saveForCast = delegate()
+                Action saveForCast = delegate ()
                 {
                     foreach (var EventListen in EventListenList)
                     {

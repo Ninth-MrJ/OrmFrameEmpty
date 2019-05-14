@@ -1,5 +1,5 @@
-﻿using System;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
+using System;
 using System.Configuration;
 
 namespace Orm.Redis
@@ -16,7 +16,7 @@ namespace Orm.Redis
         {
             var conn = CreateManager.Value;
             Cache = conn.GetDatabase(); //获取实例
-            
+
         }
 
         private static Lazy<ConnectionMultiplexer> GetManager(string connectionString = null)
@@ -37,7 +37,10 @@ namespace Orm.Redis
                 {
                     lock (MultiplexerLock)
                     {
-                        if (_lazyConnection != null) return _lazyConnection;
+                        if (_lazyConnection != null)
+                        {
+                            return _lazyConnection;
+                        }
 
                         _lazyConnection = GetManager();
                         return _lazyConnection;

@@ -123,7 +123,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     bracketContent.RemoveAt(bracketContent.Count - 1);
 
                     if (bracketContent.Any(p => p.ID == TokenId.OpenParen))
+                    {
                         throw new ParserSyntaxErrorException();
+                    }
 
                     // 如果读取到 => 符号表示有
                     if (!spResult.NextIs(TokenId.LambdaPrefix))
@@ -136,9 +138,13 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     ResolveParameters(bracketContent).Foreach((p, i) =>
                     {
                         if (p.ExistType)
+                        {
                             expParams.Add(Expression.Parameter(typeParser.GetType(p.Type), p.Variable));
+                        }
                         else
+                        {
                             expParams.Add(Expression.Parameter(parameterTypes[i], p.Variable));
+                        }
                     });
                 }
                 else if (token.ID == TokenId.Identifier &&
@@ -161,7 +167,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
 
                 // 参数表达式个数和传入委托参数个数不匹配判断
                 if (expParams.Count != parameterTypes.Length)
+                {
                     throw new ApplicationException("The count of parameters is not equal.");
+                }
             }
         }
 
@@ -203,9 +211,14 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     break;
                 case TokenId.StringLiteral:
                     if (token.Text.StartsWith("\""))
+                    {
                         result.Expression = Expression.Constant(token.Text.Substring(1, token.Text.Length - 2), typeof(string));
+                    }
                     else if (token.Text.StartsWith("'"))
+                    {
                         result.Expression = Expression.Constant(token.Text[1], typeof(char));
+                    }
+
                     break;
                 case TokenId.IntegerLiteral:
                     result.Expression = Expression.Constant(int.Parse(token.Text), typeof(int));
@@ -272,7 +285,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     // 获取尖括号 <> 中的类型数据
                     Type[] types = Type.EmptyTypes;
                     if (spResult.PeekNextIs(TokenId.LessThan))
+                    {
                         types = GetTypes();
+                    }
 
                     if (spResult.PeekNextIs(TokenId.LessThan) || spResult.PeekNextIs(TokenId.OpenParen))
                     {
@@ -284,9 +299,13 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     {
                         var member = result.Expression.Type.GetMember(token.Text)[0];
                         if (member.MemberType == MemberTypes.Property)
+                        {
                             result.Expression = Expression.Property(result.Expression, (PropertyInfo)member);
+                        }
                         else
+                        {
                             result.Expression = Expression.Field(result.Expression, (FieldInfo)member);
+                        }
                     }
                     break;
                 case TokenId.Plus:
@@ -299,7 +318,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                         result.IsClosedWrap = result.IsClosedWrap || right.IsClosedWrap;
                     }
                     else
+                    {
                         NumericExpressionOperator(ref result, ref right, Expression.Add);
+                    }
+
                     break;
                 case TokenId.Minus:
                     right = ReadExpression(level);
@@ -319,7 +341,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     break;
                 case TokenId.OpenBracket:
                     if (result.Expression.Type.IsArray)
+                    {
                         result.Expression = Expression.ArrayIndex(result.Expression, ReadExpression(level).Expression);
+                    }
                     else
                     {
                         string indexerName = "Item";
@@ -330,7 +354,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                                                    .Cast<DefaultMemberAttribute>()
                                                    .SingleOrDefault();
                         if (indexerNameAtt != null)
+                        {
                             indexerName = indexerNameAtt.MemberName;
+                        }
 
                         var methodInfo = result.Expression
                                                .Type
@@ -406,7 +432,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             Token selector = new Token { ID = TokenId.Comma, Text = "," };
             var result = new List<TypeVariable>();
             if (ReferenceEquals(obj, null) || !obj.Any())
+            {
                 return result.ToArray();
+            }
 
             if (obj.Last() != selector)
             {
@@ -420,11 +448,17 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             while ((secondIndex = Array.IndexOf(data, selector, firstIndex)) != -1)
             {
                 if (secondIndex == firstIndex + 1)
+                {
                     result.Add(new TypeVariable(null, data[firstIndex]));
+                }
                 else if (secondIndex == firstIndex + 2)
+                {
                     result.Add(new TypeVariable(data[firstIndex], data[firstIndex + 1]));
+                }
                 else
+                {
                     throw new ParserSyntaxErrorException();
+                }
 
                 firstIndex = secondIndex + 1;
             }
@@ -454,7 +488,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                         spResult.NextIs(TokenId.CloseParen);
                     }
                     else
+                    {
                         throw new ParserSyntaxErrorException();
+                    }
+
                     break;
                 case "typeof":
                     if (spResult.NextIs(TokenId.OpenParen))
@@ -464,7 +501,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
 
                     }
                     else
+                    {
                         throw new ParserSyntaxErrorException();
+                    }
+
                     break;
                 case "new":
                     {
@@ -580,7 +620,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                 default:
                     // 参数
                     if (expParams.Any(p => p.Name == token.Text))
+                    {
                         result.Expression = expParams.First(p => p.Name == token.Text);
+                    }
                     // 类型
                     else
                     {
@@ -737,13 +779,19 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             BindingFlags flags;
             if (isStatic)
+            {
                 flags = BindingFlags.Public | BindingFlags.Static;
+            }
             else
+            {
                 flags = BindingFlags.Public | BindingFlags.Instance;
+            }
 
             var methods = type.GetMethods(flags).Where(p => p.Name == name).ToArray();
             if (methods.Length == 0)
+            {
                 return null;
+            }
 
             if (genericParameterTypes != null && genericParameterTypes.Any())
             {
@@ -756,7 +804,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             var item = methods.FirstOrDefault(p => p.GetParameters().Select(r => r.ParameterType).SequenceEqual(paramTypes));
 
             if (item != null)
+            {
                 return item;
+            }
 
             var data = methods.Where(p => p.IsGenericMethod && p.GetParameters().Length == paramTypes.Length)
                               .Select((p, i) => new
@@ -770,12 +820,19 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                                     {
                                         var left = p.Prameters[i].ParameterType;
                                         if (left.FullName == null)
+                                        {
                                             continue;
+                                        }
+
                                         var right = paramTypes[i];
                                         if (left == right)
+                                        {
                                             continue;
+                                        }
                                         else
+                                        {
                                             return false;
+                                        }
                                     }
                                     return true;
                                 }).OrderBy(p => p.Order).ToArray();
@@ -803,9 +860,13 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                 int rightLevel = PriorityManager.GetNumericLevel(right.Expression.Type);
 
                 if (leftLevel > rightLevel)
+                {
                     right.Expression = Expression.Convert(right.Expression, left.Expression.Type);
+                }
                 else
+                {
                     left.Expression = Expression.Convert(left.Expression, right.Expression.Type);
+                }
             }
 
             left.Expression = predicate(left.Expression, right.Expression);
@@ -816,13 +877,17 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             List<Type> types = new List<Type>();
             if (spResult.PeekNextIs(TokenId.LessThan))
+            {
                 spResult.Next();
+            }
 
             do
             {
                 types.Add(typeParser.ReadType());
                 if (spResult.PeekNextIs(TokenId.Comma))
+                {
                     spResult.Next();
+                }
             } while (!spResult.PeekNextIs(TokenId.GreaterThan));
             spResult.NextIs(TokenId.GreaterThan, true);
 

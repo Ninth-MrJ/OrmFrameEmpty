@@ -13,9 +13,14 @@ namespace Orm.Utilities
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 判断目标目录是否存在如果不存在则新建之
-                if (!Directory.Exists(aimPath)) Directory.CreateDirectory(aimPath);
+                if (!Directory.Exists(aimPath))
+                {
+                    Directory.CreateDirectory(aimPath);
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 // 如果指向copy目标文件下面的文件而不包含目录可使用下面的方法
                 // string[] fileList = Directory.GetFiles(srcPath);

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Framework.Services.SharedMemory
 {
@@ -33,7 +29,7 @@ namespace Orm.Framework.Services.SharedMemory
     public class IncrementData
     {
         private IRefreshComparer _comparer;
-      
+
         public IncrementData(IRefreshComparer comparer)
         {
             _comparer = comparer;

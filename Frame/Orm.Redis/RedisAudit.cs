@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orm.Redis
+﻿namespace Orm.Redis
 {
     public class RedisAudit
     {
         //IP
-        public string  ClientIP { get; set; }
+        public string ClientIP { get; set; }
         //服务名
         public string ServiceName { get; set; }
         //方法名

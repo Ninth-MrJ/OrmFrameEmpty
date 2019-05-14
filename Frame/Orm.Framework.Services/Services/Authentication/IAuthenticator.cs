@@ -11,7 +11,7 @@ namespace Orm.Framework.Services
         /// <summary>
         /// 登陆接口，验证通过返回令牌
         /// </summary>
-        string Login(string user, string password,string ipaddr="");
+        string Login(string user, string password, string ipaddr = "");
 
         /// <summary>
         /// 注销接口,返回无效令牌
@@ -24,12 +24,12 @@ namespace Orm.Framework.Services
         /// <param name="token"></param>
         /// <returns></returns>
 
-         /// <summary>
-         /// 刷新令牌，延长令牌有效期
-         /// </summary>
-         /// <param name="token"></param>
-         /// <returns></returns>
-        string Refresh(string user,string token);
+        /// <summary>
+        /// 刷新令牌，延长令牌有效期
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        string Refresh(string user, string token);
     }
 
     public sealed class Token

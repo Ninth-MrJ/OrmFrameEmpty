@@ -7,7 +7,7 @@ namespace Orm.Framework.Services.Container
         private static readonly object mapLoker = new object();
         public void RegisterTypeMapFromConfigDB(List<TypeMap> mapList)
         {
-            var config=ServiceTaker.GetService<IConfiger>();
+            var config = ServiceTaker.GetService<IConfiger>();
             List<TypeMap> listTM = config.GetMulti<TypeMap>(typeof(TypeMap).FullName);
 
             foreach (var aMap in listTM)

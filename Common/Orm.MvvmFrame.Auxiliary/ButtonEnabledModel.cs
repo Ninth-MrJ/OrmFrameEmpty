@@ -134,7 +134,10 @@ namespace Orm.MvvmFrame.Auxiliary
         protected bool SetProperty<T>(ref T storage, T value, bool isCheckEquals = true, [CallerMemberName] string propertyName = null)
         {
             if (isCheckEquals)
+            {
                 if (object.Equals(storage, value)) { return false; }
+            }
+
             storage = value;
             this.OnPropertyChanged(propertyName);
             return true;

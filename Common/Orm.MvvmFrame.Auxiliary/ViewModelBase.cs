@@ -192,15 +192,19 @@ namespace Orm.MvvmFrame.Auxiliary
 
             this.AddCommand = new ViewModelCommand((object parameter) => { this.AddNew(); SetControlStatus(ToolbarStatus.Add); });
 
-            this.ModifyCommand = new ViewModelCommand((object parameter) => { if (!CanModify()) return; this.Modify(); SetControlStatus(ToolbarStatus.Edit); });
+            this.ModifyCommand = new ViewModelCommand((object parameter) => { if (!CanModify()) { return; } this.Modify(); SetControlStatus(ToolbarStatus.Edit); });
 
-            this.DeleteCommand = new ViewModelCommand((object parameter) => { if (!CanDelete()) return; this.Delete(); });
+            this.DeleteCommand = new ViewModelCommand((object parameter) => { if (!CanDelete()) { return; } this.Delete(); });
 
             this.CancelCommand = new ViewModelCommand((object parameter) => { this.Cancel(); SetControlStatus(ToolbarStatus.View); });
 
             this.SaveCommand = new ViewModelCommand((object parameter) =>
             {
-                if (!CheckValidate()) return;
+                if (!CheckValidate())
+                {
+                    return;
+                }
+
                 if (this.Save())
                 {
                     SetControlStatus(ToolbarStatus.View);
@@ -285,7 +289,9 @@ namespace Orm.MvvmFrame.Auxiliary
         public bool IsCanAccessThisModule(FuctionAccess fuction, bool show)
         {
             if (_lstUspWindowOperFunction.Where(t => t.FunctionId == ((int)fuction).ToString()).ToArray().Length > 0)
+            {
                 return true;
+            }
             else
             {
                 return false;
@@ -407,61 +413,121 @@ namespace Orm.MvvmFrame.Auxiliary
             switch (e.Key)
             {
                 case Key.F1:
-                    if (ButtonEnabled.Previous == false) break;
+                    if (ButtonEnabled.Previous == false)
+                    {
+                        break;
+                    }
+
                     this.Previous();
                     break;
                 case Key.F2:
-                    if (ButtonEnabled.Next == false) break;
+                    if (ButtonEnabled.Next == false)
+                    {
+                        break;
+                    }
+
                     this.Next();
                     break;
                 case Key.F3:
-                    if (ButtonEnabled.Search == false) break;
+                    if (ButtonEnabled.Search == false)
+                    {
+                        break;
+                    }
+
                     this.Search();
                     break;
                 case Key.F4:
-                    if (ButtonEnabled.Add == false) break;
+                    if (ButtonEnabled.Add == false)
+                    {
+                        break;
+                    }
+
                     SetControlStatus(ToolbarStatus.Add);
                     this.AddNew();
                     break;
                 case Key.F5:
-                    if (ButtonEnabled.Modify == false) break;
-                    if (!CanModify()) break;
+                    if (ButtonEnabled.Modify == false)
+                    {
+                        break;
+                    }
+
+                    if (!CanModify())
+                    {
+                        break;
+                    }
+
                     SetControlStatus(ToolbarStatus.Edit);
                     this.Modify();
                     break;
                 case Key.F6:
-                    if (ButtonEnabled.Delete == false) break;
-                    if (!CanDelete()) break;
+                    if (ButtonEnabled.Delete == false)
+                    {
+                        break;
+                    }
+
+                    if (!CanDelete())
+                    {
+                        break;
+                    }
+
                     this.Delete();
                     break;
                 case Key.F7:
-                    if (ButtonEnabled.Cancel == false) break;
+                    if (ButtonEnabled.Cancel == false)
+                    {
+                        break;
+                    }
+
                     this.Cancel();
                     SetControlStatus(ToolbarStatus.View);
                     break;
                 case Key.F8:
-                    if (ButtonEnabled.Save == false) break;
-                    if (!CheckValidate()) break;
+                    if (ButtonEnabled.Save == false)
+                    {
+                        break;
+                    }
+
+                    if (!CheckValidate())
+                    {
+                        break;
+                    }
+
                     if (this.Save())
                     {
                         SetControlStatus(ToolbarStatus.View);
                     }
                     break;
                 case Key.F9:
-                    if (ButtonEnabled.Audit == false) break;
+                    if (ButtonEnabled.Audit == false)
+                    {
+                        break;
+                    }
+
                     this.Audit();
                     SetControlStatus(ToolbarStatus.View);
                     break;
                 case Key.F10:
-                    if (ButtonEnabled.Refresh == false) break;
+                    if (ButtonEnabled.Refresh == false)
+                    {
+                        break;
+                    }
+
                     this.BtnRefreshExecute();
                     break;
                 case Key.F11:
-                    if (ButtonEnabled.Print == false) break;
+                    if (ButtonEnabled.Print == false)
+                    {
+                        break;
+                    }
+
                     this.Print();
                     break;
                 case Key.F12:
-                    if (ButtonEnabled.Export == false) break;
+                    if (ButtonEnabled.Export == false)
+                    {
+                        break;
+                    }
+
                     this.Export(eventInfo.CommandArgument);
                     break;
                 case Key.Escape:

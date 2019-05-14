@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Orm.Config;
+using Orm.Model.Custom;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading; 
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
-using Orm.Client.Common;
-using Orm.Config; 
-using Orm.Model.Custom; 
 
 namespace Orm.ViewModel.OuPatient
 {
@@ -97,7 +95,7 @@ namespace Orm.ViewModel.OuPatient
             }
             return totalBytes;
         }
-      
+
         /// <summary>
         /// 复制文件
         /// </summary>
@@ -313,14 +311,14 @@ namespace Orm.ViewModel.OuPatient
         /// <param name="patId"></param>
         /// <param name="serverPath"></param>
         /// <param name="localPath"></param>
-        public bool ClearRecordsForXml(string  patId, string serverPath, string localPath)
+        public bool ClearRecordsForXml(string patId, string serverPath, string localPath)
         {
             bool flag = false;
             string filePath = AppDomain.CurrentDomain.BaseDirectory + "ConfigFiles\\PatientReportDownloadRecords.xml";
             XDocument xDocument = this.GetXml(filePath);
             if (xDocument != null && xDocument.Root != null)
             {
-                if (patId  != string.Empty && !string.IsNullOrEmpty(localPath) && !string.IsNullOrEmpty(serverPath))
+                if (patId != string.Empty && !string.IsNullOrEmpty(localPath) && !string.IsNullOrEmpty(serverPath))
                 {
                     IEnumerable<XElement> nodes = from element in xDocument.Elements("ReportFile").Elements("Doctor" + UserProfiles.UserCode).Elements("Patient" + patId.ToString())
                                                   where element.Attribute("ServerPath").Value == serverPath && element.Attribute("LocalPath").Value == localPath
@@ -339,7 +337,7 @@ namespace Orm.ViewModel.OuPatient
         /// 写入xml
         /// </summary>
         /// <param name="patId"></param>
-        public bool WriteRecordsIntoXml(string  patId, string serverPath, string localPath)
+        public bool WriteRecordsIntoXml(string patId, string serverPath, string localPath)
         {
             bool flag = false;
             if (patId != string.Empty)
@@ -420,7 +418,7 @@ namespace Orm.ViewModel.OuPatient
                 }
             }
         }
-      
+
         /// <summary>
         /// 设置文件模板
         /// </summary>
@@ -433,7 +431,7 @@ namespace Orm.ViewModel.OuPatient
         /// <param name="fileLink">下载地址</param>
         /// <param name="filePath">文件路径</param>
         /// <returns></returns>
-        public FileTempate SetFileInfo(string name, DateTime creationTime, DateTime lastWriteTime, long length, int status, bool isLocalFile, string fileLink, ICommand btnDownloadFileClickCommand, ICommand openFileCommand, ICommand openRootDirectoryCommand, ICommand resetDownloadFileCommand, ICommand deleteFileCommand, ICommand deleteServerFileCommand, ICommand upLoadFileCommand,string filePath = "")
+        public FileTempate SetFileInfo(string name, DateTime creationTime, DateTime lastWriteTime, long length, int status, bool isLocalFile, string fileLink, ICommand btnDownloadFileClickCommand, ICommand openFileCommand, ICommand openRootDirectoryCommand, ICommand resetDownloadFileCommand, ICommand deleteFileCommand, ICommand deleteServerFileCommand, ICommand upLoadFileCommand, string filePath = "")
         {
             FileTempate ftInfo = new FileTempate();
             ftInfo.Name = name;
@@ -462,11 +460,11 @@ namespace Orm.ViewModel.OuPatient
             commandInfoList.Add(new CommandInfo() { CmdName = "打开文件位置", Command = openRootDirectoryCommand, IsCmdEditable = fileStatus == 1 });
             commandInfoList.Add(new CommandInfo() { CmdName = "重新下载", Command = resetDownloadFileCommand, IsCmdEditable = (fileStatus == 1 && !isLocalFile) });
             commandInfoList.Add(new CommandInfo() { CmdName = "删除", Command = deleteFileCommand, IsCmdEditable = fileStatus == 1 });
-            commandInfoList.Add(new CommandInfo() { CmdName = "删除服务器文件", Command = deleteServerFileCommand, IsCmdEditable = !isLocalFile }); 
+            commandInfoList.Add(new CommandInfo() { CmdName = "删除服务器文件", Command = deleteServerFileCommand, IsCmdEditable = !isLocalFile });
             commandInfoList.Add(new CommandInfo() { CmdName = "上传至服务器", Command = upLoadFileCommand, IsCmdEditable = fileStatus == 1 });
             return commandInfoList;
         }
-       
+
         ///// <summary>
         ///// 删除文件
         ///// </summary>
@@ -960,7 +958,7 @@ namespace Orm.ViewModel.OuPatient
         private Action _copyFileCancelAction = null;
         #endregion
         #region 属性
-     
+
         #endregion
     }
 }

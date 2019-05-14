@@ -25,9 +25,13 @@ namespace Orm.MvvmFrame.Auxiliary
                 //如果不是发生在同一个线程中
                 //准确说来，这里是在一个非UI线程中，需要进行UI的更新所进行的操作      
                 if (_synchronizationContext != null)
+                {
                     _synchronizationContext.Post(RaiseCollectionChanged, e);
+                }
                 else
+                {
                     RaiseCollectionChanged(e);
+                }
             }
         }
         private void RaiseCollectionChanged(object param)
@@ -46,7 +50,9 @@ namespace Orm.MvvmFrame.Auxiliary
             {
                 // Post the PropertyChanged event on the creator thread     
                 if (_synchronizationContext != null)
+                {
                     _synchronizationContext.Post(RaisePropertyChanged, e);
+                }
             }
         }
         private void RaisePropertyChanged(object param)

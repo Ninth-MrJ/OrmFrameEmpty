@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Framework.Services
 {
@@ -19,7 +15,7 @@ namespace Orm.Framework.Services
         /// </summary>
         /// <typeparam name="T">己映射的类型</typeparam>
         /// <returns>可查接口</returns>
-        IQueryable<T> GetQueryable<T>() where T : class,new();
+        IQueryable<T> GetQueryable<T>() where T : class, new();
 
         /// <summary>
         /// 添加一个实体，要求存在实体类型到数据库表的映射。

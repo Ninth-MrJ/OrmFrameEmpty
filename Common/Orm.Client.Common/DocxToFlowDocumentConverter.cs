@@ -108,7 +108,9 @@ namespace Orm.Client.Common
             base.ReadDocument(reader);
 
             if (this.hasAnyHyperlink)
+            {
                 this.document.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler((sender, e) => Process.Start(e.Uri.ToString())));
+            }
 
             this.document.EndInit();
         }
@@ -116,7 +118,9 @@ namespace Orm.Client.Common
         protected override void ReadParagraph(XmlReader reader)
         {
             using (this.SetCurrent(new Paragraph()))
+            {
                 base.ReadParagraph(reader);
+            }
         }
 
         protected override void ReadTable(XmlReader reader)
@@ -127,6 +131,7 @@ namespace Orm.Client.Common
         protected override void ReadParagraphProperties(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace)
                 {
                     var paragraph = (Paragraph)this.current;
@@ -135,7 +140,10 @@ namespace Orm.Client.Common
                         case AlignmentElement:
                             var textAlignment = ConvertTextAlignment(GetValueAttribute(reader));
                             if (textAlignment.HasValue)
+                            {
                                 paragraph.TextAlignment = textAlignment.Value;
+                            }
+
                             break;
                         case PageBreakBeforeElement:
                             paragraph.BreakPageBefore = GetOnOffValueAttribute(reader);
@@ -149,10 +157,14 @@ namespace Orm.Client.Common
                         case ShadingElement:
                             var background = GetShading(reader);
                             if (background != null)
+                            {
                                 paragraph.Background = background;
+                            }
+
                             break;
                     }
                 }
+            }
         }
 
         protected override void ReadHyperlink(XmlReader reader)
@@ -171,7 +183,10 @@ namespace Orm.Client.Common
                     };
 
                     using (this.SetCurrent(hyperlink))
+                    {
                         base.ReadHyperlink(reader);
+                    }
+
                     return;
                 }
             }
@@ -182,12 +197,15 @@ namespace Orm.Client.Common
         protected override void ReadRun(XmlReader reader)
         {
             using (this.SetCurrent(new Span()))
+            {
                 base.ReadRun(reader);
+            }
         }
 
         protected override void ReadRunProperties(XmlReader reader)
         {
             while (reader.Read())
+            {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace)
                 {
                     var inline = (Inline)this.current;
@@ -202,11 +220,17 @@ namespace Orm.Client.Common
                         case UnderlineElement:
                             var underlineTextDecorations = GetUnderlineTextDecorations(reader, inline);
                             if (underlineTextDecorations != null)
+                            {
                                 inline.TextDecorations.Add(underlineTextDecorations);
+                            }
+
                             break;
                         case StrikeElement:
                             if (GetOnOffValueAttribute(reader))
+                            {
                                 inline.TextDecorations.Add(TextDecorations.Strikethrough);
+                            }
+
                             break;
                         case DoubleStrikeElement:
                             if (GetOnOffValueAttribute(reader))
@@ -221,36 +245,51 @@ namespace Orm.Client.Common
                             {
                                 inline.BaselineAlignment = baselineAlignment.Value;
                                 if (baselineAlignment.Value == BaselineAlignment.Subscript || baselineAlignment.Value == BaselineAlignment.Superscript)
+                                {
                                     inline.FontSize *= 0.65; //MS Word 2002 size: 65% http://en.wikipedia.org/wiki/Subscript_and_superscript
+                                }
                             }
                             break;
                         case ColorElement:
                             var color = GetColor(GetValueAttribute(reader));
                             if (color.HasValue)
+                            {
                                 inline.Foreground = new SolidColorBrush(color.Value);
+                            }
+
                             break;
                         case HighlightElement:
                             var highlight = GetHighlightColor(GetValueAttribute(reader));
                             if (highlight.HasValue)
+                            {
                                 inline.Background = new SolidColorBrush(highlight.Value);
+                            }
+
                             break;
                         case FontElement:
                             var fontFamily = reader[AsciiFontFamily, WordprocessingMLNamespace];
                             if (!string.IsNullOrEmpty(fontFamily))
+                            {
                                 inline.FontFamily = (FontFamily)new FontFamilyConverter().ConvertFromString(fontFamily);
+                            }
+
                             break;
                         case FontSizeElement:
                             var fontSize = reader[ValueAttribute, WordprocessingMLNamespace];
                             if (!string.IsNullOrEmpty(fontSize))
+                            {
                                 // Attribute Value / 2 = Points
                                 // Points * (96 / 72) = Pixels
                                 inline.FontSize = uint.Parse(fontSize) * 0.6666666666666667;
+                            }
+
                             break;
                         case RightToLeftTextElement:
                             inline.FlowDirection = (GetOnOffValueAttribute(reader)) ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
                             break;
                     }
                 }
+            }
         }
 
         protected override void ReadBreak(XmlReader reader)
@@ -297,7 +336,9 @@ namespace Orm.Client.Common
         private static Color? GetColor(string colorString)
         {
             if (string.IsNullOrEmpty(colorString) || colorString == "auto")
+            {
                 return null;
+            }
 
             return (Color)ColorConverter.ConvertFromString('#' + colorString);
         }
@@ -305,7 +346,9 @@ namespace Orm.Client.Common
         private static Color? GetHighlightColor(string highlightString)
         {
             if (string.IsNullOrEmpty(highlightString) || highlightString == "auto")
+            {
                 return null;
+            }
 
             return (Color)ColorConverter.ConvertFromString(highlightString);
         }
@@ -328,9 +371,13 @@ namespace Orm.Client.Common
         private static double? ConvertTwipsToPixels(string twips)
         {
             if (string.IsNullOrEmpty(twips))
+            {
                 return null;
+            }
             else
+            {
                 return ConvertTwipsToPixels(double.Parse(twips, CultureInfo.InvariantCulture));
+            }
         }
 
         private static double ConvertTwipsToPixels(double twips)
@@ -359,11 +406,15 @@ namespace Orm.Client.Common
         {
             var after = ConvertTwipsToPixels(reader[SpacingAfterAttribute, WordprocessingMLNamespace]);
             if (after.HasValue)
+            {
                 margin.Bottom = after.Value;
+            }
 
             var before = ConvertTwipsToPixels(reader[SpacingBeforeAttribute, WordprocessingMLNamespace]);
             if (before.HasValue)
+            {
                 margin.Top = before.Value;
+            }
 
             return margin;
         }
@@ -374,21 +425,29 @@ namespace Orm.Client.Common
 
             var left = ConvertTwipsToPixels(reader[LeftIndentationAttribute, WordprocessingMLNamespace]);
             if (left.HasValue)
+            {
                 margin.Left = left.Value;
+            }
 
             var right = ConvertTwipsToPixels(reader[RightIndentationAttribute, WordprocessingMLNamespace]);
             if (right.HasValue)
+            {
                 margin.Right = right.Value;
+            }
 
             paragraph.Margin = margin;
 
             var firstLine = ConvertTwipsToPixels(reader[FirstLineIndentationAttribute, WordprocessingMLNamespace]);
             if (firstLine.HasValue)
+            {
                 paragraph.TextIndent = firstLine.Value;
+            }
 
             var hanging = ConvertTwipsToPixels(reader[HangingIndentationAttribute, WordprocessingMLNamespace]);
             if (hanging.HasValue)
+            {
                 paragraph.TextIndent -= hanging.Value;
+            }
         }
 
         private static Brush GetShading(XmlReader reader)
@@ -404,9 +463,13 @@ namespace Orm.Client.Common
             var color = GetColor(reader[ColorAttribute, WordprocessingMLNamespace]);
 
             if (color.HasValue)
+            {
                 brush = new SolidColorBrush(color.Value);
+            }
             else
+            {
                 brush = inline.Foreground;
+            }
 
             var textDecorations = new TextDecorationCollection()
             {

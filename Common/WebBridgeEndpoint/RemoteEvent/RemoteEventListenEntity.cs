@@ -12,7 +12,7 @@
             {
                 eventListenKey = SenderTypeName + "__"
                     + EventName + "__"
-                    + ListenerClassName+"__"
+                    + ListenerClassName + "__"
                     + HandleMethodName;
                 return eventListenKey;
             }

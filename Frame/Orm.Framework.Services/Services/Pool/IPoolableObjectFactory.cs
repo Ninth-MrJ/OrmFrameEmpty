@@ -1,5 +1,3 @@
-using System;
-
 namespace Orm.Framework.Services
 {
     /// <summary>
@@ -11,7 +9,7 @@ namespace Orm.Framework.Services
         /// 由池调用该方法用于创建对象新实例
         /// </summary>
         /// <returns></returns>
-        T CreateObject();		
+        T CreateObject();
 
         /// <summary>
         /// 由池调用该方法用于销毁对象

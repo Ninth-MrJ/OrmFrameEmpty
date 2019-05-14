@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Orm.Framework.Services
+﻿namespace Orm.Framework.Services
 {
     /// <summary>
     /// MQ服务接口

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Orm.Model;
 
 namespace Orm.Framework.Services.ServiceDBBase
 {
@@ -56,9 +53,13 @@ namespace Orm.Framework.Services.ServiceDBBase
             if (tmpStr == "null")
             {
                 if (sb.EndsWith(" ="))
+                {
                     sb = sb.Substring(0, sb.Length - 2) + " is null";
+                }
                 else if (sb.EndsWith("<>"))
+                {
                     sb = sb.Substring(0, sb.Length - 2) + " is not null";
+                }
             }
             else
             {
@@ -77,7 +78,10 @@ namespace Orm.Framework.Services.ServiceDBBase
         static bool IsNumeric(string str) //接收一个string类型的参数,保存到str里
         {
             if (str == null || str.Length == 0)    //验证这个参数是否为空
+            {
                 return false;                           //是，就返回False
+            }
+
             ASCIIEncoding ascii = new ASCIIEncoding();//new ASCIIEncoding 的实例
             byte[] bytestr = ascii.GetBytes(str);         //把string类型的参数保存到数组里
 
@@ -123,24 +127,37 @@ namespace Orm.Framework.Services.ServiceDBBase
             {
                 MethodCallExpression mce = (MethodCallExpression)exp;
                 if (mce.Method.Name == "Like")
+                {
                     return string.Format("({0} like {1})", ExpressionRouter(mce.Arguments[0]), ExpressionRouter(mce.Arguments[1]));
+                }
                 else if (mce.Method.Name == "NotLike")
+                {
                     return string.Format("({0} Not like {1})", ExpressionRouter(mce.Arguments[0]), ExpressionRouter(mce.Arguments[1]));
+                }
                 else if (mce.Method.Name == "In")
+                {
                     return string.Format("{0} In ({1})", ExpressionRouter(mce.Arguments[0]), ExpressionRouter(mce.Arguments[1]));
+                }
                 else if (mce.Method.Name == "NotIn")
+                {
                     return string.Format("{0} Not In ({1})", ExpressionRouter(mce.Arguments[0]), ExpressionRouter(mce.Arguments[1]));
-
+                }
             }
             else if (exp is ConstantExpression)
             {
                 ConstantExpression ce = ((ConstantExpression)exp);
                 if (ce.Value == null)
+                {
                     return "null";
+                }
                 else if (ce.Value is ValueType)
+                {
                     return ce.Value.ToString();
+                }
                 else if (ce.Value is string || ce.Value is DateTime || ce.Value is char)
+                {
                     return string.Format("'{0}'", ce.Value.ToString());
+                }
             }
             else if (exp is UnaryExpression)
             {

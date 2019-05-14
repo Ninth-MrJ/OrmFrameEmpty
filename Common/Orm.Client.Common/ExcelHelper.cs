@@ -7,11 +7,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-//using System.Data.Odbc;
-//using System.Windows.Input;
-//using Excel = Microsoft.Office.Interop.Excel;
-//using System.Windows.Media;
-//using System.Windows.Controls.Primitives;
 
 namespace Orm.Client.Common
 {
@@ -348,11 +343,11 @@ namespace Orm.Client.Common
         /// <param name="grid"></param>
         public void ExportToExcel(string fileName, DataGrid grid)
         {
-            bool isExportSuccessful=false;
+            bool isExportSuccessful = false;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel (*.XLSX)|*.xlsx";
             saveFileDialog.AddExtension = true;//是否自动添加扩展名
-            
+
             saveFileDialog.OverwritePrompt = true;//文件已存在是否提示覆盖
             saveFileDialog.CheckPathExists = true;//提示输入的文件名无效
             saveFileDialog.FileName = fileName;//默认的文件名
@@ -362,7 +357,7 @@ namespace Orm.Client.Common
                 {
                     if (grid != null && grid.Items.Count != 0)
                     {
-                        isExportSuccessful=OutFileToDisk(grid, saveFileDialog.FileName);
+                        isExportSuccessful = OutFileToDisk(grid, saveFileDialog.FileName);
                     }
                     else
                     {
@@ -370,7 +365,7 @@ namespace Orm.Client.Common
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 //Orm.Client.Base.FrmMessageRemind.Show("单据没有数据请检查！" + e.ToString(), "系统提示");     
             }
@@ -440,7 +435,9 @@ namespace Orm.Client.Common
                         IsSuccess = true;
                     }
                     else
+                    {
                         MessageBox.Show("没有数据将不会进行保存！");
+                    }
                 }
             }
             catch
@@ -487,14 +484,14 @@ namespace Orm.Client.Common
             _head = new string[grid.Columns.Count];
             for (int i = 0; i < grid.Columns.Count; i++)
             {
-                
-                if (grid.Columns[i].Visibility != Visibility.Visible || string.IsNullOrEmpty(grid.Columns[i].Header.ToString()) || grid.Columns[i].Header.ToString().Contains("选择") || grid.Columns[i].Header.ToString().Contains("选中") || grid.Columns[i].Header.ToString().Contains("是否")|| grid.Columns[i].Header.ToString().Contains("审核") || grid.Columns[i].Header.ToString()=="操作")
+
+                if (grid.Columns[i].Visibility != Visibility.Visible || string.IsNullOrEmpty(grid.Columns[i].Header.ToString()) || grid.Columns[i].Header.ToString().Contains("选择") || grid.Columns[i].Header.ToString().Contains("选中") || grid.Columns[i].Header.ToString().Contains("是否") || grid.Columns[i].Header.ToString().Contains("审核") || grid.Columns[i].Header.ToString() == "操作")
                 {
                     continue;
                 }
                 cells[0, i].PutValue(grid.Columns[i].Header.ToString());
                 cells[0, i].SetStyle(style2);
-                if (grid.Columns[i].Header.ToString()== "买入价")
+                if (grid.Columns[i].Header.ToString() == "买入价")
                 {
                     _head[i] = "StockPrice";
                 }
@@ -502,7 +499,7 @@ namespace Orm.Client.Common
                 {
                     _head[i] = grid.Columns[i].SortMemberPath;
                 }
-           
+
 
             }
 
@@ -521,12 +518,12 @@ namespace Orm.Client.Common
                         var property = Orm.Utilities.Common.GetPropertyValue(obj, _head[i]);
                         if (property == null)
                         {
-                            
+
                             cells[j + 1, i].PutValue("");
                         }
                         else
                         {
-                            if (property.GetType().Name == "DateTime" &&( _head[i].Trim()== "InvoTime" || _head[i].Trim() == "InputTime"))
+                            if (property.GetType().Name == "DateTime" && (_head[i].Trim() == "InvoTime" || _head[i].Trim() == "InputTime"))
                             {
                                 cells[j + 1, i].PutValue(Convert.ToDateTime(Orm.Utilities.Common.GetPropertyValue(obj, _head[i])).ToShortDateString());
                             }
@@ -534,7 +531,7 @@ namespace Orm.Client.Common
                             {
                                 cells[j + 1, i].PutValue(Orm.Utilities.Common.GetPropertyValue(obj, _head[i]).ToString());
                             }
-                            
+
                         }
                         cells[j + 1, i].SetStyle(style3);
                     }
@@ -774,6 +771,6 @@ namespace Orm.Client.Common
 
             MemoryStream ms = workbook.SaveToStream();
             return ms;
-        } 
+        }
     }
 }

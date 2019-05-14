@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+﻿using Orm.Framework.Services.LambdaExpressionHelper.Core;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
-using Orm.Framework.Services.LambdaExpressionHelper.Core;
 
 namespace Orm.Framework.Services
 {

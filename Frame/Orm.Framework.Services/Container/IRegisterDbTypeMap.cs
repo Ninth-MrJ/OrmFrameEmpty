@@ -2,7 +2,7 @@
 
 namespace Orm.Framework.Services
 {
-    public interface  IRegisterDbTypeMap
+    public interface IRegisterDbTypeMap
     {
         void RegisterTypeMapFromConfigDB(List<TypeMap> map);
     }

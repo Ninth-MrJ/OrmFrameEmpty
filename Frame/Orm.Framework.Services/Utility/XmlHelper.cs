@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Soap;
 
 namespace Orm.Framework.Services.Utility
 {
@@ -46,7 +46,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (stWriter != null) stWriter.Close();
+                if (stWriter != null)
+                {
+                    stWriter.Close();
+                }
             }
             return buffer;
         }
@@ -99,7 +102,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (stWriter != null) stWriter.Close();
+                if (stWriter != null)
+                {
+                    stWriter.Close();
+                }
             }
         }
 
@@ -127,7 +133,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (stWriter != null) stWriter.Close();
+                if (stWriter != null)
+                {
+                    stWriter.Close();
+                }
             }
         }
 
@@ -156,7 +165,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (memStream != null) memStream.Close();
+                if (memStream != null)
+                {
+                    memStream.Close();
+                }
             }
         }
 
@@ -186,7 +198,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (fileStream != null) fileStream.Close();
+                if (fileStream != null)
+                {
+                    fileStream.Close();
+                }
             }
         }
         #endregion XML Serialization
@@ -217,7 +232,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (memStream != null) memStream.Close();
+                if (memStream != null)
+                {
+                    memStream.Close();
+                }
             }
             return objectFromSoap;
         }
@@ -244,7 +262,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (fileStream != null) fileStream.Close();
+                if (fileStream != null)
+                {
+                    fileStream.Close();
+                }
             }
             return objectFromSoap;
         }
@@ -258,7 +279,7 @@ namespace Orm.Framework.Services.Utility
         {
             IFormatter formatter;
             MemoryStream memStream = null;
-            string strObject =string.Empty;
+            string strObject = string.Empty;
             try
             {
                 memStream = new MemoryStream();
@@ -277,7 +298,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (memStream != null) memStream.Close();
+                if (memStream != null)
+                {
+                    memStream.Close();
+                }
             }
             return strObject;
         }
@@ -303,7 +327,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (fileStream != null) fileStream.Close();
+                if (fileStream != null)
+                {
+                    fileStream.Close();
+                }
             }
         }
 
@@ -330,7 +357,10 @@ namespace Orm.Framework.Services.Utility
             }
             finally
             {
-                if (fileStream != null) fileStream.Close();
+                if (fileStream != null)
+                {
+                    fileStream.Close();
+                }
             }
             return objectFromSoap;
         }
@@ -339,7 +369,7 @@ namespace Orm.Framework.Services.Utility
 
     #endregion XML Serialization
 
-        #region SpecialXmlWriter
+    #region SpecialXmlWriter
 
     /// <summary>
     /// This class can be used to implement special affects while producing xml documents.

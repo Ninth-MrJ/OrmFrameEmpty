@@ -1,5 +1,9 @@
 ﻿
 
+using Orm.Framework.Services;
+using Orm.Framework.Services.ServiceDBBase;
+using Orm.Model;
+using Orm.Redis;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,10 +12,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using Orm.Framework.Services;
-using Orm.Framework.Services.ServiceDBBase;
-using Orm.Model;
-using Orm.Redis;
 
 namespace Orm.Framework.Services
 {
@@ -25,7 +25,6 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public string Query<T>(Expression<Func<T, bool>> epression) where T : BaseModel, new()
         {
-            string s = "person => person.Age >= 18";
             //获取输入参数
             ParameterExpression param = epression.Parameters[0];
             BinaryExpression body = (BinaryExpression)epression.Body;
@@ -184,7 +183,9 @@ namespace Orm.Framework.Services
         Tuple<string, string[]> CreateUpdateArguments(object entity)
         {
             if (entity == null)
+            {
                 throw new ArgumentException("The database entity can not be null.");
+            }
 
             ELinq.Mapping.IMemberMapping[] mappingMemberArray = GetMappingMembers(entity);
 
@@ -199,9 +200,15 @@ namespace Orm.Framework.Services
             foreach (ELinq.Mapping.IMemberMapping mappingMember in mappingMemberArray)
             {
                 if (tableName.ToUpper() != "BSHOSPITAL" && mappingMember.Member.Name == "GUID")
+                {
                     continue;
+                }
+
                 if (tableName.ToUpper() == "BSHOSPITAL" && mappingMember.Member.Name == "ID")
+                {
                     continue;
+                }
+
                 object value = entity.GetType().GetProperty(mappingMember.Member.Name).GetValue(entity, null);
                 if (value != null)
                 {
@@ -213,20 +220,33 @@ namespace Orm.Framework.Services
                     if (mappingMember.MemberType.Name == "String" || mappingMember.MemberType.Name == "DateTime")
                     {
                         if (mappingMember.MemberType.Name == "DateTime")
+                        {
                             fieldbuilder.Append("to_date('{" + argumentIndex + "}','YYYY-MM-DD HH24:MI:SS')");
+                        }
                         else
+                        {
                             fieldbuilder.Append("'{" + argumentIndex + "}'");
+                        }
                     }
                     else
                     {
                         fieldbuilder.Append("{" + argumentIndex + "}");
                     }
                     if (mappingMember.MemberType.Name == "String")
+                    {
                         value = value.ToString().Replace("'", "char(39)");
+                    }
+
                     if (value.ToString().ToLower() == "false")
+                    {
                         value = 0;
+                    }
+
                     if (value.ToString().ToLower() == "true")
+                    {
                         value = 1;
+                    }
+
                     arguments[argumentIndex] = value.ToString();
                     argumentIndex++;
                 }
@@ -235,10 +255,13 @@ namespace Orm.Framework.Services
             {
                 var entityGuid = entity.GetType().GetProperty("GUID").GetValue(entity, null);
                 if (null != entityGuid)
+                {
                     fieldbuilder.Append(" where GUID = '" + entityGuid.ToString() + "';");
+                }
                 else
+                {
                     fieldbuilder.Append(" where GUID = '" + " " + "';");
-
+                }
             }
             else
             {
@@ -254,7 +277,9 @@ namespace Orm.Framework.Services
         Tuple<string, string[]> CreateInsertArguments<T>(T entity) where T : BaseModel, new()
         {
             if (entity == null)
+            {
                 throw new ArgumentException("The database entity can not be null.");
+            }
 
             ELinq.Mapping.IMemberMapping[] mappingMemberArray = GetMappingMembers(entity);
 
@@ -279,15 +304,29 @@ namespace Orm.Framework.Services
                     }
                     fieldbuilder.Append(mappingMember.ColumnName);
                     if (mappingMember.MemberType.Name == "String" || mappingMember.MemberType.Name == "DateTime")
+                    {
                         valuebuilder.Append("'{" + argumentIndex + "}'");
+                    }
                     else
+                    {
                         valuebuilder.Append("{" + argumentIndex + "}");
+                    }
+
                     if (mappingMember.MemberType.Name == "String")
+                    {
                         value = value.ToString().Replace("'", "char(39)");
+                    }
+
                     if (value.ToString().ToLower() == "false")
+                    {
                         value = 0;
+                    }
+
                     if (value.ToString().ToLower() == "true")
+                    {
                         value = 1;
+                    }
+
                     if (mappingMember.MemberType.Name == "Byte[]")
                     {
                         string binaryStr = GetBinaryStrFromByteArr((Byte[])value);
@@ -355,9 +394,13 @@ namespace Orm.Framework.Services
             foreach (ELinq.Mapping.IMemberMapping mappingMember in mappingMemberArray)
             {
                 if (mappingMember.MemberType.FullName == "System.Boolean")
+                {
                     dt.Columns.Add(mappingMember.ColumnName, typeof(System.Int32));//添加列名及对应类型 
+                }
                 else
+                {
                     dt.Columns.Add(mappingMember.ColumnName, mappingMember.MemberType);//添加列名及对应类型  
+                }
             }
             foreach (var item in list)
             {
@@ -372,9 +415,15 @@ namespace Orm.Framework.Services
                     if (value != null)
                     {
                         if (value.ToString().ToLower() == "false")
+                        {
                             value = 0;
+                        }
+
                         if (value.ToString().ToLower() == "true")
+                        {
                             value = 1;
+                        }
+
                         dr[mappingMember.ColumnName] = value;
                     }
                 }
@@ -396,7 +445,10 @@ namespace Orm.Framework.Services
         {
             bool returnBoolValue = true;
             if (tableName.ToUpper() != "BSHOSPITAL")
+            {
                 returnBoolValue = false;
+            }
+
             return returnBoolValue;
         }
 
@@ -412,7 +464,9 @@ namespace Orm.Framework.Services
             string pattern = "";
             string where_lower = where.ToLower();
             if (where_lower.Contains("or") || where_lower.Contains("||") || where_lower.Contains("&&"))
+            {
                 return "";
+            }
 
             #region 暂时不用
             /*
@@ -463,33 +517,43 @@ namespace Orm.Framework.Services
             //else
             //{//在redis中没有记录查询条件
             if (arr.Length == 1)
+            {
+                int k = where.IndexOf("=");
+                string key = where.Substring(0, k).Trim();
+                if (key.EndsWith("!"))
                 {
-                    int k = where.IndexOf("=");
-                    string key = where.Substring(0, k).Trim();
-                    if (key.EndsWith("!"))
-                        key = key.Substring(0, key.Length - 1);
-                    PropertyInfo propertyInfo = typeof(T).GetProperty(key, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-                    if (propertyInfo != null)
-                    {
-                        if (propertyInfo.PropertyType.Name == "String")
-                            pattern = "\"" + key + "\":\"" + arr[0].ToString() + "\"";
-                        else
-                            pattern = "\"" + key + "\":" + arr[0].ToString() + "";
-                    }
+                    key = key.Substring(0, key.Length - 1);
                 }
-                else
-                {
-                    string[] strArray = where.Split('=');
-                    if(strArray.Length>1 && strArray.Length < 3)
-                    {
-                        PropertyInfo propertyInfo = typeof(T).GetProperty(strArray[0], BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-                        if (propertyInfo.PropertyType.Name == "String")
-                            pattern = "\"" + strArray[0] + "\":\"" + strArray[1].ToString() + "\"";
-                        else
-                            pattern = "\"" + strArray[0] + "\":" + strArray[1].ToString() + "";
 
+                PropertyInfo propertyInfo = typeof(T).GetProperty(key, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                if (propertyInfo != null)
+                {
+                    if (propertyInfo.PropertyType.Name == "String")
+                    {
+                        pattern = "\"" + key + "\":\"" + arr[0].ToString() + "\"";
+                    }
+                    else
+                    {
+                        pattern = "\"" + key + "\":" + arr[0].ToString() + "";
                     }
                 }
+            }
+            else
+            {
+                string[] strArray = where.Split('=');
+                if (strArray.Length > 1 && strArray.Length < 3)
+                {
+                    PropertyInfo propertyInfo = typeof(T).GetProperty(strArray[0], BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                    if (propertyInfo.PropertyType.Name == "String")
+                    {
+                        pattern = "\"" + strArray[0] + "\":\"" + strArray[1].ToString() + "\"";
+                    }
+                    else
+                    {
+                        pattern = "\"" + strArray[0] + "\":" + strArray[1].ToString() + "";
+                    }
+                }
+            }
             //}
             return pattern;
         }
@@ -519,11 +583,16 @@ namespace Orm.Framework.Services
                     else
                     {//不包含的查询条件用*代替,表示可以是任何内容 eg:5037,*,true(可匹配查询条件为HospitalID,Name,【外键】,IsActive的情况)
                         if (!values.Contains("*,"))
+                        {
                             values += "*,";
+                        }
                     }
                 }
                 if (values.EndsWith(","))
+                {
                     values = values.Substring(0, values.Length - 1);
+                }
+
                 pattern = "\"" + keys + "\":\"" + values + "\"";
             }
             else
@@ -533,14 +602,21 @@ namespace Orm.Framework.Services
                     int k = where.IndexOf("=");
                     string key = where.Substring(0, k).Trim();
                     if (key.EndsWith("!")) //有些条件是以fild!=@0形式出现的
+                    {
                         key = key.Substring(0, key.Length - 1);
+                    }
+
                     PropertyInfo propertyInfo = typeof(T).GetProperty(key, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
                     if (propertyInfo != null)
                     {
                         if (propertyInfo.PropertyType.Name == "String")
+                        {
                             pattern = "\"" + key + "\":\"" + arr[0].ToString() + "\"";
+                        }
                         else
+                        {
                             pattern = "\"" + key + "\":" + arr[0].ToString() + "";
+                        }
                     }
                 }
             }
@@ -575,14 +651,19 @@ namespace Orm.Framework.Services
                     else
                     {//不包含的查询条件用*代替,表示可以是任何内容 eg:5037,*,true(可匹配查询条件为HospitalID,Name,【外键】,IsActive的情况)
                         if (!values.Contains("*,"))
+                        {
                             values += "*,";
+                        }
                     }
                 }
                 if (values.EndsWith(","))
+                {
                     values = values.Substring(0, values.Length - 1);
+                }
+
                 pattern = "\"" + keys + "\":\"" + values + "\"";
             }
-           
+
         }
 
         string[] _expTypes = new string[] { "||", "!", "Contains", "GreaterThan", ">", "GreaterThanOrEqual", ">=", "LessThan", "<", "LessThanOrEqual", "<=", "NotEqual", "<>", "Or" };
@@ -592,7 +673,9 @@ namespace Orm.Framework.Services
             foreach (string expType in _expTypes)
             {
                 if (where.Contains(expType))
+                {
                     return "";
+                }
             }
             where = where.Substring(3, where.Length - 3);
             /*
@@ -631,7 +714,9 @@ namespace Orm.Framework.Services
                 if (!isAllContain)
                 {
                     if (where.Contains("IsActive") && where.Length < 14)
+                    {
                         isAllContain = true;//只有IsActive一个查询条件的情况
+                    }
                 }
                 //下面将结合where和redisSearchConditionKeys构建pattern
                 GenerateExpPattern<T>(where, fileArr, valueArr, ref pattern, redisSearchConditionKeys, keys, ref values, isAllContain);
@@ -641,16 +726,22 @@ namespace Orm.Framework.Services
                 if (valueArr.Length == 1)
                 {
                     if (where.Contains("IsActive")) //eg:"t => t.IsActive AndAlso t.ClassName = \"四(2)班\""
+                    {
                         return "";
+                    }
                     //下面处理形如："t => t.IsActive AndAlso t.ClassName = \"四(2)班\""
                     string key = fileArr[0];
                     PropertyInfo propertyInfo = typeof(T).GetProperty(key, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
                     if (propertyInfo != null)
                     {
                         if (propertyInfo.PropertyType.Name == "String")
+                        {
                             pattern = "\"" + key + "\":\"" + valueArr[0].ToString() + "\"";
+                        }
                         else
+                        {
                             pattern = "\"" + key + "\":" + valueArr[0].ToString() + "";
+                        }
                     }
                 }
             }
@@ -683,11 +774,16 @@ namespace Orm.Framework.Services
                     else
                     {//不包含的查询条件用*代替,表示可以是任何内容 eg:5037,*,true(可匹配查询条件为HospitalID,Name,【外键】,IsActive的情况)
                         if (!values.Contains("*,"))
+                        {
                             values += "*,";
+                        }
                     }
                 }
                 if (values.EndsWith(","))
+                {
                     values = values.Substring(0, values.Length - 1);
+                }
+
                 pattern = "\"" + keys + "\":\"" + values + "\"";
             }
             else
@@ -705,9 +801,13 @@ namespace Orm.Framework.Services
                     if (propertyInfo != null)
                     {
                         if (propertyInfo.PropertyType.Name == "String")
+                        {
                             pattern = "\"" + key + "\":\"" + valueArr[0].ToString() + "\"";
+                        }
                         else
+                        {
                             pattern = "\"" + key + "\":" + valueArr[0].ToString() + "";
+                        }
                     }
                 }
             }

@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Orm.Model.Custom
-{   
+{
     /// <summary>
-     ///病人相关信息接收类
-     /// </summary>
+    ///病人相关信息接收类
+    /// </summary>
     [Serializable]
-    public partial class BsPatientCache: BaseModel
+    public partial class BsPatientCache : BaseModel
     {
-        private string _cardNo="";
+        private string _cardNo = "";
         /// <summary>
         /// 卡号
         /// </summary>
         public string CardNo
         {
             get { return _cardNo; }
-            set { _cardNo= value; }
+            set { _cardNo = value; }
         }
         private string _idCardNo = "";
         /// <summary>
@@ -29,7 +26,7 @@ namespace Orm.Model.Custom
             get { return _idCardNo; }
             set { _idCardNo = value; }
         }
-     
+
         private string _name = "";
         /// <summary>
         /// 病人姓名.
@@ -121,7 +118,7 @@ namespace Orm.Model.Custom
             get { return _pyCode; }
             set { _pyCode = value; }
         }
-      
+
 
         private string _wbCode = "";
         /// <summary>
@@ -131,7 +128,7 @@ namespace Orm.Model.Custom
         {
             get { return _wbCode; }
             set { _wbCode = value; }
-        } 
+        }
         /// <summary>
         /// 是否启用
         /// </summary>
@@ -181,41 +178,41 @@ namespace Orm.Model.Custom
             set { _doctorName = value; }
         }
 
-        private string _vipCardNo="";
+        private string _vipCardNo = "";
 
         /// <summary>
         ///会员卡号
         /// </summary>
         public string VipCardNo
         {
-            get 
+            get
             {
                 if (_vipCardNo == null)
                 {
                     _vipCardNo = "";
                 }
-                return _vipCardNo; 
+                return _vipCardNo;
             }
             set { _vipCardNo = value; }
         }
 
-        private string _vipLevel="";
+        private string _vipLevel = "";
         /// <summary>
         /// 会员等级
         /// </summary>
         public string VipLevel
         {
-            get 
+            get
             {
                 if (_vipLevel == null)
                 {
                     _vipLevel = "";
                 }
-                return _vipLevel; 
+                return _vipLevel;
             }
             set { _vipLevel = value; }
         }
- 
+
         private string _vipCardID;
         /// <summary>
         /// 会员卡ID
@@ -226,7 +223,7 @@ namespace Orm.Model.Custom
             set { _vipCardID = value; }
         }
 
-      
+
         private bool _isHideIllness;
         /// <summary>
         /// 是否特殊病人
@@ -251,11 +248,11 @@ namespace Orm.Model.Custom
             {
                 this._locationid = value;
             }
-        } 
+        }
         /// <summary>
         /// 是否会员
         /// </summary>
-        public bool IsVip { get { return string.IsNullOrWhiteSpace(VipCardID)? false : true; } }
+        public bool IsVip { get { return string.IsNullOrWhiteSpace(VipCardID) ? false : true; } }
 
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Linq;
 
 namespace Orm.Redis
@@ -8,7 +6,7 @@ namespace Orm.Redis
     public class RedisReadBusiHelper
     {
         public readonly object SyncObj = new object();
-                
+
         /// <summary>
         /// 添加Hash数据
         /// </summary>

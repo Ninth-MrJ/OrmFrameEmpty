@@ -18,6 +18,6 @@
         /// <summary>
         /// 远程IIS服务地址。
         /// </summary>
-        public static string IISServerUrl = string.Empty; 
+        public static string IISServerUrl = string.Empty;
     }
 }

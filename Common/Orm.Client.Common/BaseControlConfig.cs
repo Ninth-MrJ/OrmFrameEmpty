@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orm.Client.Common
+﻿namespace Orm.Client.Common
 {
 
     public class BaseControlConfig : absConfigModel
@@ -43,7 +37,7 @@ namespace Orm.Client.Common
         /// <summary>
         /// Key
         /// </summary>
-        public override  string  Key
+        public override string Key
         {
             set { _key = value; }
             get { return _key; }
@@ -110,8 +104,5 @@ namespace Orm.Client.Common
             get { return _Name; }
         }
         #endregion
-
-       
     }
-
 }

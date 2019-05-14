@@ -1,9 +1,4 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Framework.Services
 {
@@ -781,7 +776,7 @@ namespace Orm.Framework.Services
                 key.SetValue(name, content);
                 result = true;
             }
-            catch 
+            catch
             {
                 result = false;
             }

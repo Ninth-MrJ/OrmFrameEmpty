@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Configuration;
+using System.IO;
 
 namespace Orm.Framework.Services
 {
@@ -70,7 +70,7 @@ namespace Orm.Framework.Services
             }
             set { }
         }
-  
+
         static string binPath;
         /// <summary>
         /// 配置文件夹路径。

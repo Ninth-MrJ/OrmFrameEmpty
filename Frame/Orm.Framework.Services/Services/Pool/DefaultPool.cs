@@ -19,7 +19,7 @@ namespace Orm.Framework.Services
         /// 构造函数，使用默认池大小
         /// </summary>
         /// <param name="factory"></param>
-        public DefaultPool(IPoolableObjectFactory<T> factory) : this(factory,0)
+        public DefaultPool(IPoolableObjectFactory<T> factory) : this(factory, 0)
         {
         }
 
@@ -52,9 +52,12 @@ namespace Orm.Framework.Services
         /// </summary>
         public virtual T Get()
         {
-            T t= DoBorrow ();
-            if (t != null) return t; 
-            
+            T t = DoBorrow();
+            if (t != null)
+            {
+                return t;
+            }
+
             throw new ApplicationException("对象池中没有可用对象");//No more valid object in pool        
         }
 
@@ -64,7 +67,10 @@ namespace Orm.Framework.Services
         /// <param name="o"></param>
         public virtual bool Release(T o)
         {
-            if (o == null) return false;
+            if (o == null)
+            {
+                return false;
+            }
 
             return DoReturn(o);
         }

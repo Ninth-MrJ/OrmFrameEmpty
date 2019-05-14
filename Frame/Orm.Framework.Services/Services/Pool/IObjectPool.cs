@@ -1,12 +1,10 @@
-using System;
-
 namespace Orm.Framework.Services
 {
     /// <summary>
     /// 泛型对象池接口（只有资源开销比较大的对象才需要池化）
     /// </summary>
     public interface IObjectPool<T> where T : class
-	{
+    {
         /// <summary>
         /// 从对象池中获取一个可用对象
         /// </summary>
@@ -33,5 +31,5 @@ namespace Orm.Framework.Services
         /// 当前池中还有多少个可用对象
         /// </summary>
         int IdleObjects { get; }
-	}
+    }
 }

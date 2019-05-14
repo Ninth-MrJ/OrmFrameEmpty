@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Orm.Framework.Services.Utility;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Orm.Framework.Services.Utility;
 
 namespace Orm.Client.Common
 {
     public class ConfigFilesManager<T> where T : class
     {
         private static string _file;
-
 
         public static void SaveToBinary(string key, T obj)
         {
@@ -99,7 +95,11 @@ namespace Orm.Client.Common
         public static T GetInfo(string type, string key)
         {
             ConfigurationList<T> list = GetList(type);
-            if (list == null) return default(T);
+            if (list == null)
+            {
+                return default(T);
+            }
+
             return list[key];
         }
     }
@@ -114,16 +114,25 @@ namespace Orm.Client.Common
         public static string GetDefaultPath(string key)
         {
             string basePath;
-            if (LocaPat == string.Empty) LocaPat = AppDomain.CurrentDomain.BaseDirectory;
+            if (LocaPat == string.Empty)
+            {
+                LocaPat = AppDomain.CurrentDomain.BaseDirectory;
+            }
             //if (!basePath.EndsWith("\\")) basePath = basePath + "\\";
             basePath = LocaPat;
             if (key.Contains('.'))
             {
                 basePath += "\\ConfigFiles\\" + key.Substring(0, key.IndexOf(".")) + "\\";
-            }else
+            }
+            else
+            {
                 basePath += "\\ConfigFiles\\";
+            }
 
-            if (!System.IO.Directory.Exists(basePath)) System.IO.Directory.CreateDirectory(basePath);
+            if (!System.IO.Directory.Exists(basePath))
+            {
+                System.IO.Directory.CreateDirectory(basePath);
+            }
 
             return basePath;
         }
@@ -131,8 +140,5 @@ namespace Orm.Client.Common
         {
             return GetDefaultPath(key) + key + ".config";
         }
-
-
-
     }
 }

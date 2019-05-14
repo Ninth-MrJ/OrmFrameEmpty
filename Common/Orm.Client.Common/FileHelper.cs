@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Orm.Model;
 
 namespace Orm.Client.Common
 {
@@ -52,7 +47,7 @@ namespace Orm.Client.Common
 
                 return buffur;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -73,7 +68,11 @@ namespace Orm.Client.Common
         /// <returns></returns>
         public static BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
         {
-            if (byteArray == null) return null;
+            if (byteArray == null)
+            {
+                return null;
+            }
+
             BitmapImage bmp = null;
             try
             {
@@ -97,12 +96,15 @@ namespace Orm.Client.Common
             Bitmap bitmapSource = new Bitmap(bitmap.Width, bitmap.Height);
             int i, j;
             for (i = 0; i < bitmap.Width; i++)
+            {
                 for (j = 0; j < bitmap.Height; j++)
                 {
                     Color pixelColor = bitmap.GetPixel(i, j);
                     Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
                     bitmapSource.SetPixel(i, j, newColor);
                 }
+            }
+
             MemoryStream ms = new MemoryStream();
             bitmapSource.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             BitmapImage bitmapImage = new BitmapImage();
@@ -148,13 +150,13 @@ namespace Orm.Client.Common
         /// <param name="fileName"></param>
         /// <returns></returns>
         public static void SaveImageFile(BitmapSource imgSource, string fileName)
-        { 
+        {
             PngBitmapEncoder bbe = new PngBitmapEncoder();
             bbe.Frames.Add(BitmapFrame.Create(imgSource));
             using (Stream stream = File.Create(fileName))
             {
                 bbe.Save(stream); //保存图片  
-            } 
+            }
         }
 
         /// <summary>
@@ -194,6 +196,6 @@ namespace Orm.Client.Common
             return fileList;
         }
 
-        
+
     }
 }

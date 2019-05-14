@@ -1,8 +1,8 @@
 ﻿using Orm.Framework.Services;
 using System;
 using System.Collections.Generic;
-using WebBridgeContract;
 using System.Configuration;
+using WebBridgeContract;
 
 namespace WebBridgeEndpoint
 {
@@ -26,14 +26,14 @@ namespace WebBridgeEndpoint
 
         public string GetOneUrl()
         {
-            Random rd=new Random();
+            Random rd = new Random();
             int id = rd.Next(0, ApiTypeMap.WebApiUrlList.Count);
             //return ApiTypeMap.WebApiUrlList[id];
-            if (Environments.IISServerUrl !=string.Empty)
+            if (Environments.IISServerUrl != string.Empty)
             {
                 return Environments.IISServerUrl;
             }
-             else
+            else
             {
                 return ConfigurationManager.AppSettings["ServiceAddress"];
             }

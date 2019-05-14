@@ -16,10 +16,16 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public T GetData<T>(string key)
         {
-            if (string.IsNullOrWhiteSpace(key)) throw new ArgumentNullException("key");
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException("key");
+            }
 
             object obj = Thread.GetData(Thread.GetNamedDataSlot(key));
-            if (obj != null) return (T)obj;
+            if (obj != null)
+            {
+                return (T)obj;
+            }
 
             return default(T);
         }
@@ -31,7 +37,10 @@ namespace Orm.Framework.Services
         /// <param name="data"></param>
         public void SetData(string key, object data)
         {
-            if (string.IsNullOrWhiteSpace(key)) throw new ArgumentNullException("key");
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException("key");
+            }
 
             Thread.SetData(Thread.GetNamedDataSlot(key), data);
         }

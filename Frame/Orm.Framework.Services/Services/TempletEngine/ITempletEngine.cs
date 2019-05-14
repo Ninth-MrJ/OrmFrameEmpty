@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orm.Framework.Services
+﻿namespace Orm.Framework.Services
 {
     /// <summary>
     /// 模板引擎接口
@@ -26,6 +20,6 @@ namespace Orm.Framework.Services
         /// <param name="template">The string template.</param>
         /// <param name="model">The model instance.</param>
         /// <returns>The string result of the template.</returns>
-        string Parse<T>(string template, T model);       
+        string Parse<T>(string template, T model);
     }
 }

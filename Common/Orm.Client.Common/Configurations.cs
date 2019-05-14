@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Client.Common
 {
@@ -30,7 +26,9 @@ namespace Orm.Client.Common
         public void Add(string key, T info)
         {
             if (list.ContainsKey(key))
+            {
                 list.Remove(key);
+            }
 
             list.Add(key, info);
         }
@@ -38,7 +36,9 @@ namespace Orm.Client.Common
         {
 
             if (list.ContainsKey(info.Key))
+            {
                 list.Remove(info.Key);
+            }
 
             list.Add(info.Key, info);
         }
@@ -121,14 +121,22 @@ namespace Orm.Client.Common
             if (Orm.Utilities.Common.IsNumeric(a1) && Orm.Utilities.Common.IsNumeric(a2))
             {
                 if (Decimal.Parse(a1) - Decimal.Parse(a2) > 0)
+                {
                     return 1;
+                }
                 else if (Decimal.Parse(a1) - Decimal.Parse(a2) == 0)
+                {
                     return 0;
+                }
                 else
+                {
                     return -1;
+                }
             }
             if (Orm.Utilities.Common.IsDate(a1) && Orm.Utilities.Common.IsDate(a2))
+            {
                 return DateTime.Compare(DateTime.Parse(a1), DateTime.Parse(a2));
+            }
 
             return System.String.Compare(a1, a2);
 
@@ -139,7 +147,5 @@ namespace Orm.Client.Common
             return list.GetEnumerator();
         }
     }
-
     #endregion
-
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Orm.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Orm.Model;
 
 namespace Orm.Framework.Services
 {

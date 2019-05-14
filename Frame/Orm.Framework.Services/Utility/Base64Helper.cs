@@ -12,7 +12,10 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public static string EncodeBase64(string code)
         {
-            if (string.IsNullOrEmpty(code)) return string.Empty;
+            if (string.IsNullOrEmpty(code))
+            {
+                return string.Empty;
+            }
 
             try
             {
@@ -20,7 +23,7 @@ namespace Orm.Framework.Services
             }
             catch
             {
-                return code; 
+                return code;
             }
         }
 
@@ -31,12 +34,15 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public static string DecodeBase64(string code)
         {
-            if (string.IsNullOrEmpty(code)) return string.Empty;
+            if (string.IsNullOrEmpty(code))
+            {
+                return string.Empty;
+            }
 
             try
             {
                 byte[] bytes = Convert.FromBase64String(code);
-                string result= Encoding.UTF8.GetString(bytes);
+                string result = Encoding.UTF8.GetString(bytes);
                 return result;
             }
             catch

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Orm.Config;
+﻿using Orm.Config;
+using System;
 
 namespace Orm.Client.Common
 {
@@ -13,14 +9,13 @@ namespace Orm.Client.Common
     /// </summary>
     public class ClientSocketMessage
     {
-
         /// <summary>
         /// 登陆信息
         /// </summary>
         /// <param name="userID">用户</param>
         /// <param name="userName">用户名称</param>
         /// <param name="expertStatus">是否专家</param>
-        public static void SocketMessageLoginInformation(String userID, String userName,int expertStatus)
+        public static void SocketMessageLoginInformation(String userID, String userName, int expertStatus)
         {
             UserProfiles.socketMessageClient.setMessage($"登陆信息#{userID}#{userName}#{expertStatus}#");
         }
@@ -31,7 +26,7 @@ namespace Orm.Client.Common
         /// <param name="userID">用户</param>
         /// <param name="userName">用户名称</param>
         /// <param name="expertStatus">是否专家</param>
-        public static void SocketSenMessage(String userID, String userName, String roomCode, string Content )
+        public static void SocketSenMessage(String userID, String userName, String roomCode, string Content)
         {
             UserProfiles.socketMessageClient.setMessage($"发送消息#{userID}#{userName}#{roomCode}##{Content}#");
         }
@@ -54,9 +49,9 @@ namespace Orm.Client.Common
         /// <param name="expertID">专家id</param>
         /// <param name="IsSevaSendCommand">是否保存挂号</param>
         /// <param name="ouhosinfoID">挂号ID</param>
-        public static void SocketMessageExpertRegistration(int RegistrationStatus, String userID, String expertID, string IsSevaSendCommand,string ouhosinfoID, string suijishu)
+        public static void SocketMessageExpertRegistration(int RegistrationStatus, String userID, String expertID, string IsSevaSendCommand, string ouhosinfoID, string suijishu)
         {
-            string SendCommand = "专家挂号#" + $"{RegistrationStatus}#" + $"{userID}#" + expertID + "#" + IsSevaSendCommand.ToString() + "#" + ouhosinfoID +   "#" + suijishu + "#";
+            string SendCommand = "专家挂号#" + $"{RegistrationStatus}#" + $"{userID}#" + expertID + "#" + IsSevaSendCommand.ToString() + "#" + ouhosinfoID + "#" + suijishu + "#";
             UserProfiles.socketMessageClient.setMessage(SendCommand);
         }
 

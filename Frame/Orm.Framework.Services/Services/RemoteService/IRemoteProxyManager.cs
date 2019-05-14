@@ -1,11 +1,4 @@
-﻿using Orm.Framework.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orm.Framework.Services
+﻿namespace Orm.Framework.Services
 {
     /// <summary>
     /// Api代理对象管理，所有Api均约为单例模式。这是一个本地接口。

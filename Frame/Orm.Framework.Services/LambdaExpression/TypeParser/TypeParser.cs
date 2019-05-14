@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -164,7 +163,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     if (!result)
                     {
                         if (ignoreException)
+                        {
                             break;
+                        }
+
                         throw new ParseUnfindTypeException(sbValue.ToString(), spResult.Index);
                     }
                     sbValue.Append(".");
@@ -178,7 +180,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         internal Type GetType(string typeName)
         {
             if (string.IsNullOrEmpty(typeName))
+            {
                 return null;
+            }
 
             // Nullable
             bool isNullable = false;
@@ -250,7 +254,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
 
                                 // To find a qualified first class
                                 if (type != null)
+                                {
                                     break;
+                                }
                             }
                         }
                     }
@@ -258,7 +264,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             }
 
             if (isNullable && type != null)
-            { 
+            {
                 type = typeof(Nullable<>).MakeGenericType(type);
             }
 
@@ -269,14 +275,18 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             Type type = Type.GetType(typeName);
             if (type != null)
+            {
                 return type;
+            }
 
             Assembly[] listAssembly = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly assembly in listAssembly)
             {
                 type = assembly.GetType(typeName, false, false);
                 if (type != null)
+                {
                     return type;
+                }
             }
 
             if (assemblyExtensions != null && assemblyExtensions.Any())
@@ -285,7 +295,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                 {
                     type = assembly.GetType(typeName, false, false);
                     if (type != null)
+                    {
                         return type;
+                    }
                 }
             }
 
@@ -295,7 +307,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                 {
                     type = assembly.GetType(typeName, false, false);
                     if (type != null)
+                    {
                         return type;
+                    }
                 }
             }
             return null;
@@ -306,11 +320,13 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             if (spResult.Next() != symbol)
             {
                 if (throwExceptionIfError)
-                { 
+                {
                     throw new ApplicationException(string.Format("{0} isn't the next token", symbol));
                 }
                 else
+                {
                     return false;
+                }
             }
             return true;
         }

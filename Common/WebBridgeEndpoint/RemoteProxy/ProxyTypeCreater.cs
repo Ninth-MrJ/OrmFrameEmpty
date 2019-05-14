@@ -87,7 +87,7 @@ namespace WebBridgeEndpoint
             CompilerParameters objCompilerParameters = InitalCompiler();
 
             string csCode = CreatCalssCode();
-        
+
             CompilerResults cr = CodeProvider.CompileAssemblyFromSource(objCompilerParameters, csCode);
 
             if (cr.Errors.HasErrors)
@@ -117,7 +117,8 @@ namespace WebBridgeEndpoint
             if (Directory.Exists(binPath))
             {
                 basePath = binPath;
-            }else
+            }
+            else
             {
                 basePath = AppDomain.CurrentDomain.BaseDirectory;
             }
@@ -240,15 +241,15 @@ namespace WebBridgeEndpoint
                 if (member.MemberType == MemberTypes.Event)
                 {
                     EventInfo evInfo = member as EventInfo;
-                    stringBuilder= CreatOneEvent(evInfo, stringBuilder);
+                    stringBuilder = CreatOneEvent(evInfo, stringBuilder);
                 }
 
                 //方法生成。
                 if (member.MemberType == MemberTypes.Method)
                 {
                     MethodInfo mtInfo = member as MethodInfo;
-                  
-                    stringBuilder= CreatOneMethod(mtInfo, stringBuilder);
+
+                    stringBuilder = CreatOneMethod(mtInfo, stringBuilder);
                 }
 
                 //属性生成。
@@ -358,7 +359,7 @@ namespace WebBridgeEndpoint
             strReturnType = GetTypeNameStr(mtInfo.ReturnType);
             strMethodName = GetMethodNameStr(mtInfo);
             strMethodConstraint = GetMethodConstraint(mtInfo);
-            strMethodArgType= GetMethodTypeArgs(mtInfo);
+            strMethodArgType = GetMethodTypeArgs(mtInfo);
 
             ParameterInfo[] parameters = mtInfo.GetParameters();
             List<string> paramNameList = new List<string>();
@@ -428,18 +429,20 @@ namespace WebBridgeEndpoint
                     var reg = new Regex(@"^.*(?=`\d*\[)");
                     genericName = reg.Match(TheType.FullName).Value;
                 }
-                else {
-                    genericName = TheType.Name.Substring(0,TheType.Name.Length-2);
+                else
+                {
+                    genericName = TheType.Name.Substring(0, TheType.Name.Length - 2);
                 }
 
                 string strTypeArgs = string.Empty;
                 foreach (var TypeArg in TheType.GetGenericArguments())
                 {
-                    if(!string.IsNullOrWhiteSpace( strTypeArgs))
+                    if (!string.IsNullOrWhiteSpace(strTypeArgs))
                     {
                         strTypeArgs += ",";
                     }
-                    if (string.IsNullOrWhiteSpace(TypeArg.FullName)) {
+                    if (string.IsNullOrWhiteSpace(TypeArg.FullName))
+                    {
                         strTypeArgs += TypeArg.Name;
                     }
                     else
@@ -451,7 +454,7 @@ namespace WebBridgeEndpoint
                 retTypeStr = genericName + "<" + strTypeArgs + ">";
             }
 
-           return retTypeStr;
+            return retTypeStr;
         }
 
         /// <summary>
@@ -471,7 +474,8 @@ namespace WebBridgeEndpoint
                     {
                         strTypeArgs += ",";
                     }
-                    if (string.IsNullOrWhiteSpace(TypeArg.FullName)) {
+                    if (string.IsNullOrWhiteSpace(TypeArg.FullName))
+                    {
                         strTypeArgs += TypeArg.Name;
                     }
                     else
@@ -492,32 +496,40 @@ namespace WebBridgeEndpoint
         {
             string retTypeStr = string.Empty;
             if (!mtInfo.IsGenericMethod)
+            {
                 return retTypeStr;
+            }
+
             var gnInfo = mtInfo.GetGenericMethodDefinition();
             var args = gnInfo.GetGenericArguments();
             foreach (var TypeArg in args)
             {
                 string strTypeArgs = string.Empty;
                 if (!TypeArg.IsGenericParameter)
+                {
                     continue;
-                 
+                }
+
                 var attributes = TypeArg.GenericParameterAttributes;
                 if ((int)attributes == 0)
+                {
                     continue;
+                }
 
                 if (!string.IsNullOrWhiteSpace(strTypeArgs))
                 {
                     strTypeArgs += ",";
                 }
-                else {
-                    strTypeArgs = " where "+TypeArg.Name +":";
+                else
+                {
+                    strTypeArgs = " where " + TypeArg.Name + ":";
                 }
-          
-              
+
+
 
                 if ((attributes & GenericParameterAttributes.Contravariant) != 0)
                 {
-                  
+
                     strTypeArgs += string.Empty;
                 }
 
@@ -537,8 +549,8 @@ namespace WebBridgeEndpoint
                 }
 
                 if ((attributes & GenericParameterAttributes.SpecialConstraintMask) != 0
-                    && 
-                   ( attributes & GenericParameterAttributes.ReferenceTypeConstraint) == 0
+                    &&
+                   (attributes & GenericParameterAttributes.ReferenceTypeConstraint) == 0
                     )
                 {
                     if (!string.IsNullOrWhiteSpace(TypeArg.BaseType.FullName))
@@ -566,10 +578,10 @@ namespace WebBridgeEndpoint
                 }
 
                 retTypeStr += strTypeArgs;
-             
+
             }
 
-          
+
             return retTypeStr;
         }
 
@@ -577,23 +589,33 @@ namespace WebBridgeEndpoint
         {
 
             if (!mtInfo.IsGenericMethod)
+            {
                 return "string[] TypeArgs=null;";
+            }
 
             var args = mtInfo.GetGenericArguments();
             if (args.Length == 0)
+            {
                 return "string[] TypeArgs=null;";
+            }
+
             string retTypeStr = "var TypeArgs=new string[]{";
             foreach (var TypeArg in args)
             {
                 string strTypeArgs = string.Empty;
                 if (!TypeArg.IsGenericParameter)
+                {
                     continue;
+                }
 
                 var attributes = TypeArg.GenericParameterAttributes;
                 if ((int)attributes == 0)
+                {
                     continue;
+                }
 
-                if (!retTypeStr.EndsWith("{")) {
+                if (!retTypeStr.EndsWith("{"))
+                {
                     strTypeArgs = ",";
                 }
                 strTypeArgs += " typeof( " + TypeArg.Name + ").AssemblyQualifiedName";
@@ -601,7 +623,7 @@ namespace WebBridgeEndpoint
 
             }
 
-            return retTypeStr+"};";
+            return retTypeStr + "};";
         }
 
         /// <summary>

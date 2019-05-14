@@ -63,7 +63,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
             get
             {
                 if (Index < 0 || Index > _maxIndex)
-                { 
+                {
                     return Token.Empty;
                 }
 
@@ -88,9 +88,13 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             Token token;
             if (TryGetElement(out token, Index + 1))
+            {
                 return token;
+            }
             else
+            {
                 return Token.Empty;
+            }
         }
 
         /// <summary>
@@ -103,7 +107,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             var result = Next().ID == tokenId;
             if (!result && throwIfNot)
-            { 
+            {
                 throw new ApplicationException(string.Format("next is not {0}", tokenId));
             }
             return result;
@@ -118,11 +122,11 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             Token token;
             if (PeekGetElement(out token, Index + count))
-            { 
+            {
                 return token;
             }
             else
-            { 
+            {
                 return Token.Empty;
             }
         }
@@ -140,7 +144,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             var result = PeekNext(count).ID == tokenId;
             if (!result && throwIfNot)
-            { 
+            {
                 throw new ApplicationException(string.Format("next is not {0}", tokenId));
             }
             return result;
@@ -167,7 +171,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             List<Token> data = new List<Token>();
             while (!predicate(Current) || Current.ID == TokenId.End)
-            { 
+            {
                 data.Add(Next());
             }
             return data;
@@ -180,7 +184,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         public void ReturnToIndex(int index)
         {
             if (index < -1 || index > _maxIndex)
-            { 
+            {
                 throw new IndexOutOfRangeException();
             }
 
@@ -193,7 +197,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         {
             bool result = PeekGetElement(out token, index);
             if (result)
-            { 
+            {
                 Index = index;
             }
             return result;
@@ -216,7 +220,7 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         private void CheckIndexOut(int index)
         {
             if (index < 0 || index > _maxIndex)
-            { 
+            {
                 throw new IndexOutOfRangeException();
             }
         }

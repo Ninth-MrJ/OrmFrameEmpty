@@ -21,8 +21,8 @@ namespace WebBridgeEndpoint
             Type senderType = sender.GetType();
             EventDC evData = new EventDC();
             evData.EventKey = Guid.NewGuid().ToString("N");
-           
-            if (senderType.GetEvent(args.EventName)!=null || senderType.GetEvent(args.EventName).EventHandlerType.FullName == typeof(RemoteEventHandler<>).FullName)
+
+            if (senderType.GetEvent(args.EventName) != null || senderType.GetEvent(args.EventName).EventHandlerType.FullName == typeof(RemoteEventHandler<>).FullName)
             {
                 evData.EventName = args.EventName;
             }
@@ -53,5 +53,5 @@ namespace WebBridgeEndpoint
             evOperation.CastRemoteEvent(evData);
         }
 
-    }   
+    }
 }

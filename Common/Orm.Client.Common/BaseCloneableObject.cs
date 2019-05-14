@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Client.Common
 {
     [Serializable]
     public abstract class BaseCloneableObject : ICloneable
     {
-        //private static readonly BindingFlags BINDING_FLAGS
-        //    = BindingFlags.Instance | BindingFlags.Public
-        //    | BindingFlags.GetProperty | BindingFlags.SetProperty
-        //    | BindingFlags.GetField | BindingFlags.SetField;
         /// <summary>
         /// Clone对象，并返回对象引用
         /// </summary>
@@ -22,9 +14,9 @@ namespace Orm.Client.Common
         public object Clone()
         {
             BindingFlags BINDING_FLAGS
-			= BindingFlags.Instance | BindingFlags.Public 
-			| BindingFlags.GetProperty | BindingFlags.SetProperty
-			| BindingFlags.GetField  | BindingFlags.SetField;
+            = BindingFlags.Instance | BindingFlags.Public
+            | BindingFlags.GetProperty | BindingFlags.SetProperty
+            | BindingFlags.GetField | BindingFlags.SetField;
             //先创建一个新实例
             object newObject = Activator.CreateInstance(this.GetType());
 
@@ -92,7 +84,7 @@ namespace Orm.Client.Common
                         j = 0;
                         foreach (DictionaryEntry de in IEnum)
                         {
-                           
+
                             ICloneType = de.Value.GetType().GetInterface("ICloneable", true);
 
                             if (ICloneType != null)
@@ -110,8 +102,12 @@ namespace Orm.Client.Common
             System.Reflection.PropertyInfo[] properties = newObject.GetType().GetProperties(BINDING_FLAGS);
             for (int k = 0; k < properties.Length; k++)
             {
-                object val= Orm.Client.Common.Property.DynaAccessUtils.GetProperty(this,properties[k].Name);
-                if (val == null) continue;
+                object val = Orm.Client.Common.Property.DynaAccessUtils.GetProperty(this, properties[k].Name);
+                if (val == null)
+                {
+                    continue;
+                }
+
                 Property.DynaAccessUtils.SetProperty(newObject, properties[k].Name, val);
             }
             return newObject;

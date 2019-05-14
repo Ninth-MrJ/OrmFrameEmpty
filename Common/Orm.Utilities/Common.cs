@@ -140,39 +140,6 @@ namespace Orm.Utilities
             return dateTime.Year.ToString() + month + day;
         }
 
-        /// <summary>
-        /// 获取门诊病人病史症状[诊断表]
-        /// </summary>
-        /// <param name="IllDesc">诊断（ICD名称）</param>
-        /// <param name="Chindiag">中医诊断</param>
-        /// <param name="LsDiagType">诊断类别：1-初诊；2-疑诊；3-复诊</param>
-        /// <returns></returns>
-        public static string GetDesc(string IllDesc, string Chindiag, int LsDiagType)
-        {
-            string desc = string.Empty;
-            if (!string.IsNullOrEmpty(IllDesc))
-            {
-                desc = desc + "西医诊断" + ":";
-            }
-            if (!string.IsNullOrEmpty(Chindiag))
-            {
-                desc = desc + "中医诊断" + ":";
-            }
-            if (LsDiagType == 1)
-            {
-                desc = desc + "初诊";
-            }
-            if (LsDiagType == 2)
-            {
-                desc = desc + "疑诊";
-            }
-            else if (LsDiagType == 3)
-            {
-                desc = desc + "疑诊";
-            }
-            return desc;
-
-        }
 
         #region NumberFormatToString[将数值转换为指定最小长度的字符形式]
         public static string NumberFormatToString(int intOrderNo, int intMinLenth)
@@ -204,12 +171,16 @@ namespace Orm.Utilities
             {
                 var child = VisualTreeHelper.GetChild(obj, i);
                 if (child != null && child is T)
+                {
                     return (T)child;
+                }
                 else
                 {
                     var childOfChild = FindVisualChild<T>(child);
                     if (childOfChild != null)
+                    {
                         return childOfChild;
+                    }
                 }
             }
             return null;
@@ -376,9 +347,13 @@ namespace Orm.Utilities
         public static bool ValidateNullInput(object obj)
         {
             if (obj == null)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
         /// <summary>
         /// 大写金额
@@ -505,7 +480,10 @@ namespace Orm.Utilities
         public static string IncreaseNumberString(string value)
         {
             if (value.Trim() == string.Empty)
+            {
                 return "1";
+            }
+
             switch (value[value.Length - 1])
             {
                 case 'z':
@@ -531,11 +509,22 @@ namespace Orm.Utilities
         /// <returns></returns>
         public static bool FindInDataTable(DataTable dt, string key, string keyValue)
         {
-            if (dt == null || key == null || keyValue == null || key == string.Empty) return false;
-            if (dt.Columns.IndexOf(key) < 0) return false;
+            if (dt == null || key == null || keyValue == null || key == string.Empty)
+            {
+                return false;
+            }
+
+            if (dt.Columns.IndexOf(key) < 0)
+            {
+                return false;
+            }
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if (dt.Rows[i][key].ToString() == keyValue) return true;
+                if (dt.Rows[i][key].ToString() == keyValue)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -550,21 +539,32 @@ namespace Orm.Utilities
         {
             try
             {
-                if (val.Trim() == string.Empty) return false;
+                if (val.Trim() == string.Empty)
+                {
+                    return false;
+                }
+
                 for (int i = 0; i < val.Length; i++)
                 {
                     if (val[i].ToString().Trim() == "/" || val[i].ToString().Trim() == "*" || val[i].ToString().Trim() == "+" || (val[i].ToString().Trim() == "-" && val.Length == 1))
+                    {
                         return false;
+                    }
+
                     int intCode = Convert.ToInt32(val[i]);
                     if (i == 0)
                     {
                         if (intCode < 45 || intCode > 57)
+                        {
                             return false;
+                        }
                     }
                     else
                     {
                         if (intCode < 46 || intCode > 57)
+                        {
                             return false;
+                        }
                     }
                 }
                 return true;
@@ -583,7 +583,10 @@ namespace Orm.Utilities
         public static bool IsNumeric(object val)
         {
             if (val == null)
+            {
                 return false;
+            }
+
             return IsNumeric(val.ToString());
 
         }
@@ -594,31 +597,48 @@ namespace Orm.Utilities
         /// <returns>true 表示日期，false 表示不是日期</returns>
         public static bool IsDate(string val)
         {
-            if (val == null) return false;
+            if (val == null)
+            {
+                return false;
+            }
 
             DateTime date;
             if (DateTime.TryParse(val, out date))
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
         public static bool IsChar(string ch)
         {
-            if (ch == null || ch == string.Empty) return false;
+            if (ch == null || ch == string.Empty)
+            {
+                return false;
+            }
+
             ch = ch.ToLower();
             for (int i = 0; i < ch.Length; i++)
             {
                 int intCode = Convert.ToInt32(ch[i]);
                 if (intCode < 97 || intCode > 122)
+                {
                     return false;
+                }
             }
             return true;
         }
 
         public static bool IsInteger(object val)
         {
-            if (!IsNumeric(val)) return false;
+            if (!IsNumeric(val))
+            {
+                return false;
+            }
+
             decimal dVal = Convert.ToDecimal(System.Math.Round(Convert.ToDouble(val), 6));
             if (Math.Abs(dVal - Math.Ceiling(dVal)) < Convert.ToDecimal(0.009999) || Math.Abs(dVal - Math.Floor(dVal)) < Convert.ToDecimal(0.009999))
             {
@@ -669,13 +689,25 @@ namespace Orm.Utilities
         public static string GetNotEmptyString(string str1, string str2, string str3, string str4)
         {
             if (str1 != string.Empty)
+            {
                 return str1;
+            }
+
             if (str2 != string.Empty)
+            {
                 return str2;
+            }
+
             if (str3 != string.Empty)
+            {
                 return str3;
+            }
+
             if (str4 != string.Empty)
+            {
                 return str4;
+            }
+
             return string.Empty;
         }
 

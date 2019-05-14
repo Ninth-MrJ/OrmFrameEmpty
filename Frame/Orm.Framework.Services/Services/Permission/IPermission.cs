@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Orm.Framework.Services
 {
@@ -49,11 +45,11 @@ namespace Orm.Framework.Services
     }
     public enum ResourceType
     {
-        VIEW=1,
+        VIEW = 1,
 
-        API=2,
+        API = 2,
 
-        CUSTOM=9,
+        CUSTOM = 9,
     }
 
     /// <summary>
@@ -67,7 +63,7 @@ namespace Orm.Framework.Services
         /// <param name="user"></param>
         /// <param name="reskey"></param>
         /// <returns></returns>
-        bool Authorized(string user, string key ,ResourceType type);
+        bool Authorized(string user, string key, ResourceType type);
 
         /// <summary>
         /// 返回用户在特定数据资源上的限制条件集
@@ -83,7 +79,7 @@ namespace Orm.Framework.Services
         /// <param name="user"></param>
         /// <param name="viewid"></param>
         /// <returns></returns>
-        List<Element> ViewAuthorized(string user,string viewcode);
+        List<Element> ViewAuthorized(string user, string viewcode);
 
         /// <summary>
         /// 返回用户某个系统上有权限的菜单集合

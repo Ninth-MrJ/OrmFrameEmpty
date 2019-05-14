@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Orm.Framework.Services;
+using Orm.Framework.Services.ServiceDBBase;
+using Orm.Model;
+using Orm.Redis;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -11,14 +14,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml;
-using Orm.Framework.Services;
-using Orm.Framework.Services.ServiceDBBase;
-using Orm.Log4Library;
-using Orm.Model;
-using Orm.Redis;
 
 namespace Orm.Framework.Services
 {
@@ -37,7 +33,10 @@ namespace Orm.Framework.Services
             get
             {
                 if (_SysParam == null)
+                {
                     _SysParam = new SysParamService();
+                }
+
                 return _SysParam;
             }
         }
@@ -118,11 +117,13 @@ namespace Orm.Framework.Services
                             TableName = TypeArg.Count() <= 0 ? typeof(T).Name : TypeArg[0].Name;
                         }
                         if (ls_Key.ToUpper().Equals(TableName.ToUpper()) && ls_UseStatus)
+                        {
                             return new Tuple<bool, string, string>(true, ls_RedisType, ls_CacheType);
+                        }
                     }
                 }
             }
-            catch (Exception er) { }
+            catch (Exception) { }
             return new Tuple<bool, string, string>(false, string.Empty, string.Empty);
         }
         #endregion
@@ -273,7 +274,10 @@ namespace Orm.Framework.Services
             //    }
             //}
             models = DataRepository().GetQueryable<T>().Where(where, arr);
-            if (models != null && models.Count() > 0) return models.ToList();
+            if (models != null && models.Count() > 0)
+            {
+                return models.ToList();
+            }
             else
             {
                 return new List<T>();
@@ -304,7 +308,7 @@ namespace Orm.Framework.Services
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public List<T> GetAllList<T>() where T : class, new() 
+        public List<T> GetAllList<T>() where T : class, new()
         {
             string modelTypeStr = typeof(T).Name;
             var IsExist = IsExist<BsRedisTable>("TableName=@0", modelTypeStr);
@@ -312,7 +316,9 @@ namespace Orm.Framework.Services
             {//如果是基础数据，从本地redis中获取数据
                 List<T> list = RedisReadExHelper.RetrieveSet<T>(modelTypeStr);
                 if (list.Count > 0)
+                {
                     return list;
+                }
             }
             try
             {
@@ -323,9 +329,11 @@ namespace Orm.Framework.Services
                     return list;
                 }
                 else
+                {
                     return new List<T>();
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -347,9 +355,11 @@ namespace Orm.Framework.Services
                     return list;
                 }
                 else
+                {
                     return new List<T>();
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -374,13 +384,22 @@ namespace Orm.Framework.Services
         {
             IQueryable<T> _dal = null;
             if (string.IsNullOrEmpty(where))
+            {
                 _dal = DataRepository().GetQueryable<T>().SkipT<T>(startIndex).TakeT<T>(stopIndex).OrderBy<T>("name");
+            }
             else
+            {
                 _dal = DataRepository().GetQueryable<T>().Where(where, arr).SkipT<T>(startIndex).TakeT<T>(stopIndex).OrderBy<T>("name");
+            }
+
             if (_dal != null)
+            {
                 return _dal.ToList();
+            }
             else
+            {
                 return new List<T>();
+            }
         }
         #endregion
 
@@ -393,8 +412,11 @@ namespace Orm.Framework.Services
         public string Add<T>(T entity) where T : BaseModel, new()
         {
             entity.SetStringValue();
-            if(entity.GetType().Name != "BsDoctor")
-            entity.GUID = Guid.NewGuid().ToString("N");
+            if (entity.GetType().Name != "BsDoctor")
+            {
+                entity.GUID = Guid.NewGuid().ToString("N");
+            }
+
             this.DataRepository().Add(entity);
             //TransformToInsertSQL(entity);
             string TableName = entity.GetType().Name;
@@ -452,7 +474,6 @@ namespace Orm.Framework.Services
 
         public T GetModeRedisByGuid<T>(string guid) where T : BaseModel, new()
         {
-            object model;
             string modelTypeStr = typeof(T).Name;
             if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL"))
             {
@@ -482,7 +503,7 @@ namespace Orm.Framework.Services
             string modelTypeStr = TableName.ToUpper();
             var IsExist = IsExist<BsRedisTable>("TableName=@0", TableName);
 
-            if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")||IsExist )
+            if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
             {
                 //if (k > 0)
                 //{
@@ -529,7 +550,7 @@ namespace Orm.Framework.Services
             var IsExist = IsExist<BsRedisTable>("TableName=@0", TableName);
             if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
             {
-                    DeleteRedis<T>(lamb);
+                DeleteRedis<T>(lamb);
             }
             int k = DataRepository().Delete<T>(lamb);
             return k;
@@ -573,7 +594,7 @@ namespace Orm.Framework.Services
                     }
                 };
                 Commit(action);
-                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")||IsExist)
+                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
                 {
                     AddListToRedis(entityList);
                     return;
@@ -586,7 +607,7 @@ namespace Orm.Framework.Services
                     ls_GuID = entityList[i].GUID;
                     this.DataRepository().Add(entityList[i]);
                     //TransformToInsertSQL(entityList[i]);
-                    if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")||IsExist)
+                    if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
                     {
                         AddEntityToRedis<T>(entityList[i]);
                     }
@@ -605,7 +626,7 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public string SaveChild<T, TChild>(T parentObj, List<TChild> list, string relationKey, bool IsTrn = false) where T : BaseModel, new() where TChild : BaseModel, new()
         {
-            string TableName=  typeof(T).Name;
+            string TableName = typeof(T).Name;
             string modelTypeStr = TableName.ToUpper();
             var IsExist = IsExist<BsRedisTable>("TableName=@0", TableName);
             string returns = null;
@@ -652,7 +673,7 @@ namespace Orm.Framework.Services
                     returns = DeleteList(Lstentity);
                 };
                 Commit(action);
-                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")||IsExist)
+                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
                 {
                     DeleteRedis<T>(Lstentity);
                     return returns;
@@ -661,7 +682,7 @@ namespace Orm.Framework.Services
             else
             {
                 returns = DeleteList(Lstentity);
-                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL")||IsExist)
+                if (modelTypeStr.ToUpper().StartsWith("BS") || modelTypeStr.ToUpper().StartsWith("GBL") || IsExist)
                 {
                     DeleteRedis<T>(Lstentity);
                     return returns;
@@ -717,7 +738,9 @@ namespace Orm.Framework.Services
             if (modelTypeStr.Contains(".BS") || modelTypeStr.Contains(".GBL") || IsExist)
             {
                 if (k)
+                {
                     UpdateRedis(entity);
+                }
             }
             return k;
         }
@@ -767,13 +790,17 @@ namespace Orm.Framework.Services
                 };
                 Commit(action);
                 if (modelTypeStr.Contains(".BS") || modelTypeStr.Contains(".GBL") || IsExist)
+                {
                     UpdateRedis(Lstentity);
+                }
             }
             else
             {
                 returns = UpdateList(Lstentity);
                 if (modelTypeStr.Contains(".BS") || modelTypeStr.Contains(".GBL") || IsExist)
+                {
                     UpdateRedis(Lstentity);
+                }
             }
             return returns;
         }
@@ -936,7 +963,11 @@ namespace Orm.Framework.Services
             }
             string parentGuid = parentObj.GUID;
             string childGuid = null;
-            if (string.IsNullOrWhiteSpace(parentGuid)) throw (new Exception("新增或更新父表失败"));
+            if (string.IsNullOrWhiteSpace(parentGuid))
+            {
+                throw (new Exception("新增或更新父表失败"));
+            }
+
             foreach (TChild info in list)
             {
                 info.GetType().GetProperty(relationKey).SetValue(info, parentGuid, null);
@@ -946,7 +977,10 @@ namespace Orm.Framework.Services
                     this.Add(info);
                     //this.DataRepository().Add(info);
                     childGuid = info.GUID;
-                    if (string.IsNullOrWhiteSpace(childGuid)) throw (new Exception("新增子表失败"));
+                    if (string.IsNullOrWhiteSpace(childGuid))
+                    {
+                        throw (new Exception("新增子表失败"));
+                    }
                     //TransformToInsertSQL(info);
                 }
                 if (!string.IsNullOrWhiteSpace(info.GUID))
@@ -1011,11 +1045,15 @@ namespace Orm.Framework.Services
             {
                 var _dal = DataRepository().GetQueryable<T>();
                 if (_dal != null)
+                {
                     return _dal.ToList().Count();
+                }
                 else
+                {
                     return new List<T>().Count();
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -1028,9 +1066,14 @@ namespace Orm.Framework.Services
         {
             IQueryable<T> _dal = null;
             if (string.IsNullOrEmpty(where))
+            {
                 _dal = DataRepository().GetQueryable<T>().SkipT<T>(startIndex).TakeT<T>(stopIndex).OrderBy<T>("guid");
+            }
             else
+            {
                 _dal = DataRepository().GetQueryable<T>().Where(where, arr).SkipT<T>(startIndex).TakeT<T>(stopIndex).OrderBy<T>("guid");
+            }
+
             return _dal.ToList();
         }
 
@@ -1043,18 +1086,27 @@ namespace Orm.Framework.Services
             IQueryable<T> _dal = null;
             _dal = DataRepository().GetQueryable<T>().SkipT<T>(0).TakeT<T>(14).OrderBy<T>("guid");
             if (_dal != null)
+            {
                 return _dal.ToList();
+            }
             else
+            {
                 return new List<T>();
+            }
         }
 
         public int GetPageListCount<T>(int startIndex, int stopIndex, string where, params object[] arr) where T : class, new()
         {
             IQueryable<T> queryable = null;
             if (string.IsNullOrEmpty(where))
+            {
                 queryable = DataRepository().GetQueryable<T>().SkipT<T>(startIndex).TakeT<T>(stopIndex);
+            }
             else
+            {
                 queryable = DataRepository().GetQueryable<T>().Where(where, arr).SkipT<T>(startIndex).TakeT<T>(stopIndex);
+            }
+
             return queryable.Count();
         }
 
@@ -1139,8 +1191,8 @@ namespace Orm.Framework.Services
                 throw (ex);
             }
         }
-        
-        
+
+
 
         /// <summary>
         /// 数据库新增记录后新增redis相关记录
@@ -1275,7 +1327,9 @@ namespace Orm.Framework.Services
                 string modelTypeStr = typeof(T).Name;
 
                 if (!list.Any())
+                {
                     return new List<T>();
+                }
 
                 foreach (var item in list)
                 {
@@ -1323,7 +1377,9 @@ namespace Orm.Framework.Services
             {
                 var GUID = Add<T>(entity);
                 if (!string.IsNullOrEmpty(GUID))
+                {
                     k = true;
+                }
             }
             else //修改
             {
@@ -1360,7 +1416,7 @@ namespace Orm.Framework.Services
             return helper.ExecuteDataTable(sql, helper.Parameters).TableToList<T>();
         }
 
-        
+
 
         #endregion
     }

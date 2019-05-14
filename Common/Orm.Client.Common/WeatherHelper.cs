@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using Orm.Config;
 
 namespace Orm.Client.Common
 {
@@ -28,7 +24,7 @@ namespace Orm.Client.Common
                     }
                 }
             }
-            catch 
+            catch
             {
                 //异常无视
                 //Orm.Utilities.Common.ShowMsgBox("获取天气失败");
@@ -36,7 +32,7 @@ namespace Orm.Client.Common
             return sb.ToString();
         }
 
-        public void GetWeather(ref string[] weatherPlace, ref string[] weatherTemperature, ref string[] days, ref string[] Weather, ref string[] weather_icon,ref  string[] weatherWeek,  ref  string cityCode)
+        public void GetWeather(ref string[] weatherPlace, ref string[] weatherTemperature, ref string[] days, ref string[] Weather, ref string[] weather_icon, ref string[] weatherWeek, ref string cityCode)
         {
             //获取城市代码http://61.4.185.48:81/g/
             // 获取天气http://api.k780.com:88/?app=weather.today&weaid=101280101&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json
@@ -82,7 +78,7 @@ namespace Orm.Client.Common
             }
             catch
             {
-                
+
                 //异常无视
                 //Orm.Utilities.Common.ShowMsgBox("获取天气失败");
             }
@@ -146,9 +142,9 @@ namespace Orm.Client.Common
             }
             else
             {
-                 list = new ConfigurationList<KeyConfig>();
-                 list.Add(new KeyConfig{ Key = "CityName", KeyValue=name});
-                 ConfigManager<KeyConfig>.SaveList("WeatherCitySetting", list);
+                list = new ConfigurationList<KeyConfig>();
+                list.Add(new KeyConfig { Key = "CityName", KeyValue = name });
+                ConfigManager<KeyConfig>.SaveList("WeatherCitySetting", list);
             }
         }
 

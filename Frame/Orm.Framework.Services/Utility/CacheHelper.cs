@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Orm.Framework.Services.SharedMemory;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Orm.Framework.Services.SharedMemory;
 
 namespace Orm.Framework.Services
 {
@@ -12,7 +12,7 @@ namespace Orm.Framework.Services
         public static bool ContainsKey(string key)
         {
             if (_hash.Count == 0)
-            { 
+            {
                 Init();
             }
             return _hash.ContainsKey(key);
@@ -23,7 +23,7 @@ namespace Orm.Framework.Services
             get
             {
                 if (_hash.Count == 0)
-                { 
+                {
                     Init();
                 }
                 return _hash;
@@ -85,7 +85,11 @@ namespace Orm.Framework.Services
             var cache = ServiceTaker.GetService<ICacheClient>();
             var cacheKey = GetEntityCacheKey(key);
             lst = cache.Get<List<T>>(cacheKey);
-            if (lst == null) lst = new List<T>();
+            if (lst == null)
+            {
+                lst = new List<T>();
+            }
+
             return lst;
         }
         /// <summary>
@@ -121,8 +125,8 @@ namespace Orm.Framework.Services
 
     [Serializable]
     public class RefreshEntity
-    { 
+    {
         public DateTime LastTime { set; get; }
-        public string Key { set; get; } 
+        public string Key { set; get; }
     }
 }

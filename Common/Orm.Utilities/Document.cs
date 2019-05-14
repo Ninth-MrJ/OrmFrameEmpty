@@ -45,7 +45,11 @@ namespace Orm.Utilities
         /// <param name="encoding"></param>
         public void Create(string fileName, string encoding)
         {
-            if (File.Exists(fileName)) File.Delete(fileName);
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
             Encoding e = Encoding.GetEncoding(encoding);
             StreamWriter file = new StreamWriter(fileName, false, e);
             try
@@ -229,7 +233,11 @@ namespace Orm.Utilities
         public string GetFullPath()
         {
             string str = this.BaseFolder + this.GetDayFolderName() + "\\";
-            if (!Directory.Exists(str)) Directory.CreateDirectory(str);
+            if (!Directory.Exists(str))
+            {
+                Directory.CreateDirectory(str);
+            }
+
             return str;
         }
 
@@ -331,9 +339,14 @@ namespace Orm.Utilities
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 判断目标目录是否存在如果不存在则新建之
-                if (!Directory.Exists(aimPath)) Directory.CreateDirectory(aimPath);
+                if (!Directory.Exists(aimPath))
+                {
+                    Directory.CreateDirectory(aimPath);
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 // 如果指向copy目标文件下面的文件而不包含目录可使用下面的方法
                 // string[] fileList = Directory.GetFiles(srcPath);
@@ -409,7 +422,9 @@ namespace Orm.Utilities
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 // 如果指向Delete目标文件下面的文件而不包含目录可使用下面的方法
                 // string[] fileList = Directory.GetFiles(aimPath);
@@ -447,7 +462,11 @@ namespace Orm.Utilities
         public static string GetExtention(string file)
         {
             int start = file.LastIndexOf(".");
-            if (start < 0) return string.Empty;
+            if (start < 0)
+            {
+                return string.Empty;
+            }
+
             string ext = file.Substring(start, file.Length - start);
             return ext;
         }

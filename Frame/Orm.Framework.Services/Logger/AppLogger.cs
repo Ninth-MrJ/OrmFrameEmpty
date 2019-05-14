@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Configuration;
+using System.Text;
 
 namespace Orm.Framework.Services
 {
@@ -22,10 +19,13 @@ namespace Orm.Framework.Services
         {
             _AppLogEnabled = AppSettings.AppLogEnabled;
 
-            if (!_AppLogEnabled) WriteLog("未开启该功能。可以通过在配置文件的appSettings配置节设置Orm.FrameWork.AppLogEnabled为true来开启该项功能");   
+            if (!_AppLogEnabled)
+            {
+                WriteLog("未开启该功能。可以通过在配置文件的appSettings配置节设置Orm.FrameWork.AppLogEnabled为true来开启该项功能");
+            }
         }
 
-        private static void WriteLog(string msg, string logfile=null)
+        private static void WriteLog(string msg, string logfile = null)
         {
             lock (LockObj)
             {
@@ -43,7 +43,10 @@ namespace Orm.Framework.Services
 
                 //目录不存在时创建目录
                 string FileDir = Path.GetDirectoryName(Log_File);
-                if (!Directory.Exists(FileDir)) Directory.CreateDirectory(FileDir);
+                if (!Directory.Exists(FileDir))
+                {
+                    Directory.CreateDirectory(FileDir);
+                }
 
                 //写入日志
                 string Msg = string.Format("{0}：{1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff"), msg);
@@ -68,11 +71,17 @@ namespace Orm.Framework.Services
         /// </summary>
         /// <param name="msg">调试信息字符串</param>
         /// <param name="logfile">日志文件</param>
-        public static void Log(string msg,string logfile)
+        public static void Log(string msg, string logfile)
         {
-            if (!_AppLogEnabled) return;
+            if (!_AppLogEnabled)
+            {
+                return;
+            }
 
-            if (string.IsNullOrEmpty(msg)) return;
+            if (string.IsNullOrEmpty(msg))
+            {
+                return;
+            }
 
             WriteLog(msg, logfile);
         }
@@ -83,7 +92,7 @@ namespace Orm.Framework.Services
         /// <param name="ex">异常对象</param>
         public static void Log(Exception ex)
         {
-            Log(ex,null);
+            Log(ex, null);
         }
 
         /// <summary>
@@ -93,9 +102,15 @@ namespace Orm.Framework.Services
         /// <param name="logfile">日志文件</param>
         public static void Log(Exception ex, string logfile)
         {
-            if (!_AppLogEnabled) return;
+            if (!_AppLogEnabled)
+            {
+                return;
+            }
 
-            if (ex == null) return;
+            if (ex == null)
+            {
+                return;
+            }
 
             StringBuilder error = new StringBuilder();
             error.AppendFormat("发生［{0}］异常，异常相关信息如下：", ex.GetType().ToString());

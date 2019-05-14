@@ -1,6 +1,4 @@
 using System;
-using System.Data;
-using System.Data.Common;
 
 namespace Orm.Client.Common
 {
@@ -9,7 +7,7 @@ namespace Orm.Client.Common
     /// <summary>
     /// This object represents the properties and methods of a ReportValue.
     /// </summary>
-    public class ReportValueQry 
+    public class ReportValueQry
     {
         protected int _iD;
         protected string _rptKey = String.Empty;
@@ -21,7 +19,7 @@ namespace Orm.Client.Common
         }
 
         #region Public Properties
-        public  int ID
+        public int ID
         {
             get { return _iD; }
             set { _iD = value; }

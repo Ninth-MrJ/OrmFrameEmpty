@@ -54,9 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="Constant.cs" />
     <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="Diagnosis.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="FileHelper.cs" />

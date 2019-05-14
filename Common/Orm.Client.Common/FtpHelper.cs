@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Text.RegularExpressions;
+using System.IO;
 using System.Net;
-using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Orm.Client.Common
 {
@@ -408,7 +408,10 @@ namespace Orm.Client.Common
                     bytesRead = Reader.Read(buffer, 0, buffer.Length);
                     TotalByteRead += bytesRead;
                     if (bytesRead == 0)
+                    {
                         break;
+                    }
+
                     mem.Write(buffer, 0, bytesRead);
                 }
                 if (mem.Length > 0)
@@ -437,7 +440,6 @@ namespace Orm.Client.Common
         /// <param name="LocalFileName">保存本地的文件名</param>
         public void DownloadFileAsync(string RemoteFileName, string LocalPath, string LocalFileName)
         {
-            byte[] bt = null;
             try
             {
                 if (!IsValidFileChars(RemoteFileName) || !IsValidFileChars(LocalFileName) || !IsValidPathChars(LocalPath))
@@ -662,7 +664,10 @@ namespace Orm.Client.Common
                 {
                     bytesRead = mem.Read(buffer, 0, buffer.Length);
                     if (bytesRead == 0)
+                    {
                         break;
+                    }
+
                     TotalRead += bytesRead;
                     requestStream.Write(buffer, 0, bytesRead);
                 }
@@ -730,7 +735,7 @@ namespace Orm.Client.Common
                 {
                     MyWebClient client = new MyWebClient();
                     client.UploadProgressChanged += new UploadProgressChangedEventHandler(client_UploadProgressChanged);
-                    client.UploadFileCompleted += new UploadFileCompletedEventHandler(client_UploadFileCompleted); 
+                    client.UploadFileCompleted += new UploadFileCompletedEventHandler(client_UploadFileCompleted);
                     client.Credentials = new NetworkCredential(this.UserName, this.Password);
                     if (this.Proxy != null)
                     {
@@ -769,7 +774,7 @@ namespace Orm.Client.Common
                     throw new Exception("FTP服务上面已经存在同名文件！");
                 }
                 if (File.Exists(LocalFullPath))
-                { 
+                {
                     FtpCheckDirectoryExist(RemotePath);
                     MyWebClient client = new MyWebClient();
 
@@ -800,7 +805,7 @@ namespace Orm.Client.Common
         /// 判断文件的目录是否存,不存则创建  
         /// </summary>
         /// <param name="destFilePath"></param>
-        public  void FtpCheckDirectoryExist(string destFilePath)
+        public void FtpCheckDirectoryExist(string destFilePath)
         {
             string fullDir = FtpParseDirectory(destFilePath);
             string[] dirs = fullDir.Split('/');
@@ -822,13 +827,13 @@ namespace Orm.Client.Common
             }
         }
 
-        public  string FtpParseDirectory(string destFilePath)
+        public string FtpParseDirectory(string destFilePath)
         {
             return destFilePath.Substring(0, destFilePath.LastIndexOf("/"));
         }
 
         //创建目录  
-        public  Boolean FtpMakeDir(string localFile)
+        public Boolean FtpMakeDir(string localFile)
         {
             FtpWebRequest req = (FtpWebRequest)WebRequest.Create(this.Uri + localFile);
             req.Credentials = new NetworkCredential(this.UserName, this.Password);
@@ -844,14 +849,14 @@ namespace Orm.Client.Common
                 FtpWebResponse response = (FtpWebResponse)req.GetResponse();
                 response.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 req.Abort();
                 return false;
             }
             req.Abort();
             return true;
-        }  
+        }
         /// <summary>
         /// 异步上传文件到FTP服务器
         /// </summary>
@@ -1207,7 +1212,11 @@ namespace Orm.Client.Common
         {
             try
             {
-                if (!FtpFileExist(RemotePath, RemoteFileName)) return;
+                if (!FtpFileExist(RemotePath, RemoteFileName))
+                {
+                    return;
+                }
+
                 if (!IsValidFileChars(RemoteFileName))
                 {
                     throw new Exception("文件名非法！");
@@ -1245,10 +1254,10 @@ namespace Orm.Client.Common
 
             FtpWebRequest reqFtp;
             WebResponse response = null;
-            StreamReader reader = null; 
+            StreamReader reader = null;
             try
             {
-                reqFtp = (FtpWebRequest)FtpWebRequest.Create(this.Uri.ToString() + RemotePath); 
+                reqFtp = (FtpWebRequest)FtpWebRequest.Create(this.Uri.ToString() + RemotePath);
                 reqFtp.UseBinary = true;
                 reqFtp.Credentials = new NetworkCredential(this.UserName, this.Password);
                 reqFtp.Method = WebRequestMethods.Ftp.ListDirectory;
@@ -1369,11 +1378,20 @@ namespace Orm.Client.Common
             try
             {
                 if (DirectoryName == "")
+                {
                     return false;
+                }
+
                 if (!DirectoryName.StartsWith("/"))
+                {
                     DirectoryName = "/" + DirectoryName;
+                }
+
                 if (!DirectoryName.EndsWith("/"))
+                {
                     DirectoryName += "/";
+                }
+
                 bool Success = ReName(RemoteFile, DirectoryName + RemoteFile);
                 this.DirectoryPath = CurrentWorkDir;
                 return Success;
@@ -1591,7 +1609,7 @@ namespace Orm.Client.Common
             {
                 FtpWebRequest req = (FtpWebRequest)base.GetWebRequest(address);
                 req.UsePassive = true;
-                req.KeepAlive = false; 
+                req.KeepAlive = false;
                 return req;
             }
         }

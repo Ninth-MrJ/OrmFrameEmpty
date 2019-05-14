@@ -17,8 +17,8 @@ namespace Orm.Framework.Services
 
             TypeMap typeMap = null;
 
-            var MapQuery = MapList.Where(ww =>ww.MapConfigKey!=null && ww.MapConfigKey == MapKey);
-           
+            var MapQuery = MapList.Where(ww => ww.MapConfigKey != null && ww.MapConfigKey == MapKey);
+
             typeMap = MapQuery.FirstOrDefault();
 
             return typeMap;
@@ -38,7 +38,7 @@ namespace Orm.Framework.Services
                 throw new Exception("不存在对类型 " + MapKey + " 的映射");
             }
 
-        
+
             Type mapedType = Type.GetType(typeMap.MapToType, true, true);
             if (mapedType == null)
             {

@@ -111,10 +111,18 @@ namespace Orm.Utilities
         {
             int years = 0, months = 0, days = 0;
             DateTime nowDate = datetimeNow;
-            if (Common.IsNumeric(year) && int.Parse(year) > 200) return nowDate;
+            if (Common.IsNumeric(year) && int.Parse(year) > 200)
+            {
+                return nowDate;
+            }
+
             string input = year;
             int dotIndex = input.IndexOf(".");
-            if (dotIndex < 0) dotIndex = input.IndexOf("。");
+            if (dotIndex < 0)
+            {
+                dotIndex = input.IndexOf("。");
+            }
+
             if (dotIndex >= 0)
             {
                 year = input.Substring(0, dotIndex);
@@ -211,7 +219,10 @@ namespace Orm.Utilities
             get
             {
                 if (_ages > -1 && _ages < 16)
+                {
                     return true;
+                }
+
                 return false;
             }
         }
@@ -236,13 +247,25 @@ namespace Orm.Utilities
 
         public bool IsElder(string sex)
         {
-            if (sex.Trim() == "M" && _ages > 60) return true;
-            if (sex.Trim() == "F" && _ages > 55) return true;
+            if (sex.Trim() == "M" && _ages > 60)
+            {
+                return true;
+            }
+
+            if (sex.Trim() == "F" && _ages > 55)
+            {
+                return true;
+            }
+
             return false;
         }
         private int CalculateAge()
         {
-            if (Birthday == null || Birthday == DateTime.MinValue) return 0;
+            if (Birthday == null || Birthday == DateTime.MinValue)
+            {
+                return 0;
+            }
+
             if (NowDate.Month > Birthday.Month)
             {
                 return NowDate.Year - Birthday.Year;
@@ -259,7 +282,11 @@ namespace Orm.Utilities
 
         private int CalculateMonths()
         {
-            if (Birthday == DateTime.MinValue) return 0;
+            if (Birthday == DateTime.MinValue)
+            {
+                return 0;
+            }
+
             if (NowDate.Month > Birthday.Month && NowDate.Day >= Birthday.Day)
             {
                 return NowDate.Month - Birthday.Month;
@@ -287,7 +314,11 @@ namespace Orm.Utilities
         }
         private bool IsLeapYear()
         {
-            if (Birthday == DateTime.MinValue) return false;
+            if (Birthday == DateTime.MinValue)
+            {
+                return false;
+            }
+
             if (Birthday.Year % 100 == 0)
             {
                 if (Birthday.Year % 400 == 0)
@@ -305,13 +336,20 @@ namespace Orm.Utilities
                 {
                     return true;
                 }
-                else return false;
+                else
+                {
+                    return false;
+                }
             }
         }
 
         private int CalculateDays()
         {
-            if (Birthday == DateTime.MinValue) return 0;
+            if (Birthday == DateTime.MinValue)
+            {
+                return 0;
+            }
+
             if (Birthday.Day > NowDate.Day)
             {
                 return DaysOfForwardMonth() - Birthday.Day + NowDate.Day;
@@ -347,7 +385,11 @@ namespace Orm.Utilities
                 case 0:
                     return 31;
                 case 2:
-                    if (IsLeapYear()) return 29;
+                    if (IsLeapYear())
+                    {
+                        return 29;
+                    }
+
                     return 28;
                 default: return 30;
             }

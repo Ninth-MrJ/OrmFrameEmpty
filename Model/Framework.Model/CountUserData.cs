@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Model
 {
     /// <summary>
     /// 服务端访问统计表
     /// </summary>
-    public class CountUserData:BaseModel
+    public class CountUserData : BaseModel
     {
         /// <summary>
         /// 

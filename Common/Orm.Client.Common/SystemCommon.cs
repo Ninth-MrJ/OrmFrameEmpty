@@ -1,14 +1,12 @@
 ﻿using Microsoft.Win32;
+using Orm.MvvmFrame.Auxiliary;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Orm.Model.Custom;
-using Orm.MvvmFrame.Auxiliary;
 
 namespace Orm.Client.Common
 {
@@ -24,7 +22,7 @@ namespace Orm.Client.Common
         /// <summary>
         /// 用于本地配置的xml数据文件路径
         /// </summary>
-        public static  string localParSettingFilePath = "LocalParameterSettings.xml";
+        public static string localParSettingFilePath = "LocalParameterSettings.xml";
 
         #endregion
         //public static DateTime GetServerTime()
@@ -114,7 +112,7 @@ namespace Orm.Client.Common
                 return fileName;
             }
         }
- 
+
         /// <summary>
         /// 键盘按下
         /// </summary>
@@ -141,11 +139,11 @@ namespace Orm.Client.Common
             }
             returnValues.ReturnBool = true;
             returnValues.ReturnCount = count;
-            returnValues.ReturnString=  SystemCommon.StringToDBC(senderText);
+            returnValues.ReturnString = SystemCommon.StringToDBC(senderText);
             return returnValues;
         }
 
-       
+
 
     }
 

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -13,7 +11,11 @@ namespace Orm.Client.Common
         public static void GetUnfinishedFiles()
         {
             var pathname = AppDomain.CurrentDomain.BaseDirectory + "Image\\unfinished";
-            if (!Directory.Exists(pathname)) return;
+            if (!Directory.Exists(pathname))
+            {
+                return;
+            }
+
             DirectoryInfo theFolder = new DirectoryInfo(pathname);
             var files = theFolder.GetFiles();
             foreach (var item in files)
@@ -36,7 +38,11 @@ namespace Orm.Client.Common
             string pathname = AppDomain.CurrentDomain.BaseDirectory + "Image\\unfinished\\";
             try
             {
-                if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
+                if (!Directory.Exists(pathname))
+                {
+                    Directory.CreateDirectory(pathname);
+                }
+
                 stream = new MemoryStream();
                 writer = new XmlTextWriter(stream, Encoding.UTF8);
                 dtTable.WriteXml(writer, XmlWriteMode.WriteSchema);
@@ -89,9 +95,14 @@ namespace Orm.Client.Common
             finally
             {
                 if (reader != null)
+                {
                     reader.Close();
+                }
+
                 if (stream != null)
+                {
                     stream.Close();
+                }
             }
         }
 
@@ -100,7 +111,7 @@ namespace Orm.Client.Common
             byte[] bytearray = null;
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             try
-            {          
+            {
                 bytearray = new byte[fs.Length];
                 fs.Read(bytearray, 0, (int)fs.Length);
             }
@@ -117,9 +128,13 @@ namespace Orm.Client.Common
                 }
             }
             if (bytearray != null)
+            {
                 return Utils.Compress(bytearray);
+            }
             else
+            {
                 return null;
+            }
         }
     }
 }

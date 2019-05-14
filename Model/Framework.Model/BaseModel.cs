@@ -112,7 +112,9 @@ namespace Orm.Model
                 {
                     object value = field.GetValue(this);
                     if (value == null)
+                    {
                         field.SetValue(this, 0);
+                    }
                 }
             }
         }

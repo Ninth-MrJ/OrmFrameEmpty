@@ -1,4 +1,5 @@
-﻿using ServiceStack.Text;
+﻿using Orm.Log4Library;
+using ServiceStack.Text;
 using StackExchange.Redis;
 using System;
 using System.Collections;
@@ -6,11 +7,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Orm.Log4Library;
-using Orm.Model;
 
 namespace Orm.Redis
 {
@@ -98,27 +94,42 @@ namespace Orm.Redis
                     {
                         object propertyValue = property.GetValue(item);
                         if (propertyValue != null)
+                        {
                             RedisConditionValus += propertyValue.ToString() + ",";
+                        }
+
                         if (k == 0)
+                        {
                             RedisConditionKeys += "HospitalId,";
+                        }
                     }
                     property = propertyInfoArray.FirstOrDefault(t => t.Name.ToUpper() == "NAME");
                     if (property != null)
                     {
                         object propertyValue = property.GetValue(item);
                         if (propertyValue != null)
+                        {
                             RedisConditionValus += propertyValue.ToString() + ",";
+                        }
+
                         if (k == 0)
+                        {
                             RedisConditionKeys += "Name,";
+                        }
                     }
                     property = propertyInfoArray.FirstOrDefault(t => t.Name.ToUpper() == "CODE");
                     if (property != null)
                     {
                         object propertyValue = property.GetValue(item);
                         if (propertyValue != null)
+                        {
                             RedisConditionValus += propertyValue.ToString() + ",";
+                        }
+
                         if (k == 0)
+                        {
                             RedisConditionKeys += "Code,";
+                        }
                     }
                     foreach (string relationColumn in relationColumns)
                     {
@@ -127,9 +138,14 @@ namespace Orm.Redis
                         {
                             object propertyValue = property.GetValue(item);
                             if (propertyValue != null)
+                            {
                                 RedisConditionValus += propertyValue.ToString() + ",";
+                            }
+
                             if (k == 0)
+                            {
                                 RedisConditionKeys += relationColumn + ",";
+                            }
                         }
                     }
                     property = propertyInfoArray.FirstOrDefault(t => t.Name.ToUpper() == "ISACTIVE");
@@ -137,12 +153,20 @@ namespace Orm.Redis
                     {
                         object propertyValue = property.GetValue(item);
                         if (propertyValue != null)
+                        {
                             RedisConditionValus += propertyValue.ToString().ToLower() + ",";
+                        }
+
                         if (k == 0)
+                        {
                             RedisConditionKeys += "IsActive";
+                        }
                     }
                     if (RedisConditionValus.EndsWith(","))
+                    {
                         RedisConditionValus = RedisConditionValus.Substring(0, RedisConditionValus.Length - 1);
+                    }
+
                     property = classType.GetProperty("RedisConditionValus", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
                     property.SetValue(item, RedisConditionValus);
 
@@ -190,7 +214,10 @@ namespace Orm.Redis
                 if (RedisConditionKeys != "")
                 {
                     if (RedisConditionKeys.EndsWith(","))
+                    {
                         RedisConditionKeys = RedisConditionKeys.Substring(0, RedisConditionKeys.Length - 1);
+                    }
+
                     RedisWriteHelper.SetHash<T>(RedisDefaultKey, key, RedisConditionKeys);
                 }
             }

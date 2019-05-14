@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orm.Framework.Services.SharedMemory
+﻿namespace Orm.Framework.Services.SharedMemory
 {
-    public interface ICacheClient:ISharedMemoryCache
+    public interface ICacheClient : ISharedMemoryCache
     {
     }
 }

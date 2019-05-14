@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Orm.Client.Common
 {
@@ -11,7 +8,10 @@ namespace Orm.Client.Common
         {
             var currentDate = DateTime.Now;
             if (!IsBaby(dt))
+            {
                 return 0;
+            }
+
             return currentDate.Month - dt.Month;
 
         }
@@ -20,7 +20,10 @@ namespace Orm.Client.Common
         {
             var ageMonth = GetAgeMonth(dt);
             if (ageMonth == 0)
+            {
                 return 0;
+            }
+
             if (ageMonth % 2 == 0)
             {
                 if (ageMonth == 28)
@@ -40,7 +43,10 @@ namespace Orm.Client.Common
             var currentDate = DateTime.Now;
             if (currentDate.Year - dt.Year == 0
                 || (currentDate.Year - dt.Year == 1 && dt.Month - 12 < 0))
+            {
                 return true;
+            }
+
             return false;
         }
     }

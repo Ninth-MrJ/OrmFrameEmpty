@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Orm.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Data;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
-using Orm.Model;
-using System.Collections.ObjectModel;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Orm.Framework.Services
 {
@@ -29,9 +29,15 @@ namespace Orm.Framework.Services
                 object valueX = Orm.Utilities.Common.GetPropertyValue(x, Fields[i]); //Orm.Utilities.Common.GetPropertyValue(x, Fields[i]);
                 object valueY = Orm.Utilities.Common.GetPropertyValue(y, Fields[i]);
                 if (valueX == null)
+                {
                     return -1;
+                }
+
                 if (valueY == null)
+                {
                     return 1;
+                }
+
                 var type = valueX.GetType();
                 switch (type.Name)
                 {
@@ -43,17 +49,26 @@ namespace Orm.Framework.Services
                     case "Decimal":
                         var result2 = Decimal.Parse(valueX.ToString()) - Decimal.Parse(valueY.ToString());
                         if (result2 != 0)
+                        {
                             return result2 > 0 ? 1 : -1;
+                        }
+
                         break;
                     case "DateTime":
                         var result3 = DateTime.Compare(DateTime.Parse(valueX.ToString()), DateTime.Parse(valueY.ToString()));
                         if (result3 != 0)
+                        {
                             return result3;
+                        }
+
                         break;
                     default:
                         var result = System.String.Compare(valueX.ToString(), valueY.ToString());
                         if (result != 0)
+                        {
                             return result;
+                        }
+
                         break;
                 }
             }
@@ -134,7 +149,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = info.GetType().GetProperty(ItemPropertyName).GetValue(info, null);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 string a1 = propertyValue.ToString();
                 ary[icounter] = a1;
                 icounter++;
@@ -153,8 +172,15 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
-                if (propertyValue.ToString() != value) list.Add((T)info);
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
+                if (propertyValue.ToString() != value)
+                {
+                    list.Add((T)info);
+                }
             }
             return list;
         }
@@ -194,7 +220,11 @@ namespace Orm.Framework.Services
             {
                 T info = lst[i];
                 object propertyValue = Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (propertyValue.ToString() == value)
                 {
                     lst.Remove(info);
@@ -222,7 +252,7 @@ namespace Orm.Framework.Services
         public static object DeepClone(this object obj)
         {
             if (obj == null)
-            { 
+            {
                 return null;
             }
 
@@ -269,7 +299,11 @@ namespace Orm.Framework.Services
             foreach (var info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (max < Convert.ToInt32(propertyValue))
                 {
                     max = Convert.ToInt32(propertyValue);
@@ -285,7 +319,7 @@ namespace Orm.Framework.Services
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
                 if (propertyValue == null)
-                { 
+                {
                     continue;
                 }
                 intTotal += Convert.ToDouble(propertyValue.ToString());
@@ -299,7 +333,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (max < Convert.ToDouble(propertyValue))
                 {
                     max = Convert.ToDouble(propertyValue);
@@ -314,7 +352,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (min > Convert.ToDouble(propertyValue))
                 {
                     min = Convert.ToDouble(propertyValue);
@@ -328,7 +370,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (max < Convert.ToDateTime(propertyValue))
                 {
                     max = Convert.ToDateTime(propertyValue);
@@ -342,7 +388,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (min > Convert.ToDateTime(propertyValue))
                 {
                     min = Convert.ToDateTime(propertyValue);
@@ -363,7 +413,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (propertyValue.ToString().Contains(value))
                 {
                     list.Add((T)info.DeepClone());
@@ -378,7 +432,11 @@ namespace Orm.Framework.Services
             foreach (T info in lst)
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
-                if (propertyValue == null) continue;
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
                 if (propertyValue.ToString() == value)
                 {
                     return i;
@@ -390,7 +448,11 @@ namespace Orm.Framework.Services
 
         public static void Fill<T>(this List<T> lst, string key, object value)
         {
-            if (lst == null) return;
+            if (lst == null)
+            {
+                return;
+            }
+
             foreach (T info in lst)
             {
                 Orm.Utilities.Common.SetPropertyValue(info, key, value);
@@ -412,13 +474,16 @@ namespace Orm.Framework.Services
             {
                 object propertyValue = Orm.Utilities.Common.GetPropertyValue(info, key);
                 if (propertyValue == null)
-                { 
+                {
                     continue;
                 }
 
                 if (!equal)
                 {
-                    if (propertyValue.ToString().IndexOf(value) >= 0) list.Add(info);
+                    if (propertyValue.ToString().IndexOf(value) >= 0)
+                    {
+                        list.Add(info);
+                    }
                 }
                 else
                 {
@@ -509,7 +574,11 @@ namespace Orm.Framework.Services
         public static List<T> TableToList<T>(this DataTable tb) where T : class, new()
         {
             List<T> newListObj = new List<T>();
-            if (tb == null) return newListObj;
+            if (tb == null)
+            {
+                return newListObj;
+            }
+
             try
             {
                 BindingFlags BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty | BindingFlags.GetField | BindingFlags.SetField;
@@ -649,7 +718,11 @@ namespace Orm.Framework.Services
         /// <returns></returns>
         public static T ConvertTo<T>(this object thisObj) where T : class, new()
         {
-            if (thisObj == null) return null;
+            if (thisObj == null)
+            {
+                return null;
+            }
+
             BindingFlags BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty | BindingFlags.GetField | BindingFlags.SetField;
             T newObject = new T();
             PropertyInfo[] newObjProperties = newObject.GetType().GetProperties(BINDING_FLAGS);
@@ -730,7 +803,11 @@ namespace Orm.Framework.Services
             foreach (DataColumn dc in tb.Columns)
             {
                 var prop = props.First(t => t.Name.EqualsIgnoreCase(dc.ColumnName));
-                if (prop == null) continue;
+                if (prop == null)
+                {
+                    continue;
+                }
+
                 if (prop.PropertyType == dc.DataType)
                 {
                     ht.Add(prop.Name, dc.DataType);

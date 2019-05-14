@@ -45,7 +45,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         public SymbolParser(string source)
         {
             if (ReferenceEquals(null, source))
+            {
                 throw new ArgumentNullException("source");
+            }
 
             Source = source;
             Length = source.Length;
@@ -69,7 +71,11 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         /// </summary>
         public void NextChar()
         {
-            if (CurrentPosition < Length) CurrentPosition++;
+            if (CurrentPosition < Length)
+            {
+                CurrentPosition++;
+            }
+
             CurrentChar = CurrentPosition < Length ? Source[CurrentPosition] : '\0';
         }
 
@@ -79,7 +85,11 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         /// <returns></returns>
         public Token NextToken()
         {
-            while (Char.IsWhiteSpace(CurrentChar)) NextChar();
+            while (Char.IsWhiteSpace(CurrentChar))
+            {
+                NextChar();
+            }
+
             TokenId t;
             int tokenPos = CurrentPosition;
             switch (CurrentChar)
@@ -240,9 +250,16 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                     do
                     {
                         NextChar();
-                        while (CurrentPosition < Length && CurrentChar != quote) NextChar();
+                        while (CurrentPosition < Length && CurrentChar != quote)
+                        {
+                            NextChar();
+                        }
+
                         if (CurrentPosition == Length)
+                        {
                             throw ParseError(CurrentPosition, "Unterminated string literal");
+                        }
+
                         NextChar();
                     } while (CurrentChar == quote);
                     t = TokenId.StringLiteral;
@@ -305,7 +322,11 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                         {
                             t = TokenId.RealLiteral;
                             NextChar();
-                            if (CurrentChar == '+' || CurrentChar == '-') NextChar();
+                            if (CurrentChar == '+' || CurrentChar == '-')
+                            {
+                                NextChar();
+                            }
+
                             ValidateDigit();
                             do
                             {
@@ -362,7 +383,9 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
                 var token = item.NextToken();
                 data.Add(token);
                 if (token.ID == TokenId.End)
+                {
                     break;
+                }
             }
             return new SymbolParseResult(data);
         }
@@ -371,7 +394,10 @@ namespace Orm.Framework.Services.LambdaExpressionHelper.Core
         #region Private Methods
         private void ValidateDigit()
         {
-            if (!Char.IsDigit(CurrentChar)) throw ParseError(CurrentPosition, "Digit expected");
+            if (!Char.IsDigit(CurrentChar))
+            {
+                throw ParseError(CurrentPosition, "Digit expected");
+            }
         }
 
         private Exception ParseError(string format, params object[] args)

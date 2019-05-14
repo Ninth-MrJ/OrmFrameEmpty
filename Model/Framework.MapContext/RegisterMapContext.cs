@@ -22,7 +22,7 @@ namespace Orm.MapContext
         {
             DbConfiguration.AddClass(new BsHospitalMapping());
             DbConfiguration.AddClass(new BsRedisTableMapping());
-            
+
         }
     }
 }

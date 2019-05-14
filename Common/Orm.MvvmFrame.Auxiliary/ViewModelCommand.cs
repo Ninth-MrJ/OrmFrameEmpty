@@ -31,7 +31,9 @@ namespace Orm.MvvmFrame.Auxiliary
         public ViewModelCommand(Action<Object> act, Func<Object, bool> canAct)
         {
             if (act == null)
+            {
                 throw new ArgumentNullException("");
+            }
 
             action = act;
             canAction = canAct;
@@ -59,12 +61,16 @@ namespace Orm.MvvmFrame.Auxiliary
             add
             {
                 if (canAction != null)
+                {
                     System.Windows.Input.CommandManager.RequerySuggested += value;
+                }
             }
             remove
             {
                 if (canAction != null)
+                {
                     System.Windows.Input.CommandManager.RequerySuggested -= value;
+                }
             }
         }
     }

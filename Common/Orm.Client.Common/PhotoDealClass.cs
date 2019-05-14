@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Orm.Model;
 
 namespace Orm.Client.Common
 {
@@ -16,7 +12,7 @@ namespace Orm.Client.Common
         /// <param name="parameter">控件数组（照相机控件和图片控件）</param>
         public string UpLoadPhoto(object parameter)
         {
-            BitmapImage photo = new BitmapImage();  
+            BitmapImage photo = new BitmapImage();
             object[] controlArray = parameter as object[];
             ((Image)controlArray[0]).Visibility = System.Windows.Visibility.Visible;
             //上传
@@ -41,9 +37,9 @@ namespace Orm.Client.Common
                 }
                 return fileName;
             }
-            return string.Empty ;
+            return string.Empty;
         }
-        
+
 
     }
 }

@@ -57,9 +57,7 @@
     <Compile Include="BaseControlConfig.cs" />
     <Compile Include="CacheDownloadItems.cs" />
     <Compile Include="CardPatientSM.cs" />
-    <Compile Include="CaseHisTory.cs" />
     <Compile Include="CCPRestSDK.cs" />
-    <Compile Include="ChatEngine.cs" />
     <Compile Include="ClientSocketMessage.cs" />
     <Compile Include="CommonMethod.cs" />
     <Compile Include="Compare.cs" />
@@ -103,7 +101,6 @@
     <Compile Include="SetSystemDateTime.cs" />
     <Compile Include="SystemCommon.cs" />
     <Compile Include="ToolBar.cs" />
-    <Compile Include="ToothsHelper.cs" />
     <Compile Include="TreeListView.cs" />
     <Compile Include="TreeListViewItem.cs" />
     <Compile Include="UploadImage.cs" />

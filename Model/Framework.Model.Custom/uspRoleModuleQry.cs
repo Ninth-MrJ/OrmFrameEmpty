@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orm.Model.Custom
 {
@@ -18,7 +14,7 @@ namespace Orm.Model.Custom
         /// <summary>
         /// ID
         /// </summary>
-        public   string ID { get; set; }
+        public string ID { get; set; }
         /// <summary>
         /// Ãû³Æ
         /// </summary>
