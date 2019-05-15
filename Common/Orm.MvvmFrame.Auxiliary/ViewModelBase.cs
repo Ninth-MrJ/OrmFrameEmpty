@@ -235,7 +235,7 @@ namespace Orm.MvvmFrame.Auxiliary
         /// <param name="twoModul">二级菜单，界面名称</param>
         /// <param name="audit">操作类型</param>
         /// <returns>true,没有权限，请于管理员联系，否则相反</returns>
-        public virtual bool GetIsCanAccessThisModuleReturn(EnumCanAccessFirstModul firstModul, EnumCanAccesTwoModul twoModul, EnumAudit audit)
+        public virtual bool GetIsCanAccessThisModuleReturn(/*EnumCanAccessFirstModul firstModul, EnumCanAccesTwoModul twoModul, EnumAudit audit*/)
         {
             //自动化测试中跳过权限限制
             if (Orm.Config.UserProfiles.blnPassTest == true)
@@ -243,7 +243,7 @@ namespace Orm.MvvmFrame.Auxiliary
                 return true;
             }
             bool returnValue = false;
-            if (!IsCanAccessThisModule(firstModul.GetType().ToString(), twoModul.GetType().ToString(), audit.GetType().ToString()))
+            if (!IsCanAccessThisModule(/*firstModul.GetType().ToString(), twoModul.GetType().ToString(), audit.GetType().ToString()*/))
             {
                 returnValue = true;
             }
@@ -286,16 +286,16 @@ namespace Orm.MvvmFrame.Auxiliary
         /// <param name="fuction"></param>
         /// <param name="show">是否弹出提示</param>
         /// <returns></returns>
-        public bool IsCanAccessThisModule(FuctionAccess fuction, bool show)
+        public bool IsCanAccessThisModule(/*FuctionAccess fuction, bool show*/)
         {
-            if (_lstUspWindowOperFunction.Where(t => t.FunctionId == ((int)fuction).ToString()).ToArray().Length > 0)
-            {
-                return true;
-            }
-            else
-            {
+            //if (_lstUspWindowOperFunction.Where(t => t.FunctionId == ((int)fuction).ToString()).ToArray().Length > 0)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
                 return false;
-            }
+            //}
         }
         /// <summary>
         /// 判断是否有某一操作的权限

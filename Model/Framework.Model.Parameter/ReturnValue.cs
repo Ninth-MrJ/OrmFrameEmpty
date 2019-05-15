@@ -13,6 +13,9 @@ namespace Orm.Model.Parameter
 
     public class ReturnValue
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string _saveStatus = "";
         private string _errorMsg = string.Empty;
         /// <summary>

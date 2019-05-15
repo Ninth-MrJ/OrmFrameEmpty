@@ -398,6 +398,9 @@ namespace Orm.Model
             get { return _cashierReport; }
             set { _cashierReport = value; }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public int HisType
         {
             get { return _hisType; }

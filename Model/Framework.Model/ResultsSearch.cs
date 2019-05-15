@@ -2,6 +2,9 @@
 
 namespace Orm.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ResultsSearch : Results
     {

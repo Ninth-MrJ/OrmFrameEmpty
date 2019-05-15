@@ -10,10 +10,10 @@ namespace Orm.Utilities
     /// </summary>
     public class Document
     {
-        StringBuilder sb;
+        StringBuilder stringBuilder;
         public Document()
         {
-            sb = new StringBuilder();
+            stringBuilder = new StringBuilder();
         }
 
 

@@ -11,6 +11,9 @@ namespace Orm.Model.Custom
     [Serializable]
     public class FileTempate
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public FileTempate() { }
 
         /// <summary>
@@ -62,7 +65,9 @@ namespace Orm.Model.Custom
             get { return _commandList; }
             set { _commandList = value; }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsLocalFile { get; set; }
 
         /// <summary>
@@ -80,6 +85,9 @@ namespace Orm.Model.Custom
         /// </summary>
         public string PatName { get; set; }
         private bool _isHaveDownloaded = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsHaveDownloaded
         {
             get
@@ -97,6 +105,9 @@ namespace Orm.Model.Custom
             set { _isHaveDownloaded = value; }
         }
         private bool _isNotDownloaded = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsNotDownloaded
         {
             get
@@ -121,6 +132,9 @@ namespace Orm.Model.Custom
     [Serializable]
     public class CommandInfo
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public CommandInfo() { }
 
         private string _cmdIcon = "";

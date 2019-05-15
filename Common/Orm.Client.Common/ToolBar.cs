@@ -146,17 +146,6 @@ namespace Orm.Client.Common
             set { _tips = value; }
             get { return _tips; }
         }
-        protected ToolbarItemType _type;
-        /// <summary>
-        /// Type
-        /// </summary>
-        public ToolbarItemType Type
-        {
-            set { _type = value; }
-            get { return _type; }
-        }
-
-
 
         protected List<ToolbarMenuItem> _menuItems;
         /// <summary>

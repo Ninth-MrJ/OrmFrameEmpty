@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace Orm.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IModel
     {
 
@@ -50,6 +53,9 @@ namespace Orm.Model
 
         }
         private bool _isGUIDNull = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsGUIDNull
         {
             get
@@ -63,6 +69,9 @@ namespace Orm.Model
             set { _isGUIDNull = value; }
         }
         private bool _isNotGUIDNull = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsNotGUIDNull
         {
             get
@@ -83,7 +92,10 @@ namespace Orm.Model
         /// 系统缓存
         /// </summary>
         public static Dictionary<string, object> Caches = new Dictionary<string, object>();
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dr"></param>
         public virtual void Fill(System.Data.IDataReader dr) { }
 
         /// <summary>
@@ -128,6 +140,9 @@ namespace Orm.Model
             set;
         }
         private bool _isNotGUID = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsNotGUID
         {
             get
@@ -145,6 +160,9 @@ namespace Orm.Model
             set { _isNotGUID = value; }
         }
         private bool _isGUID = false;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool u_IsGUID
         {
             get

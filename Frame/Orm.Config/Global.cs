@@ -119,10 +119,7 @@ namespace Orm.Config
         //public static List<CacheDownloadItems> CacheDownloadItemsList = new List<CacheDownloadItems>();
        
         public static List<string> ReferTypeList = new List<string>();
-        /// <summary>
-        /// 结算天数是否包含最后一天
-        /// </summary>
-        public static EnumChargeDaysTypeCalculateMode ChargeDaysTypeCalculateMode = EnumChargeDaysTypeCalculateMode.UnIncludeLastDay;
+        
         /// <summary>
         /// 用户输入法设置——五笔码查找
         /// </summary>

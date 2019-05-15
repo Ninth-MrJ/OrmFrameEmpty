@@ -8,7 +8,9 @@ namespace Orm.Model
     [Serializable]
     public partial class BsRedisTable : BaseModel
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public BsRedisTable() { }
 
         private string _tableName;  //表名称

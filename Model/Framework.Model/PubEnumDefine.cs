@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace Orm.Model.EnumDefine
@@ -148,120 +145,187 @@ namespace Orm.Model.EnumDefine
         }
     }
     #endregion
-
+    /// <summary>
+    /// 
+    /// </summary>
     public enum MsgStates
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("成功")]
         Success = 0,
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("警告")]
         Waring,
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("警告列表")]
         WaringList,
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("错误")]
         Error,
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("错误列表")]
         ErrorList
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ParamDelimiter
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember]
         [Description("中括号分隔符")]
         Bracket = 0,
 
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember]
         [Description("逗号分隔符")]
         Comma = 1,
 
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember]
         [Description("竖线分隔符")]
         VerticalLine = 2,
     }
-    public enum EnumChargeDaysTypeCalculateMode
-    {
-        UnIncludeLastDay = 1,//不包括最后一天(出院结算时)
-        IncludeLastDay = 2,//包括最后一天(出院结算时)
-    }
-
+    //public enum EnumChargeDaysTypeCalculateMode
+    //{
+    //    UnIncludeLastDay = 1,//不包括最后一天(出院结算时)
+    //    IncludeLastDay = 2,//包括最后一天(出院结算时)
+    //}
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ToolbarStatus
     {
+        /// <summary>
+        /// 
+        /// </summary>
         All = 0,
+        /// <summary>
+        /// 
+        /// </summary>
         View = 1,
+        /// <summary>
+        /// 
+        /// </summary>
         Edit = 2,
+        /// <summary>
+        /// 
+        /// </summary>
         Add = 4
     }
+
     /// <summary>
-    /// 一级菜单
-    /// </summary>
-    public enum EnumCanAccessFirstModul
-    {
-        前台咨询,
-        门诊就诊,
-        库存管理,
-        数据分析,
-        系统维护,
-        一键诊疗
-    }
-    /// <summary>
-    /// 二级菜单 界面名称 
-    /// </summary>
-    public enum EnumCanAccesTwoModul
-    {
-        科室分检,
-        治疗方案,
-        问诊就诊,
-    }
-    /// <summary>
-    ///所允许用户做的 操作
+    /// 
     /// </summary>
     public enum EnumAudit
     {
+        /// <summary>
+        /// 
+        /// </summary>
         审核,
+        /// <summary>
+        /// 
+        /// </summary>
         删除,
+        /// <summary>
+        /// 
+        /// </summary>
         编辑
     }
-    public enum FuctionAccess
-    {
-        Browse = 1,
-        Add = 2,
-        Modify = 3,
-        Delete = 4,
-        Check = 5,
-        Public = 6,
-        Location = 7,
-        Other = 8,
-        Doctor = 10,
-        User = 11
-    }
+    /// <summary>
+    /// 
+    /// </summary>
     public enum HotKeys
     {
+        /// <summary>
+        /// 
+        /// </summary>
         None,
+        /// <summary>
+        /// 
+        /// </summary>
         F1,
+        /// <summary>
+        /// 
+        /// </summary>
         F2,
+        /// <summary>
+        /// 
+        /// </summary>
         F3,
+        /// <summary>
+        /// 
+        /// </summary>
         F4,
+        /// <summary>
+        /// 
+        /// </summary>
         F5,
+        /// <summary>
+        /// 
+        /// </summary>
         F6,
+        /// <summary>
+        /// 
+        /// </summary>
         F7,
+        /// <summary>
+        /// 
+        /// </summary>
         F8,
+        /// <summary>
+        /// 
+        /// </summary>
         F9,
+        /// <summary>
+        /// 
+        /// </summary>
         F10,
+        /// <summary>
+        /// 
+        /// </summary>
         F11,
+        /// <summary>
+        /// 
+        /// </summary>
         F12,
-        N,
-        D,
-        S,
-        Q,
-        P
+        /// <summary>
+        /// 
+        /// </summary>
+        N
     }
-    public enum ToolbarItemType
-    {
-        Button = 0,
-        Dropdown = 1
-    }
+    /// <summary>
+    /// 
+    /// </summary>
     public enum EnumFileTempateStatus
     {
+        /// <summary>
+        /// 
+        /// </summary>
         未下载 = 0,
+        /// <summary>
+        /// 
+        /// </summary>
         已下载 = 1,
+        /// <summary>
+        /// 
+        /// </summary>
         正在下载 = 2
     }
 }

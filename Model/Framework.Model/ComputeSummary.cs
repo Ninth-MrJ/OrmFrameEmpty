@@ -44,13 +44,22 @@
         /// 描述
         /// </summary>
         public string Description { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string LimitGroupId { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public double LimitFee { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string DocLevId { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string GroupBy { get; set; }
     }
 }

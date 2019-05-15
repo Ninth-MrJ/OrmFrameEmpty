@@ -8,6 +8,9 @@ namespace Orm.Model.Custom
     [Serializable]
     public class DisplayModule
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string ID { get; set; }
         /// <summary>
         /// 菜单ID

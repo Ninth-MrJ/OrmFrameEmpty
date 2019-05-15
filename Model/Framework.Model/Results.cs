@@ -2,6 +2,9 @@
 
 namespace Orm.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class Results
     {
@@ -60,6 +63,7 @@ namespace Orm.Model
         /// </summary>
         /// <param name="code">错误代码</param>
         /// <param name="message">错误消息</param>
+        /// <param name="success">错误消息</param>
         public Results(string code, string message, bool success)
         {
             Code = code;
