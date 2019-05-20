@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Framework\NLite.dll</HintPath>
-    </Reference>
     <Reference Include="Orm.IServices.ITestSercive">
       <HintPath>..\..\..\Framework\IIS\Orm.IServices.ITestSercive.dll</HintPath>
     </Reference>

@@ -37,9 +37,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Framework\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLite">
-      <HintPath>..\..\Framework\NLite.dll</HintPath>
-    </Reference>
     <Reference Include="Orm.Client.Common">
       <HintPath>..\..\Framework\Client\Orm.Client.Common.dll</HintPath>
     </Reference>

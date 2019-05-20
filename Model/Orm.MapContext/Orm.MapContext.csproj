@@ -57,15 +57,15 @@
   <ItemGroup>
     <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\ELinq.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\ELinq.dll</HintPath>
     </Reference>
     <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\NLite.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\NLite.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

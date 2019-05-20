@@ -42,13 +42,14 @@
   <ItemGroup>
     <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\ELinq.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\ELinq.dll</HintPath>
     </Reference>
-    <Reference Include="JsonSerializerProxy">
-      <HintPath>..\..\Framework\JsonSerializerProxy.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\客户端\His2\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Orm.JsonSerializerProxy">
+      <HintPath>..\..\Framework\BaseCourse\Orm.JsonSerializerProxy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

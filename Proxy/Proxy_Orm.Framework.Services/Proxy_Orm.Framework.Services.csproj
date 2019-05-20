@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ELinq">
-      <HintPath>..\..\Framework\ELinq.dll</HintPath>
+    <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\ELinq.dll</HintPath>
     </Reference>
     <Reference Include="Orm.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

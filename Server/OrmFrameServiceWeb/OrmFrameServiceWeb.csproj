@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ELinq">
-      <HintPath>..\..\Framework\ELinq.dll</HintPath>
+    <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\ELinq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -58,12 +59,16 @@
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NLite">
-      <HintPath>..\..\Framework\NLite.dll</HintPath>
+    <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\NLite.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Orm">
+      <HintPath>..\..\Framework\BaseCourse\Orm.dll</HintPath>
     </Reference>
     <Reference Include="Orm.Model">
       <HintPath>..\..\Framework\BaseCourse\Orm.Model.dll</HintPath>
@@ -297,10 +302,6 @@
     <ProjectReference Include="..\..\Frame\Orm.Redis\Orm.Redis.csproj">
       <Project>{c0e97a62-bd21-4482-8edd-a015844907df}</Project>
       <Name>Orm.Redis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Frame\Orm\Orm.csproj">
-      <Project>{5ecbc1d5-aba9-4cac-8712-1abe11000b90}</Project>
-      <Name>Orm</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Orm.MapContext\Orm.MapContext.csproj">
       <Project>{c4a1ba2a-f2ec-49c9-a73b-a7e40e196a4a}</Project>

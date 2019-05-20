@@ -55,11 +55,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ELinq">
-      <HintPath>..\..\Framework\ELinq.dll</HintPath>
+    <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\ELinq.dll</HintPath>
     </Reference>
-    <Reference Include="NLite">
-      <HintPath>..\..\Framework\NLite.dll</HintPath>
+    <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Framework\BaseCourse\NLite.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
