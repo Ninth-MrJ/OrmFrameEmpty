@@ -1,4 +1,5 @@
 ﻿using Orm.Framework.Services;
+using Orm.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,12 +8,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using WebBridgeContract;
 
 namespace WebApiResponder
 {
     public class ApiHandler : IHttpHandler
     {
+        
+
         /// <summary>
         /// json序列化器。
         /// </summary>
@@ -68,12 +72,13 @@ namespace WebApiResponder
             streamRead.Close();
             MethodDC theContract = new MethodDC();
             ApiResultDC theResult = new ApiResultDC();
+            InvokeResult result=new InvokeResult ();
             try
             {
 
                 theContract = Serializer.Deserialize<MethodDC>(strResponse);
                 ApiCore apiCpre = new ApiCore(theContract);
-                var result = apiCpre.Invoke();
+                result = apiCpre.Invoke();
 
                 if (result.ResultType.Name.ToLower() != "void")
                 {
@@ -145,6 +150,30 @@ namespace WebApiResponder
             }
 
             watch.Stop();
+            string Parameters = "";
+            for (int i = 0; i < theContract.ParameterList.Count; i++)
+            {
+                Parameters += theContract.ParameterList[i].JsonValue + "@";
+            }
+
+            CountUserData countUserData = new CountUserData
+            {
+                ApiInterfaceName = theContract.InterfaceName,
+                ClientComputerIP = context.Request.UserHostAddress,
+                //UserName = UserProfiles.UserName,
+                //LocationName = UserProfiles.HospitalName,
+                MethodName = theContract.MethodName,
+                ResponseData = (jsonResult.Length / 1024.00).ToString("f0"),
+                OperTime = context.Timestamp,
+                ParameterContents = Parameters,
+                CounterTime = watch.ElapsedMilliseconds,
+            };
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            System.Text.StringBuilder data_mainJson = new System.Text.StringBuilder();
+            jsSerializer.Serialize(countUserData, data_mainJson);
+            string strRequestLog = string.Format("Url：{0} ", data_mainJson);
+            Orm.Framework.Services.AppLogger.Log(strRequestLog, @"E:\PerformanceLog\" + DateTime.Now.ToString("yyyyMMdd"), AppDomain.CurrentDomain.Id.ToString() + ".log");
+
             //写请求日志，用于跟踪请求的时间和数据大小。
             if (watch.ElapsedMilliseconds > 2000)
             {

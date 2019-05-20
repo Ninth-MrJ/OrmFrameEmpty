@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,10 @@
     <Compile Include="WebApi\ReturnValue.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">
+      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
+      <Name>Orm.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orm.Utilities\Orm.Utilities.csproj">
       <Project>{1c4c834a-6d91-4c8d-8bc2-20cae29be253}</Project>
       <Name>Orm.Utilities</Name>
