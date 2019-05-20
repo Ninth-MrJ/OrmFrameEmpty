@@ -34,12 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JsonSerializerProxy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Orm.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Framework\JsonSerializerProxy.dll</HintPath>
+      <HintPath>..\..\..\Framework\BaseCourse\Orm.Config.dll</HintPath>
     </Reference>
-    <Reference Include="Orm.IServices.ITestSercive">
-      <HintPath>..\..\..\Framework\IIS\Orm.IServices.ITestSercive.dll</HintPath>
+    <Reference Include="Orm.JsonSerializerProxy">
+      <HintPath>..\..\..\Framework\BaseCourse\Orm.JsonSerializerProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Orm.MapContext">
+      <HintPath>..\..\..\Framework\BaseCourse\Orm.MapContext.dll</HintPath>
+    </Reference>
+    <Reference Include="Orm.WebBridgeEndpoint">
+      <HintPath>..\..\..\Framework\BaseCourse\Orm.WebBridgeEndpoint.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -108,6 +114,14 @@
     <ProjectReference Include="..\..\..\Frame\Orm\Orm.csproj">
       <Project>{5ecbc1d5-aba9-4cac-8712-1abe11000b90}</Project>
       <Name>Orm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Proxy\Proxy_Orm.IServices.TestSercive\Proxy_Orm.IServices.TestSercive.csproj">
+      <Project>{3660d816-b2a2-421c-860f-5a8533461daa}</Project>
+      <Name>Proxy_Orm.IServices.TestSercive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Server\Sercer-Services\Orm.Services.TestSercive\Orm.Services.TestSercive.csproj">
+      <Project>{972ac2cf-c638-432f-88f9-5c2912220df5}</Project>
+      <Name>Orm.Services.TestSercive</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Client-ViewModel\OrmFrameClientViewModel\OrmFrameClientViewModel.csproj">
       <Project>{e82862f1-8e1b-482a-9020-920e3fd3555c}</Project>
