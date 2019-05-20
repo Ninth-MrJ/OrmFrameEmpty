@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5ECBC1D5-ABA9-4CAC-8712-1ABE11000B90}</ProjectGuid>
+    <ProjectGuid>{D97A939E-84AA-4BAE-8AEB-533778A26954}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orm</RootNamespace>
-    <AssemblyName>Orm</AssemblyName>
+    <RootNamespace>Proxy_Orm.Framework.Services</RootNamespace>
+    <AssemblyName>Proxy_Orm.Framework.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,29 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ELinq, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ELinq">
       <HintPath>..\..\Framework\ELinq.dll</HintPath>
     </Reference>
-    <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Orm.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\NLite.dll</HintPath>
-    </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\Oracle.DataAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="Orm.Framework.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\IIS\Orm.Framework.Services.dll</HintPath>
-    </Reference>
-    <Reference Include="Orm.MapContext, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\IIS\Orm.MapContext.dll</HintPath>
-    </Reference>
-    <Reference Include="Orm.Model.Custom, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Framework\IIS\Orm.Model.Custom.dll</HintPath>
+      <HintPath>..\..\Framework\BaseCourse\Orm.Model.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,17 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDbContext.cs" />
-    <Compile Include="CommPersist.cs" />
-    <Compile Include="DbProviderInfo.cs" />
-    <Compile Include="LocalConfig.cs" />
-    <Compile Include="NonMapDbContext.cs" />
-    <Compile Include="PersistManeger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlHelperProxy.cs" />
+    <Compile Include="ProxyFor_IDBClientBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Orm.WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj">
+      <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
+      <Name>Orm.WebBridgeEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Frame\Orm.Framework.Services\Orm.Framework.Services.csproj">
+      <Project>{6f06816b-bedc-4c4d-bdb3-98be6a2d937a}</Project>
+      <Name>Orm.Framework.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)"  "$(SolutionDir)Framework\BaseCourse\$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

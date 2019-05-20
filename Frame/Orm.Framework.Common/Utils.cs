@@ -1,9 +1,6 @@
 ﻿using Orm.Framework.Services;
 using Orm.Model;
-using Orm.Model.EnumDefine;
-using Orm.Model.Parameter;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -89,7 +86,7 @@ namespace Orm.Framework.Common
         }
 
 
-        
+
         /// <summary>
         /// Fn_TruncDate
         /// </summary>
@@ -133,7 +130,7 @@ namespace Orm.Framework.Common
         //}
 
 
-        
+
 
         /// <summary>
         /// Fn_GetTableVwHist
@@ -205,7 +202,7 @@ namespace Orm.Framework.Common
             return string.Empty;
         }
 
-        
+
 
         public static bool IsSendToCenterRoom(string usageId, int hospitalId)
         {
@@ -230,7 +227,7 @@ namespace Orm.Framework.Common
             return str;
         }
 
-       
+
 
         /// <summary>
         /// 验证发票号

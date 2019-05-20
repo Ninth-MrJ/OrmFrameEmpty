@@ -68,6 +68,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Framework\Oracle.DataAccess.dll</HintPath>
     </Reference>
+    <Reference Include="Orm.Model">
+      <HintPath>..\..\Framework\BaseCourse\Orm.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Orm.Model.Parameter">
+      <HintPath>..\..\Framework\BaseCourse\Orm.Model.Parameter.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -263,18 +269,6 @@
       <Project>{1c4c834a-6d91-4c8d-8bc2-20cae29be253}</Project>
       <Name>Orm.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\WebApiResponder\Orm.WebApiResponder.csproj">
-      <Project>{b7aa909e-15d4-4b5d-8eb9-2864280b0b61}</Project>
-      <Name>Orm.WebApiResponder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\WebBridgeContract\Orm.WebBridgeContract.csproj">
-      <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
-      <Name>Orm.WebBridgeContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj">
-      <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
-      <Name>Orm.WebBridgeEndpoint</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Frame\Orm.Config\Orm.Config.csproj">
       <Project>{921e75ce-5639-4350-8213-89be0479c3aa}</Project>
       <Name>Orm.Config</Name>
@@ -295,27 +289,7 @@
       <Project>{5ecbc1d5-aba9-4cac-8712-1abe11000b90}</Project>
       <Name>Orm</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Model\Framework.MapContext\Orm.MapContext.csproj">
-      <Project>{c4a1ba2a-f2ec-49c9-a73b-a7e40e196a4a}</Project>
-      <Name>Orm.MapContext</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\Framework.Model.Parameter\Orm.Model.Parameter.csproj">
-      <Project>{e279036f-a84e-42fa-b900-281db8922c0e}</Project>
-      <Name>Orm.Model.Parameter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">
-      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
-      <Name>Orm.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sercer-IServices\Orm.IServices.HisFrameService\Orm.IServices.ITestSercive.csproj">
-      <Project>{99f0a1ff-dc45-4e21-b9ff-9e7c7f63c2ac}</Project>
-      <Name>Orm.IServices.ITestSercive</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Proxy\Proxy_Orm.IServices.HisFrameService\Proxy_Orm.IServices.TestSercive.csproj">
-      <Project>{3660d816-b2a2-421c-860f-5a8533461daa}</Project>
-      <Name>Proxy_Orm.IServices.TestSercive</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sercer-Services\Orm.Services.HisFrameService\Orm.Services.TestSercive.csproj">
+    <ProjectReference Include="..\Sercer-Services\Orm.Services.TestSercive\Orm.Services.TestSercive.csproj">
       <Project>{972ac2cf-c638-432f-88f9-5c2912220df5}</Project>
       <Name>Orm.Services.TestSercive</Name>
     </ProjectReference>

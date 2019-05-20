@@ -109,29 +109,21 @@
     <Compile Include="WindowsServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">
-      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
-      <Name>Orm.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\Framework.Model.Custom\Orm.Model.Custom.csproj">
-      <Project>{a4d9d3e1-e15d-4cba-9680-2ac31bca6dd9}</Project>
-      <Name>Orm.Model.Custom</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\Framework.Model.Parameter\Orm.Model.Parameter.csproj">
-      <Project>{e279036f-a84e-42fa-b900-281db8922c0e}</Project>
-      <Name>Orm.Model.Parameter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Frame\Orm.Framework.Services\Orm.Framework.Services.csproj">
       <Project>{6F06816B-BEDC-4C4D-BDB3-98BE6A2D937A}</Project>
       <Name>Orm.Framework.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\Orm.Model.Custom\Orm.Model.Custom.csproj">
+      <Project>{a4d9d3e1-e15d-4cba-9680-2ac31bca6dd9}</Project>
+      <Name>Orm.Model.Custom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Orm.Model\Orm.Model.csproj">
+      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
+      <Name>Orm.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orm.Utilities\Orm.Utilities.csproj">
       <Project>{1c4c834a-6d91-4c8d-8bc2-20cae29be253}</Project>
       <Name>Orm.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Server\Sercer-IServices\Orm.IServices.HisFrameService\Orm.IServices.ITestSercive.csproj">
-      <Project>{99f0a1ff-dc45-4e21-b9ff-9e7c7f63c2ac}</Project>
-      <Name>Orm.IServices.ITestSercive</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Frame\Orm.Config\Orm.Config.csproj">
       <Project>{921e75ce-5639-4350-8213-89be0479c3aa}</Project>
@@ -178,6 +170,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)"  "$(SolutionDir)Framework\Client\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)"  "$(SolutionDir)Framework\Client\$(TargetFileName)"
+copy "$(TargetPath)"  "$(SolutionDir)Framework\BaseCourse\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

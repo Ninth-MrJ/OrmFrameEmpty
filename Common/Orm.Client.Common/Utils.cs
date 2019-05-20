@@ -1,15 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Orm.Config;
 using Orm.Framework.Services;
-using Orm.Model;
-using Orm.Model.Custom;
-using Orm.Model.EnumDefine;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows;
@@ -49,7 +45,7 @@ namespace Orm.Client.Common
                 return returnValue;
             }
         }
-     
+
 
         /// <summary>
         /// 获取参数

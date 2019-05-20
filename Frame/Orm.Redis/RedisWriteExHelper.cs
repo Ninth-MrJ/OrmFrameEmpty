@@ -225,7 +225,7 @@ namespace Orm.Redis
 
         //根据IQueryable，获取指定的类型的部分数据
         //public static List<T> RetrieveSetByIQueryable<T>(string key, IQueryable<T> query) where T : class, new()
-        public static List<T> RetrieveSetByIQueryable<T>(string key, IQueryable<T> query) where T : Orm.Model.BaseModel, new()
+        public static List<T> RetrieveSetByIQueryable<T>(string key, IQueryable<T> query) where T : Model.BaseModel, new()
         {
             var value = new List<T>();
             if (RedisWriteHelper.KeyExists(key))

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E82862F1-8E1B-482A-9020-920E3FD3555C}</ProjectGuid>
+    <ProjectGuid>{3660D816-B2A2-421C-860F-5A8533461DAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrmFrameClientViewModel</RootNamespace>
-    <AssemblyName>OrmFrameClientViewModel</AssemblyName>
+    <RootNamespace>Proxy_Orm.IServices.ITestSercive</RootNamespace>
+    <AssemblyName>Proxy_Orm.IServices.ITestSercive</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,15 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLite, Version=0.9.5.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Framework\NLite.dll</HintPath>
-    </Reference>
-    <Reference Include="Orm.IServices.ITestSercive">
-      <HintPath>..\..\..\Framework\IIS\Orm.IServices.ITestSercive.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,26 +42,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrmFrameClientViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyFor_ITestDemoServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Frame\Orm.Config\Orm.Config.csproj">
-      <Project>{921e75ce-5639-4350-8213-89be0479c3aa}</Project>
-      <Name>Orm.Config</Name>
+    <ProjectReference Include="..\..\Common\Orm.WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj">
+      <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
+      <Name>Orm.WebBridgeEndpoint</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Frame\Orm.Framework.Services\Orm.Framework.Services.csproj">
+    <ProjectReference Include="..\..\Frame\Orm.Framework.Services\Orm.Framework.Services.csproj">
       <Project>{6f06816b-bedc-4c4d-bdb3-98be6a2d937a}</Project>
       <Name>Orm.Framework.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\Orm.MvvmFrame.Auxiliary\Orm.MvvmFrame.Auxiliary.csproj">
-      <Project>{2e1a8706-d5a6-4e2e-9d18-e04b8aa9f862}</Project>
-      <Name>Orm.MvvmFrame.Auxiliary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\Orm.Model\Orm.Model.csproj">
+    <ProjectReference Include="..\..\Model\Orm.Model\Orm.Model.csproj">
       <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
       <Name>Orm.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Server\Sercer-IServices\Orm.IServices.ITestSercive\Orm.IServices.ITestSercive.csproj">
+      <Project>{99f0a1ff-dc45-4e21-b9ff-9e7c7f63c2ac}</Project>
+      <Name>Orm.IServices.ITestSercive</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebBridgeEndpoint\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)"  "$(SolutionDir)Framework\Client\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

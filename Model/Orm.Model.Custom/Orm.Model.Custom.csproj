@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C4C834A-6D91-4C8D-8BC2-20CAE29BE253}</ProjectGuid>
+    <ProjectGuid>{A4D9D3E1-E15D-4CBA-9680-2AC31BCA6DD9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orm.Utilities</RootNamespace>
-    <AssemblyName>Orm.Utilities</AssemblyName>
+    <RootNamespace>Orm.Model.Custom</RootNamespace>
+    <AssemblyName>Orm.Model.Custom</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,7 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>bin\Debug\Orm.Model.Custom.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,20 +32,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\Framework\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="NLite">
+      <HintPath>..\..\Framework\NLite.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,20 +50,31 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common.cs" />
-    <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="Errors.cs" />
-    <Compile Include="FileHelper.cs" />
-    <Compile Include="Logs.cs" />
+    <Compile Include="DisplayModule.cs" />
+    <Compile Include="FileTempate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PyWbHelper.cs" />
-    <Compile Include="RegistryHelper.cs" />
-    <Compile Include="ShareFileHelper.cs" />
-    <Compile Include="SpellCodeHelper.cs" />
-    <Compile Include="WebApiException.cs" />
-    <Compile Include="XMLHelper.cs" />
+    <Compile Include="BsPatientCache.cs" />
+    <Compile Include="TreeClass.cs" />
+    <Compile Include="uspRoleModuleQry.cs" />
+    <Compile Include="uspWindowOperFunctionQry.cs" />
+    <Compile Include="OuHosInfoCache.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\PrintOuRecharge.datasource" />
+    <None Include="Properties\DataSources\uspDoctorRule.datasource" />
+    <None Include="Properties\DataSources\uspOuInvoiceInvItemGoupSumQryTwoPoints.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Orm.Toolkit\Orm.Toolkit.csproj">
+      <Project>{d0153a6e-0b11-462b-bd3f-0aad78cebb6d}</Project>
+      <Name>Orm.Toolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orm.Model\Orm.Model.csproj">
+      <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
+      <Name>Orm.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)"  "$(SolutionDir)Framework\IIS\$(TargetFileName)"
