@@ -1,8 +1,8 @@
 ﻿using Orm.IServices.ITestSercive;
 using Orm.Model;
+using Orm.WebBridgeEndpoint;
 using System;
 using System.Collections.Generic;
-using WebBridgeEndpoint;
 
 namespace Proxy_Orm.IServices.ITestSercive
 {

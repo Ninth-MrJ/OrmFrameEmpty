@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace WebBridgeContract
+namespace Orm.WebBridgeContract
 {
     public class EventDC
     {

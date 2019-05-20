@@ -2,6 +2,7 @@
 using Orm.Config;
 using Orm.Framework.Services;
 using Orm.Model;
+using Orm.WebBridgeContract;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +10,8 @@ using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using WebBridgeContract;
 
-namespace WebBridgeEndpoint
+namespace Orm.WebBridgeEndpoint
 {
     public class WebRequseter
     {

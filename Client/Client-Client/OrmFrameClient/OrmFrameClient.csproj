@@ -122,17 +122,17 @@
       <Project>{d97a939e-84aa-4bae-8aeb-533778a26954}</Project>
       <Name>Proxy_Orm.Framework.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\WebApiResponder\WebApiResponder.csproj">
+    <ProjectReference Include="..\..\..\Common\WebApiResponder\Orm.WebApiResponder.csproj">
       <Project>{b7aa909e-15d4-4b5d-8eb9-2864280b0b61}</Project>
-      <Name>WebApiResponder</Name>
+      <Name>Orm.WebApiResponder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\WebBridgeContract\WebBridgeContract.csproj">
+    <ProjectReference Include="..\..\..\Common\WebBridgeContract\Orm.WebBridgeContract.csproj">
       <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
-      <Name>WebBridgeContract</Name>
+      <Name>Orm.WebBridgeContract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\WebBridgeEndpoint\WebBridgeEndpoint.csproj">
+    <ProjectReference Include="..\..\..\Common\WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj">
       <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
-      <Name>WebBridgeEndpoint</Name>
+      <Name>Orm.WebBridgeEndpoint</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Server\Sercer-Services\Orm.Services.HisFrameService\Orm.Services.TestSercive.csproj">
       <Project>{972ac2cf-c638-432f-88f9-5c2912220df5}</Project>

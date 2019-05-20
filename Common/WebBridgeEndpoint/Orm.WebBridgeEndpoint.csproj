@@ -7,8 +7,8 @@
     <ProjectGuid>{70DF7403-48D3-4D6D-B2AA-4306020BB28D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebBridgeEndpoint</RootNamespace>
-    <AssemblyName>WebBridgeEndpoint</AssemblyName>
+    <RootNamespace>Orm.WebBridgeEndpoint</RootNamespace>
+    <AssemblyName>Orm.WebBridgeEndpoint</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -74,9 +74,9 @@
       <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>
       <Name>Orm.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebBridgeContract\WebBridgeContract.csproj">
+    <ProjectReference Include="..\WebBridgeContract\Orm.WebBridgeContract.csproj">
       <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
-      <Name>WebBridgeContract</Name>
+      <Name>Orm.WebBridgeContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

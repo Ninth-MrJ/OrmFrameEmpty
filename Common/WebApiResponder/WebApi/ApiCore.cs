@@ -1,11 +1,11 @@
 ﻿using Orm.Framework.Services;
+using Orm.WebBridgeContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using WebBridgeContract;
 
-namespace WebApiResponder
+namespace Orm.WebApiResponder
 {
     internal class ApiCore
     {

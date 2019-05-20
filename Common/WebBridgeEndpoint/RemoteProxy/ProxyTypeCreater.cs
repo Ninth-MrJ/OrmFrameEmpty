@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace WebBridgeEndpoint
+namespace Orm.WebBridgeEndpoint
 {
     public class ProxyTypeCreater
     {
@@ -129,7 +129,7 @@ namespace WebBridgeEndpoint
             objCompilerParameters.ReferencedAssemblies.Add("System.Core.dll");
             objCompilerParameters.ReferencedAssemblies.Add(Path.Combine(basePath, "Orm.Framework.Services.dll"));
             objCompilerParameters.ReferencedAssemblies.Add(Path.Combine(basePath, "WebBridgeContract.dll"));
-            objCompilerParameters.ReferencedAssemblies.Add(Path.Combine(basePath, "WebBridgeEndpoint.dll"));
+            objCompilerParameters.ReferencedAssemblies.Add(Path.Combine(basePath, "Orm.WebBridgeEndpoint.dll"));
 
             //添加非公用引用。
             AddReference(ContractInterface.Assembly, objCompilerParameters, basePath);
@@ -193,7 +193,7 @@ namespace WebBridgeEndpoint
             using System.Collections.Generic;
             using Orm.Framework.Services;
             using WebBridgeContract;
-            using WebBridgeEndpoint;
+            using Orm.WebBridgeEndpoint;
             ");
             sb.Append(Environment.NewLine);
 
@@ -203,7 +203,7 @@ namespace WebBridgeEndpoint
             sb.Append(Environment.NewLine);
             sb.Append("{");
             sb.Append(Environment.NewLine);
-            sb.Append("      public class " + ProxyClassName + ": WebBridgeEndpoint.ProxyBase ," + ContractInterface.FullName);
+            sb.Append("      public class " + ProxyClassName + ": Orm.WebBridgeEndpoint.ProxyBase ," + ContractInterface.FullName);
             sb.Append(Environment.NewLine);
             sb.Append("      {");
 

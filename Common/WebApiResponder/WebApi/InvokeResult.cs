@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApiResponder
+namespace Orm.WebApiResponder
 {
     public class InvokeResult
     {

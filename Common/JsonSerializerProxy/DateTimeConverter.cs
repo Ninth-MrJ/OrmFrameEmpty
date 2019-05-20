@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 
-namespace JsonSerializerProxy
+namespace Orm.JsonSerializerProxy
 {
     internal class DateTimeConverter : DateTimeConverterBase
     {

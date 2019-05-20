@@ -1,4 +1,4 @@
-﻿namespace WebBridgeEndpoint
+﻿namespace Orm.WebBridgeEndpoint
 {
     /// <summary>
     /// 远程事件实体。

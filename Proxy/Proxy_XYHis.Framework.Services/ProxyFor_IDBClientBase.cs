@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Orm.Framework.Services;
+using Orm.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Orm.Framework.Services;
-using Orm.Model;
+using Orm.WebBridgeEndpoint;
 
 namespace Proxy_Orm.Framework.Services
 {
-    public class ProxyFor_IDBClientBase : WebBridgeEndpoint.ProxyBase, IDBClientBase
+    public class ProxyFor_IDBClientBase : ProxyBase, IDBClientBase
     {
 
         public void Add<T>(List<T> entityList, System.Boolean IsTrn) where T : Orm.Model.BaseModel, new()

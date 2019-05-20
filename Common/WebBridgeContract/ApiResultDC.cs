@@ -1,4 +1,4 @@
-﻿namespace WebBridgeContract
+﻿namespace Orm.WebBridgeContract
 {
     public class ApiResultDC
     {

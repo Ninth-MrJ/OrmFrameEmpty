@@ -1,10 +1,10 @@
 ﻿using Orm.Framework.Services;
+using Orm.WebBridgeContract;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using WebBridgeContract;
 
-namespace WebBridgeEndpoint
+namespace Orm.WebBridgeEndpoint
 {
     public class ProxyBase
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApiResponder
+namespace Orm.WebApiResponder
 {
     /// <summary>
     /// 返回值类

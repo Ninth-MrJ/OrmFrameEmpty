@@ -1,10 +1,10 @@
 ﻿using Orm.Framework.Services;
+using Orm.WebBridgeContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebBridgeContract;
 
-namespace WebBridgeEndpoint
+namespace Orm.WebBridgeEndpoint
 {
     /// <summary>
     /// 管理远程代理，全部远程代理对象均为单例模式。

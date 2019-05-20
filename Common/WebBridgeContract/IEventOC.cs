@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebBridgeContract
+namespace Orm.WebBridgeContract
 {
     /// <summary>
     /// 事件的操作契约。

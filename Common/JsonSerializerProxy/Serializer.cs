@@ -2,7 +2,7 @@
 using Orm.Framework.Services;
 using System;
 
-namespace JsonSerializerProxy
+namespace Orm.JsonSerializerProxy
 {
     public class Serializer : IJsonSerializer
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{B7AA909E-15D4-4B5D-8EB9-2864280B0B61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebApiResponder</RootNamespace>
-    <AssemblyName>WebApiResponder</AssemblyName>
+    <RootNamespace>Orm.WebApiResponder</RootNamespace>
+    <AssemblyName>Orm.WebApiResponder</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -62,9 +62,9 @@
       <Project>{6f06816b-bedc-4c4d-bdb3-98be6a2d937a}</Project>
       <Name>Orm.Framework.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebBridgeContract\WebBridgeContract.csproj">
+    <ProjectReference Include="..\WebBridgeContract\Orm.WebBridgeContract.csproj">
       <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
-      <Name>WebBridgeContract</Name>
+      <Name>Orm.WebBridgeContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

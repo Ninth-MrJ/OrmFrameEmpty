@@ -110,9 +110,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\WebBridgeContract\WebBridgeContract.csproj">
+    <ProjectReference Include="..\..\Common\WebBridgeContract\Orm.WebBridgeContract.csproj">
       <Project>{20026d8d-c1e6-4558-b7c0-956a1c1fdb30}</Project>
-      <Name>WebBridgeContract</Name>
+      <Name>Orm.WebBridgeContract</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">
       <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>

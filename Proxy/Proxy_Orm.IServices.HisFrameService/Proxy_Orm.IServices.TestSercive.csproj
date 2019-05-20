@@ -46,9 +46,9 @@
     <Compile Include="ProxyFor_ITestDemoServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\WebBridgeEndpoint\WebBridgeEndpoint.csproj">
+    <ProjectReference Include="..\..\Common\WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj">
       <Project>{70df7403-48d3-4d6d-b2aa-4306020bb28d}</Project>
-      <Name>WebBridgeEndpoint</Name>
+      <Name>Orm.WebBridgeEndpoint</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Framework.Model\Orm.Model.csproj">
       <Project>{a787a629-941c-43c0-b468-807713780e9c}</Project>

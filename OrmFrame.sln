@@ -57,15 +57,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.Services.TestSercive", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmFrameServiceWeb", "Server\OrmFrameServiceWeb\OrmFrameServiceWeb.csproj", "{36B8B7EC-C1F0-4A6D-85F1-D090065942FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSerializerProxy", "Common\JsonSerializerProxy\JsonSerializerProxy.csproj", "{F4BD21BC-4583-4E0D-97D2-60C5FC82D656}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.JsonSerializerProxy", "Common\JsonSerializerProxy\Orm.JsonSerializerProxy.csproj", "{F4BD21BC-4583-4E0D-97D2-60C5FC82D656}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.MvvmFrame.Auxiliary", "Common\Orm.MvvmFrame.Auxiliary\Orm.MvvmFrame.Auxiliary.csproj", "{2E1A8706-D5A6-4E2E-9D18-E04B8AA9F862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiResponder", "Common\WebApiResponder\WebApiResponder.csproj", "{B7AA909E-15D4-4B5D-8EB9-2864280B0B61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.WebApiResponder", "Common\WebApiResponder\Orm.WebApiResponder.csproj", "{B7AA909E-15D4-4B5D-8EB9-2864280B0B61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBridgeContract", "Common\WebBridgeContract\WebBridgeContract.csproj", "{20026D8D-C1E6-4558-B7C0-956A1C1FDB30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.WebBridgeContract", "Common\WebBridgeContract\Orm.WebBridgeContract.csproj", "{20026D8D-C1E6-4558-B7C0-956A1C1FDB30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBridgeEndpoint", "Common\WebBridgeEndpoint\WebBridgeEndpoint.csproj", "{70DF7403-48D3-4D6D-B2AA-4306020BB28D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm.WebBridgeEndpoint", "Common\WebBridgeEndpoint\Orm.WebBridgeEndpoint.csproj", "{70DF7403-48D3-4D6D-B2AA-4306020BB28D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmFrameClient", "Client\Client-Client\OrmFrameClient\OrmFrameClient.csproj", "{92802CAE-FB59-4817-90C8-E3F3E4007034}"
 EndProject

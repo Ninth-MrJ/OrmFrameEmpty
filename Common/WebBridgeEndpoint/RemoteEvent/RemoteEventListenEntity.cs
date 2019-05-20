@@ -1,4 +1,4 @@
-﻿namespace WebBridgeEndpoint
+﻿namespace Orm.WebBridgeEndpoint
 {
     public class RemoteEventListenEntity
     {

@@ -9,13 +9,13 @@ using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
-using WebBridgeContract;
+using Orm.WebBridgeContract;
 
-namespace WebApiResponder
+namespace Orm.WebApiResponder
 {
     public class ApiHandler : IHttpHandler
     {
-        
+
 
         /// <summary>
         /// json序列化器。
@@ -72,7 +72,7 @@ namespace WebApiResponder
             streamRead.Close();
             MethodDC theContract = new MethodDC();
             ApiResultDC theResult = new ApiResultDC();
-            InvokeResult result=new InvokeResult ();
+            InvokeResult result = new InvokeResult();
             try
             {
 
