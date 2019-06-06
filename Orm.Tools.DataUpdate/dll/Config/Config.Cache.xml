@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<CacheConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ServiceContent>64</ServiceContent>
+  <SingleClientList>
+    <ServerSetting>
+      <EndPoint>192.168.2.189:11211</EndPoint>
+      <ServerID>0</ServerID>
+    </ServerSetting>
+    <ServerSetting>
+      <EndPoint>192.168.2.124:11211</EndPoint>
+      <ServerID>31</ServerID>
+    </ServerSetting>
+    <ServerSetting>
+      <EndPoint>192.168.2.219:11211</EndPoint>
+      <ServerID>47</ServerID>
+    </ServerSetting>
+    <ServerSetting>
+      <EndPoint>192.168.1.250:11211</EndPoint>
+      <ServerID>15</ServerID>
+    </ServerSetting>
+  </SingleClientList>
+</CacheConfig>

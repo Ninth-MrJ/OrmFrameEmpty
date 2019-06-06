@@ -86,7 +86,7 @@
       <Project>{5ecbc1d5-aba9-4cac-8712-1abe11000b90}</Project>
       <Name>Orm</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.Model.Custom\Orm.Model.Custom.csproj">
+    <ProjectReference Include="..\Orm.Model.Custom\Orm.Model.Custom.csproj">
       <Project>{a4d9d3e1-e15d-4cba-9680-2ac31bca6dd9}</Project>
       <Name>Orm.Model.Custom</Name>
     </ProjectReference>

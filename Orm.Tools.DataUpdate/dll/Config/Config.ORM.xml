@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArrayOfDbProviderInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 
+<DbProviderInfo>
+    <DbContextName>XYHis.Framework.ConfigDB</DbContextName>
+    <ConnectionString>Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 120.24.239.81)(PORT = 1521)) ) (CONNECT_DATA =(SERVICE_NAME =orcl) ) );User Id=XXYLT;Password=asd2828;</ConnectionString>
+    <ProviderName>Oracle.DataAccess.Client</ProviderName>
+    <CommandTimeout>100</CommandTimeout>
+    <ContextType>SCB.Framework.UI.MapContext.RegisterMapContext</ContextType>
+    <ContextAssembly>XYHis.MapContext.dll</ContextAssembly>
+  </DbProviderInfo>
+
+
+ <DbProviderInfo>
+    <DbContextName>XYHis.Framework.ConfigUpdateDB</DbContextName>
+    <ConnectionString>Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 120.24.239.81)(PORT = 1521)) ) (CONNECT_DATA =(SERVICE_NAME =orcl) ) );User Id=wpfupdate;Password=asd2828;</ConnectionString>
+    <ProviderName>Oracle.DataAccess.Client</ProviderName>
+    <CommandTimeout>100</CommandTimeout>
+    <ContextType>SCB.Framework.UI.MapContext.RegisterMapContext</ContextType>
+    <ContextAssembly>XYHis.MapContext.dll</ContextAssembly>
+  </DbProviderInfo>
+
+</ArrayOfDbProviderInfo>
